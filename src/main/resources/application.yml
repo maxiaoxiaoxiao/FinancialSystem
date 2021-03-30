@@ -3,11 +3,11 @@
 spring:
   datasource:
     #用户名
-    username: root
+    username: ls_test
     #密码
-    password: 111111
+    password: Aa123456l
     # url需要指定时区serverTimezone为 GMT%2B8 ：北京时间东八区
-    url: jdbc:mysql://localhost:3306/finance?serverTimezone=GMT%2B8&useUnicode=true&characterEncoding=utf-8&useSSL=true
+    url: jdbc:mysql://12.168.3.75:3306/test?useUnicode=true&characterEncoding=utf-8
     # 新版的驱动类改成了com.mysql.cj.jdbc.Driver
     driver-class-name: com.mysql.cj.jdbc.Driver
     #配置druid数据库连接池时type这项必选
