@@ -43,6 +43,7 @@
                                             <th class="info">七日年化收益率</th>
                                             <th class="info">起投金额</th>
                                             <th class="info">投资期限</th>
+                                            <th class="info">风险级别</th>
                                             <th class="info">相关操作</th>
                                         </tr>
                                         </thead>
@@ -54,11 +55,15 @@
                                             <td th:text="${#numbers.formatDecimal(tf.annualincome*100,1,2)}+'%'"></td>
                                             <td th:text="${#numbers.formatDecimal(tf.leastmoney,1,2)}+'元'"></td>
                                             <td th:text="${tf.investerm}"></td>
+                                            <td th:if="${tf.risLevel==null}" th:text="空"></td>
+                                            <td th:if="${tf.risLevel==1}" th:text="高"></td>
+                                            <td th:if="${tf.risLevel==2}" th:text="中"></td>
+                                            <td th:if="${tf.risLevel==3}" th:text="低"></td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm buy_btn"
                                                         th:attr="buyBtnId=${tf.id},buyBtnName=${tf.name}">
 															<span class="glyphicon glyphicon-usd"
-                                                                  aria-hidden="true"></span> 投资
+                                                                  aria-hidden="true"></span> 收藏
                                                 </button>
                                             </td>
                                         </tr>
@@ -98,7 +103,7 @@
         var name = $(this).attr("buyBtnName");
         $.alert({
             title: '提示：',
-            content: "确定买入 <strong>"+name+"</strong> 吗？",
+            content: "确定收藏 <strong>"+name+"</strong> 吗？",
             buttons: {
                 confirm: {
                     text: '确认',
@@ -113,9 +118,9 @@
                             },
                             success : function(result) {
                                 if (result.code===100){
-                                    $.alert('买入成功!');
+                                    $.alert('收藏成功!');
                                 }else {
-                                    $.alert('买入失败!');
+                                    $.alert('收藏失败!');
                                 }
                             }
                         });

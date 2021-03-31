@@ -15,6 +15,8 @@ public class TermFinancial {
 
     private BigDecimal annualincome;
 
+    private String risLevel;
+
     public Integer getId() {
         return id;
     }
@@ -57,6 +59,14 @@ public class TermFinancial {
 
     public BigDecimal getAnnualincome() {
         return annualincome;
+    }
+
+    public String getRisLevel() {
+        return risLevel;
+    }
+
+    public void setRisLevel(String risLevel) {
+        this.risLevel = risLevel;
     }
 
     public void setAnnualincome(BigDecimal annualincome) {

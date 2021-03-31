@@ -15,6 +15,8 @@ public class ChangeMoney {
 
     private BigDecimal invesmoney;
 
+    private String risLevel;
+
     public Integer getId() {
         return id;
     }
@@ -61,5 +63,13 @@ public class ChangeMoney {
 
     public void setInvesmoney(BigDecimal invesmoney) {
         this.invesmoney = invesmoney;
+    }
+
+    public String getRisLevel() {
+        return risLevel;
+    }
+
+    public void setRisLevel(String risLevel) {
+        this.risLevel = risLevel;
     }
 }

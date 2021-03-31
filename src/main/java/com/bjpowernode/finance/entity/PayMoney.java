@@ -13,6 +13,9 @@ public class PayMoney {
 
     private String investerm;
 
+    private String risLevel;
+
+
     public Integer getId() {
         return id;
     }
@@ -47,6 +50,14 @@ public class PayMoney {
 
     public String getInvesterm() {
         return investerm;
+    }
+
+    public String getRisLevel() {
+        return risLevel;
+    }
+
+    public void setRisLevel(String risLevel) {
+        this.risLevel = risLevel;
     }
 
     public void setInvesterm(String investerm) {

@@ -42,6 +42,7 @@
                                             <th class="info">每月金额设定</th>
                                             <th class="info">自动转入</th>
                                             <th class="info">投资期限</th>
+                                            <th class="info">风险级别</th>
                                             <th class="info">相关操作</th>
                                         </tr>
                                         </thead>
@@ -52,11 +53,15 @@
                                             <td th:text="${#numbers.formatDecimal(pm.monthmoney,1,2)}"></td>
                                             <td th:if="${pm.autointo==1}" th:text="是"></td><td th:if="${pm.autointo==2}" th:text="否"></td>
                                             <td th:text="${pm.investerm}"></td>
+                                            <td th:if="${pm.risLevel==null}" th:text="空"></td>
+                                            <td th:if="${pm.risLevel==1}" th:text="高"></td>
+                                            <td th:if="${pm.risLevel==2}" th:text="中"></td>
+                                            <td th:if="${pm.risLevel==3}" th:text="低"></td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm buy_btn"
                                                         th:attr="buyBtnId=${pm.id},buyBtnName=${pm.type}">
 															<span class="glyphicon glyphicon-usd"
-                                                                  aria-hidden="true"></span> 投资
+                                                                  aria-hidden="true"></span> 收藏
                                                 </button>
                                             </td>
                                         </tr>
@@ -102,7 +107,7 @@
         }
         $.alert({
             title: '提示：',
-            content: "确定买入该 <strong>"+name+"</strong> 吗？",
+            content: "确定收藏该 <strong>"+name+"</strong> 吗？",
             buttons: {
                 confirm: {
                     text: '确认',
@@ -117,9 +122,9 @@
                             },
                             success : function(result) {
                                 if (result.code===100){
-                                    $.alert('买入成功!');
+                                    $.alert('收藏成功!');
                                 }else {
-                                    $.alert('买入失败!');
+                                    $.alert('收藏失败!');
                                 }
                             }
                         });

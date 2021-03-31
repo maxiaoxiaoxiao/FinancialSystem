@@ -59,6 +59,7 @@
                                                     <th class="info">产品名称</th>
                                                     <th class="info">起投金额</th>
                                                     <th class="info">起投时间</th>
+                                                    <th class="info">风险级别</th>
                                                     <th class="info">投资期限</th>
                                                     <th class="info">收益</th>
                                                     <th class="info">平均收益率</th>
@@ -75,6 +76,10 @@
                                                     <td th:text="${ucm.changeMoney.investerm}"></td>
                                                     <td th:text="${#numbers.formatDecimal(ucm.profit,1,2)}+'元'"></td>
                                                     <td th:text="${#numbers.formatDecimal(ucm.averyield*100,1,2)}+'%'"></td>
+                                                    <td th:if="${ucm.risLevel==null}" th:text="空"></td>
+                                                    <td th:if="${ucm.risLevel==1}" th:text="高"></td>
+                                                    <td th:if="${ucm.risLevel==2}" th:text="中"></td>
+                                                    <td th:if="${ucm.risLevel==3}" th:text="低"></td>
                                                     <td th:if="${ucm.status==1}" th:text="持有中"></td>
                                                     <td th:if="${ucm.status==2}" th:text="已失效"></td>
                                                     <td th:if="${ucm.status==3}" th:text="已撤销"></td>
@@ -119,6 +124,7 @@
                                                     <th class="info">产品名称</th>
                                                     <th class="info">起投金额</th>
                                                     <th class="info">起投时间</th>
+                                                    <th class="info">风险级别</th>
                                                     <th class="info">投资期限</th>
                                                     <th class="info">收益</th>
                                                     <th class="info">平均收益率</th>
@@ -139,6 +145,10 @@
                                                     <td th:if="${upm.status==1}" th:text="持有中"></td>
                                                     <td th:if="${upm.status==2}" th:text="已失效"></td>
                                                     <td th:if="${upm.status==3}" th:text="已撤销"></td>
+                                                    <td th:if="${upm.risLevel==null}" th:text="空"></td>
+                                                    <td th:if="${upm.risLevel==1}" th:text="高"></td>
+                                                    <td th:if="${upm.risLevel==2}" th:text="中"></td>
+                                                    <td th:if="${upm.risLevel==3}" th:text="低"></td>
                                                     <td>
                                                         <button class="btn btn-danger btn-sm upm_btn"
                                                                 th:attr="upmBtnStatus=${upm.status},upmBtnId=${upm.id},upmBtnName=${upm.payMoney.type}">
@@ -181,6 +191,7 @@
                                                     <th class="info">产品名称</th>
                                                     <th class="info">起投金额</th>
                                                     <th class="info">起投时间</th>
+                                                    <th class="info">风险级别</th>
                                                     <th class="info">投资期限</th>
                                                     <th class="info">收益</th>
                                                     <th class="info">平均收益率</th>
@@ -200,6 +211,10 @@
                                                     <td th:if="${utf.status==1}" th:text="持有中"></td>
                                                     <td th:if="${utf.status==2}" th:text="已失效"></td>
                                                     <td th:if="${utf.status==3}" th:text="已撤销"></td>
+                                                    <td th:if="${utf.risLevel==null}" th:text="空"></td>
+                                                    <td th:if="${utf.risLevel==1}" th:text="高"></td>
+                                                    <td th:if="${utf.risLevel==2}" th:text="中"></td>
+                                                    <td th:if="${utf.risLevel==3}" th:text="低"></td>
                                                     <td>
                                                         <button class="btn btn-danger btn-sm utf_btn"
                                                                 th:attr="utfBtnStatus=${utf.status},utfBtnId=${utf.id},utfBtnName=${utf.termFinancial.name}">
@@ -242,6 +257,7 @@
                                                     <th class="info">产品名称</th>
                                                     <th class="info">起投金额</th>
                                                     <th class="info">起投时间</th>
+                                                    <th class="info">风险级别</th>
                                                     <th class="info">投资期限</th>
                                                     <th class="info">收益</th>
                                                     <th class="info">平均收益率</th>
@@ -261,6 +277,10 @@
                                                     <td th:if="${ufp.status==1}" th:text="持有中"></td>
                                                     <td th:if="${ufp.status==2}" th:text="已失效"></td>
                                                     <td th:if="${ufp.status==3}" th:text="已撤销"></td>
+                                                    <td th:if="${ufp.risLevel==null}" th:text="空"></td>
+                                                    <td th:if="${ufp.risLevel==1}" th:text="高"></td>
+                                                    <td th:if="${ufp.risLevel==2}" th:text="中"></td>
+                                                    <td th:if="${ufp.risLevel==3}" th:text="低"></td>
                                                     <td>
                                                         <button class="btn btn-danger btn-sm ufp_btn"
                                                                 th:attr="ufpBtnStatus=${ufp.status},ufpBtnId=${ufp.id},ufpBtnName=${ufp.fundProduct.funddesc}">

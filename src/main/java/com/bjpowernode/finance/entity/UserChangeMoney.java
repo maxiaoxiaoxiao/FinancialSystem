@@ -22,6 +22,8 @@ public class UserChangeMoney {
 
     private Integer status;
 
+    private String risLevel;
+
     public Integer getId() {
         return id;
     }
@@ -88,6 +90,14 @@ public class UserChangeMoney {
 
     public ChangeMoney getChangeMoney() {
         return changeMoney;
+    }
+
+    public String getRisLevel() {
+        return risLevel;
+    }
+
+    public void setRisLevel(String risLevel) {
+        this.risLevel = risLevel;
     }
 
     public void setChangeMoney(ChangeMoney changeMoney) {

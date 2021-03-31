@@ -22,6 +22,8 @@ public class UserTermFinancial {
 
     private Integer status;
 
+    private String risLevel;
+
     public Integer getId() {
         return id;
     }
@@ -92,5 +94,13 @@ public class UserTermFinancial {
 
     public void setTermFinancial(TermFinancial termFinancial) {
         this.termFinancial = termFinancial;
+    }
+
+    public String getRisLevel() {
+        return risLevel;
+    }
+
+    public void setRisLevel(String risLevel) {
+        this.risLevel = risLevel;
     }
 }

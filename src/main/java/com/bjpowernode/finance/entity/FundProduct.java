@@ -21,6 +21,8 @@ public class FundProduct {
 
     private String investerm;
 
+    private String risLevel;
+
     public Integer getId() {
         return id;
     }
@@ -87,6 +89,14 @@ public class FundProduct {
 
     public String getInvesterm() {
         return investerm;
+    }
+
+    public String getRisLevel() {
+        return risLevel;
+    }
+
+    public void setRisLevel(String risLevel) {
+        this.risLevel = risLevel;
     }
 
     public void setInvesterm(String investerm) {

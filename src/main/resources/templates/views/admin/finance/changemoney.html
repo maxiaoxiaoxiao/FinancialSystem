@@ -44,6 +44,7 @@
                                             <th class="info">每万元收益</th>
                                             <th class="info">起投金额</th>
                                             <th class="info">投资期限</th>
+                                            <th class="info">风险级别</th>
                                             <th class="info">相关操作</th>
                                         </tr>
                                         </thead>
@@ -55,6 +56,10 @@
                                             <td th:text="${#numbers.formatDecimal(finance.peiincome,1,2)}+'元'"></td>
                                             <td th:text="${finance.invesmoney}+'元'"></td>
                                             <td th:text="${finance.investerm}"></td>
+                                            <td th:if="${finance.risLevel==null}" th:text="空"></td>
+                                            <td th:if="${finance.risLevel==1}" th:text="高"></td>
+                                            <td th:if="${finance.risLevel==2}" th:text="中"></td>
+                                            <td th:if="${finance.risLevel==3}" th:text="低"></td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm update_btn"
                                                         th:attr="update-id=${finance.id}">
@@ -65,6 +70,11 @@
                                                         th:attr="delete-id=${finance.id},delete-name=${finance.name}">
 															<span class="glyphicon glyphicon-trash"
                                                                   aria-hidden="true"></span> 删除
+                                                </button>
+                                                <button id="add_common_btn" class="btn btn-primary btn-sm"
+                                                        th:attr="add-id=${finance.id}">
+															<span class="glyphicon glyphicon-trash"
+                                                                  aria-hidden="true"></span> 新增评论
                                                 </button>
                                             </td>
                                         </tr>
@@ -161,6 +171,60 @@
                         </div>
                     </div>
 
+
+                    <!-- 新增评论的模态框 -->
+                    <div class="modal fade" id="addCommonModal" tabindex="-1"
+                         role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title">新增零钱理财评论</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <!--要提交的表单 -->
+                                    <form class="form-horizontal">
+                                        <div class="form-group" hidden>
+                                            <label class="col-sm-2 control-label">id：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="relaId" name="relaId"
+                                                       placeholder="id：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">评论：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="common_add_input" name="content"
+                                                       placeholder="请输入评论：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">关闭
+                                    </button>
+                                    <button type="button" class="btn btn-primary"
+                                            id="save_common_btn">保存
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                     <!-- 新增零钱理财的模态框 -->
                     <div class="modal fade" id="addModal" tabindex="-1"
                          role="dialog" aria-labelledby="myModalLabel">
@@ -236,7 +300,28 @@
                                                 <em style="color: red">*</em>
                                             </div>
                                         </div>
-
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">风险级别：</label>
+                                            <div class="col-sm-6">
+                                                <div class="example-box">
+                                                    <label class="lyear-radio radio-inline"> <input
+                                                            type="radio" name="risLevel"
+                                                            value="1" checked="checked"><span>高</span>
+                                                    </label>
+                                                    <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="risLevel"
+                                                        value="2"> <span>中</span>
+                                                    </label>
+                                                    <label class="lyear-radio radio-inline"> <input
+                                                            type="radio" name="risLevel"
+                                                            value="3"> <span>低</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -326,7 +411,28 @@
                                                 <em style="color: red">*</em>
                                             </div>
                                         </div>
-
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">风险级别：</label>
+                                            <div class="col-sm-6">
+                                                <div class="example-box">
+                                                    <label class="lyear-radio radio-inline"> <input
+                                                            type="radio" name="risLevel"
+                                                            value="1" checked="checked"><span>高</span>
+                                                    </label>
+                                                    <label class="lyear-radio radio-inline"> <input
+                                                            type="radio" name="risLevel"
+                                                            value="2"> <span>中</span>
+                                                    </label>
+                                                    <label class="lyear-radio radio-inline"> <input
+                                                            type="radio" name="risLevel"
+                                                            value="3"> <span>低</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -367,6 +473,48 @@
         $("#addModal").modal({
             //点击增加框背景不删除增加框
             backdrop: "static"
+        });
+    });
+
+    //点击新增评论弹出模态框。
+    $("#add_common_btn").click(function () {
+        //清除表单数据（表单完整重置（表单的数据，表单的样式））
+        var id = $(this).attr("add-id");  //产品id
+        reset_form("#addCommonModal form");
+        //手动赋值
+        $("#relaId").val(id);
+        //弹出模态框
+        $("#addCommonModal").modal({
+            //点击增加框背景不删除增加框
+            backdrop: "static"
+        });
+    });
+
+    //点击保存，保存新增评论。
+    $("#save_common_btn").click(function () {
+        //清空表单样式
+        clean_form("#addModal form");
+        alert(1)
+        var common = $("#common_add_input").val();
+        var id  = $("#relaId").val();
+        //2、发送ajax请求保存产品
+        $.ajax({
+            url: "/admin/addComment",
+            type: "POST",
+            data: $({"type": 1, "relaId" : id, "content" : common }).serialize(),
+            success: function (result) {
+                if (result.code === 100) {
+                    $("#addModal").modal('hide');
+                    $.alert('评论新增成功！');
+                    setTimeout(function () {
+                        var pageNum = [[${finacnePageInfo.pages}]];
+                        var pageSize = [[${finacnePageInfo.pageSize}]];
+                        location.href = "/admin/finance/toChangeMoney.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                    }, 1000);
+                } else {
+                    $.alert('评论新增失败！');
+                }
+            }
         });
     });
 
@@ -475,6 +623,18 @@
             backdrop: "static"
         });
     });
+
+
+    //点击编辑评论按钮时触发事件
+    // $(document).on("click", ".update_common_btn", function () {
+    //     //根据用户id发送ajax请求，查出信息并显示
+    //     getFinanceInfo($(this).attr("update-id"));
+    //     //把用户的id传递给模态框的更新按钮
+    //     $("#update_btn").attr("update-id", $(this).attr("update-id"));
+    //     $("#updateModal").modal({
+    //         backdrop: "static"
+    //     });
+    // });
 
     //根据id查出信息并显示
     function getFinanceInfo(id) {

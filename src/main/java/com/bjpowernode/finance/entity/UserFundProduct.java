@@ -22,6 +22,8 @@ public class UserFundProduct {
 
     private Integer status;
 
+    private String risLevel;
+
     public Integer getId() {
         return id;
     }
@@ -88,6 +90,14 @@ public class UserFundProduct {
 
     public FundProduct getFundProduct() {
         return fundProduct;
+    }
+
+    public String getRisLevel() {
+        return risLevel;
+    }
+
+    public void setRisLevel(String risLevel) {
+        this.risLevel = risLevel;
     }
 
     public void setFundProduct(FundProduct fundProduct) {
