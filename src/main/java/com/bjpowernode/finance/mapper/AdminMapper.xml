@@ -83,7 +83,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from admin
     where id = #{id,jdbcType=INTEGER}
@@ -99,9 +99,9 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.bjpowernode.finance.entity.Admin">
-    insert into admin (id, username, password, 
+    insert into admin (id, username, password,
       status)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
       #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.bjpowernode.finance.entity.Admin">
@@ -140,6 +140,12 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <select id="selectByUserName" resultType="com.bjpowernode.finance.entity.Admin">
+    select * from admin where username = #{userName}
+  </select>
+  <select id="selectAdmin" resultType="com.bjpowernode.finance.entity.Admin">
+    select * from admin
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update admin

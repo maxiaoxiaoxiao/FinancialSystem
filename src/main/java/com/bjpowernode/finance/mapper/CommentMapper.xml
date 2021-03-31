@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.bjpowernode.finance.mapper.CommentMapper">
+
+  <insert id="insertComment">
+INSERT INTO comment ( `comment_id`, `content`, `admin_id`, `type`, `relaId`, `create_time`, `update_time` )
+VALUES
+	( NULL, #{comment.content}, #{comment.adminId}, #{comment.type}, #{comment.relaId}, now(), now() );
+    </insert>
+  <update id="updateComment">
+
+    UPDATE `comment`
+SET `content` = #{comment.content},
+`admin_id` = #{comment.adminId},
+`type` = #{comment.type},
+`relaId` = #{comment.relaId},
+`update_time` = now()
+WHERE
+	`comment_id` = #{comment.commentId}
+
+  </update>
+  <select id="searchComment" resultType="com.bjpowernode.finance.entity.Comment">
+    select comment_id as commentId, content as content,admin_id as adminId,type,relaId,create_time as createTime,update_time as updateTime from comment where relaId = #{comment.relaId} and type = #{comment.type} order by update_time desc
+  </select>
+</mapper>

@@ -14,4 +14,11 @@ public interface UserPayMoneyService {
     Integer updateUserPayMoney(UserPayMoney userPayMoney);
 
     UserPayMoney selectUserPayMoneyById(Integer id);
+
+  /**
+   * 推荐的工资理财.
+   * @param userId
+   * @return
+   */
+  List<UserPayMoney> selectUserPayMoneyByUser(Integer userId);
 }

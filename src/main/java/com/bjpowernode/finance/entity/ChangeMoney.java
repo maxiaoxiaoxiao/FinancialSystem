@@ -1,6 +1,7 @@
 package com.bjpowernode.finance.entity;
 
 import java.math.BigDecimal;
+import javax.annotation.sql.DataSourceDefinition;
 
 public class ChangeMoney {
     private Integer id;
@@ -15,7 +16,7 @@ public class ChangeMoney {
 
     private BigDecimal invesmoney;
 
-    private String risLevel;
+    private Integer riskLevel;
 
     public Integer getId() {
         return id;

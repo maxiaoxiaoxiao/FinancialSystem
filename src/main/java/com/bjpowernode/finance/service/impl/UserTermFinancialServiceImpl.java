@@ -37,4 +37,10 @@ public class UserTermFinancialServiceImpl implements UserTermFinancialService {
     public UserTermFinancial selectUserTermFinancialById(Integer id) {
         return userTermFinancialMapper.selectByPrimaryKeyWithUserAndTermFinancial(id);
     }
+
+  @Override
+  public List<UserTermFinancial> selectUserTermFinancialByUser(Integer userId) {
+
+        return userTermFinancialMapper.selectUserTermFinancialByUser(userId);
+  }
 }

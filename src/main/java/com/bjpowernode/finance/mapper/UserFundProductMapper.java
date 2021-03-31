@@ -32,4 +32,12 @@ public interface UserFundProductMapper {
     int updateByPrimaryKeySelective(UserFundProduct record);
 
     int updateByPrimaryKey(UserFundProduct record);
+
+    /**
+     * 推荐的基金理财.
+     *
+     * @param userId
+     * @return
+     */
+  List<UserFundProduct> selectUserFundProductByUser(@Param("userId") Integer userId);
 }

@@ -15,7 +15,15 @@ public class TermFinancial {
 
     private BigDecimal annualincome;
 
-    private String risLevel;
+    private Integer riskLevel;
+
+    public Integer getRiskLevel() {
+        return riskLevel;
+    }
+
+    public void setRiskLevel(Integer riskLevel) {
+        this.riskLevel = riskLevel;
+    }
 
     public Integer getId() {
         return id;
@@ -61,15 +69,8 @@ public class TermFinancial {
         return annualincome;
     }
 
-    public String getRisLevel() {
-        return risLevel;
-    }
-
-    public void setRisLevel(String risLevel) {
-        this.risLevel = risLevel;
-    }
-
     public void setAnnualincome(BigDecimal annualincome) {
         this.annualincome = annualincome;
     }
 }
+

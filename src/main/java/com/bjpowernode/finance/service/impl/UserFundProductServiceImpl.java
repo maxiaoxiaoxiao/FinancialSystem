@@ -38,4 +38,10 @@ public class UserFundProductServiceImpl implements UserFundProductService {
     public UserFundProduct selectUserFundProductById(Integer id) {
         return userFundProductMapper.selectByPrimaryKeyWithUserAndFundProduct(id);
     }
+
+  @Override
+  public List<UserFundProduct> selectUserFundProductByUser(Integer userId) {
+
+        return userFundProductMapper.selectUserFundProductByUser(userId);
+  }
 }

@@ -31,4 +31,13 @@ public interface AdminMapper {
     int updateByPrimaryKeySelective(Admin record);
 
     int updateByPrimaryKey(Admin record);
+
+    List<Admin> selectByUserName(@Param("userName") String userName);
+
+    /**
+     * 查询所有的管理员.
+     *
+     * @return
+     */
+  List<Admin> selectAdmin();
 }

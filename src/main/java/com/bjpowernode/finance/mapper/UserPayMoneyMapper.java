@@ -32,4 +32,11 @@ public interface UserPayMoneyMapper {
     int updateByPrimaryKeySelective(UserPayMoney record);
 
     int updateByPrimaryKey(UserPayMoney record);
+
+    /**
+     * 推荐的工资理财.
+     * @param userId
+     * @return
+     */
+  List<UserPayMoney> selectUserPayMoneyByUser(@Param("userId") Integer userId);
 }

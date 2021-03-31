@@ -39,4 +39,10 @@ public class UserPayMoneyServiceImpl implements UserPayMoneyService {
     public UserPayMoney selectUserPayMoneyById(Integer id) {
         return userPayMoneyMapper.selectByPrimaryKeyWithUserAndPayMoney(id);
     }
+
+  @Override
+  public List<UserPayMoney> selectUserPayMoneyByUser(Integer userId) {
+
+        return userPayMoneyMapper.selectUserPayMoneyByUser(userId);
+  }
 }

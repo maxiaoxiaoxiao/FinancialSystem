@@ -3,78 +3,79 @@ package com.bjpowernode.finance.entity;
 import java.util.Date;
 
 /**
- * @author 秦润东
- * @since 2021/3/31 22:08
+ * @since 2021/3/30 23:46
  */
 public class Comment {
-    private Integer commentId;
 
-    private String content;
+  private Integer commentId;
 
-    private Date createTime;
+  private String content;
 
-    private Date updateTime;
+  private String createTime;
 
-    private Integer relaId;
+  private String updateTime;
 
-    private String type;
+  private Integer relaId;
 
-    private Integer adminId;
+  private String type;
 
-    public Integer getRelaId() {
-        return relaId;
-    }
+  private Integer adminId;
 
-    public void setRelaId(Integer relaId) {
-        this.relaId = relaId;
-    }
+  public Integer getRelaId() {
+    return relaId;
+  }
 
-    public String getType() {
-        return type;
-    }
+  public void setRelaId(Integer relaId) {
+    this.relaId = relaId;
+  }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+  public String getType() {
+    return type;
+  }
 
-    public Integer getCommentId() {
-        return commentId;
-    }
+  public void setType(String type) {
+    this.type = type;
+  }
 
-    public void setCommentId(Integer commentId) {
-        this.commentId = commentId;
-    }
+  public Integer getCommentId() {
+    return commentId;
+  }
 
-    public String getContent() {
-        return content;
-    }
+  public void setCommentId(Integer commentId) {
+    this.commentId = commentId;
+  }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
+  public String getContent() {
+    return content;
+  }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
+  public void setContent(String content) {
+    this.content = content;
+  }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 
-    public Integer getAdminId() {
-        return adminId;
-    }
+  public Integer getAdminId() {
+    return adminId;
+  }
 
-    public void setAdminId(Integer adminId) {
-        this.adminId = adminId;
-    }
+  public void setAdminId(Integer adminId) {
+    this.adminId = adminId;
+  }
 
-    public Date getUpdateTime() {
-        return updateTime;
-    }
 
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
+  public String getCreateTime() {
+    return createTime;
+  }
 
+  public void setCreateTime(String createTime) {
+    this.createTime = createTime;
+  }
+
+  public String getUpdateTime() {
+    return updateTime;
+  }
+
+  public void setUpdateTime(String updateTime) {
+    this.updateTime = updateTime;
+  }
 }

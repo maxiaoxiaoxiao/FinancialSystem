@@ -5,12 +5,15 @@ import com.bjpowernode.finance.entity.Admin;
 import com.bjpowernode.finance.entity.User;
 import com.bjpowernode.finance.service.AdminService;
 import com.bjpowernode.finance.service.UserService;
+import com.bjpowernode.finance.utils.CheckEmptyUtil;
+import java.util.List;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.IncorrectCredentialsException;
 import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -90,5 +93,54 @@ public class LoginController {
         return Msg.success().add("url", "/");
     }
 
+    /**
+     * 增加管理员.
+     *
+     * @param admin not null.
+     * @return
+     */
+    @PostMapping("/addAdmin")
+    @ResponseBody
+    public Msg addAdmin(@RequestBody Admin admin){
+        if (CheckEmptyUtil.isOrEmpty(admin, admin.getUsername(), admin.getPassword())) {
+            return Msg.fail().add("admin","必要信息为空");
+        }
+        Msg msg = adminService.addAdmin(admin);
+        msg.setCode(100);
+        return msg;
+    }
 
+    /**
+     * 删除管理员.
+     * @param id
+     * @param session
+     * @return
+     */
+    @GetMapping("/deleteAdmin/{id}")
+    @ResponseBody
+    public Msg deleteAdmin(@PathVariable("id")Integer id,HttpSession session){
+        Msg msg = new Msg();
+        if (CheckEmptyUtil.isEmpty(id)) {
+            msg.setMsg("请选择删除的管理员");
+            msg.setCode(200);
+            return msg;
+        }
+        msg = adminService.deleteAdminById(id,session);
+        msg.setCode(100);
+        return msg;
+    }
+
+    /**
+     * 查询管理员.
+     * @return
+     */
+    @GetMapping("/selectAdmin")
+    @ResponseBody
+    public Msg selectAdmin(){
+        Msg msg = new Msg();
+        List<Admin> list = adminService.selectAdmin();
+        msg.add("list",list);
+        msg.setCode(100);
+        return msg;
+    }
 }

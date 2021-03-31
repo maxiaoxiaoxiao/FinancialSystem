@@ -49,10 +49,9 @@ mybatis:
 #  config-location: classpath:mybatis/mybatis-config.xml
 # 指定sql映射文件位置
  mapper-locations: classpath:com/bjpowernode/finance/mapper/*.xml
-
 # spring boot集成mybatis的方式打印sql语句
-# configuration:
-#   log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+ configuration:
+   log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 server:
   #端口设置

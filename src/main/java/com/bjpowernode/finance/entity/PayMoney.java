@@ -64,3 +64,4 @@ public class PayMoney {
         this.investerm = investerm == null ? null : investerm.trim();
     }
 }
+

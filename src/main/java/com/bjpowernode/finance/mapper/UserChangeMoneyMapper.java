@@ -33,4 +33,11 @@ public interface UserChangeMoneyMapper {
     int updateByPrimaryKeySelective(UserChangeMoney record);
 
     int updateByPrimaryKey(UserChangeMoney record);
+
+    /**
+     *查询推荐的零钱理财.
+     * @param userId
+     * @return
+     */
+  List<UserChangeMoney> selectUserChangeMoneyByUser(@Param("userId") Integer userId);
 }

@@ -13,4 +13,11 @@ public interface UserTermFinancialService {
     Integer updateUserTermFinancial(UserTermFinancial userTermFinancial);
 
     UserTermFinancial selectUserTermFinancialById(Integer id);
+
+    /**
+     * 推荐的期限理财.
+     * @param userId
+     * @return
+     */
+    List<UserTermFinancial> selectUserTermFinancialByUser(Integer userId);
 }

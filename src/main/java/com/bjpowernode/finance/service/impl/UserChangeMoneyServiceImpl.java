@@ -39,4 +39,10 @@ public class UserChangeMoneyServiceImpl implements UserChangeMoneyService {
     public UserChangeMoney selectUserChangeMoneyById(Integer id) {
         return userChangeMoneyMapper.selectByPrimaryKeyWithUserAndChangeMoney(id);
     }
+
+  @Override
+  public List<UserChangeMoney> selectUserChangeMoneyByUser(Integer userId) {
+
+      return userChangeMoneyMapper.selectUserChangeMoneyByUser(userId);
+  }
 }

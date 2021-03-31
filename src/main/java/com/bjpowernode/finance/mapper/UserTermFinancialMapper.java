@@ -32,4 +32,12 @@ public interface UserTermFinancialMapper {
     int updateByPrimaryKeySelective(UserTermFinancial record);
 
     int updateByPrimaryKey(UserTermFinancial record);
+
+    /**
+     * 推荐的期限理财.
+     *
+     * @param userId
+     * @return
+     */
+  List<UserTermFinancial> selectUserTermFinancialByUser(@Param("userId") Integer userId);
 }

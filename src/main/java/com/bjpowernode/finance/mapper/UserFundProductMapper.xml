@@ -150,7 +150,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from user_fund_product
     where id = #{id,jdbcType=INTEGER}
@@ -166,11 +166,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.bjpowernode.finance.entity.UserFundProduct">
-    insert into user_fund_product (id, userId, fundId, 
-      startTime, averYield, profit, 
+    insert into user_fund_product (id, userId, fundId,
+      startTime, averYield, profit,
       status)
-    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{fundid,jdbcType=INTEGER}, 
-      #{starttime,jdbcType=DATE}, #{averyield,jdbcType=DECIMAL}, #{profit,jdbcType=DECIMAL}, 
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{fundid,jdbcType=INTEGER},
+      #{starttime,jdbcType=DATE}, #{averyield,jdbcType=DECIMAL}, #{profit,jdbcType=DECIMAL},
       #{status,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.bjpowernode.finance.entity.UserFundProduct">
@@ -227,6 +227,17 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <select id="selectUserFundProductByUser"
+          resultType="com.bjpowernode.finance.entity.UserFundProduct">
+    	SELECT
+	f.*
+FROM
+	user u
+	INNER JOIN fund_product f ON u.fundId = f.id on u.risk_level = f.risk_level
+
+WHERE
+	u.userId = #{userId}
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update user_fund_product

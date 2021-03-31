@@ -2,7 +2,20 @@ package com.bjpowernode.finance.controller;
 
 import com.bjpowernode.finance.common.Msg;
 import com.bjpowernode.finance.entity.Bank;
+import com.bjpowernode.finance.entity.User;
+import com.bjpowernode.finance.entity.UserChangeMoney;
+import com.bjpowernode.finance.entity.UserFundProduct;
+import com.bjpowernode.finance.entity.UserPayMoney;
+import com.bjpowernode.finance.entity.UserTermFinancial;
+import com.bjpowernode.finance.mapper.UserChangeMoneyMapper;
+import com.bjpowernode.finance.mapper.UserFundProductMapper;
+import com.bjpowernode.finance.mapper.UserPayMoneyMapper;
+import com.bjpowernode.finance.mapper.UserTermFinancialMapper;
 import com.bjpowernode.finance.service.BankService;
+import com.bjpowernode.finance.service.UserChangeMoneyService;
+import com.bjpowernode.finance.service.UserFundProductService;
+import com.bjpowernode.finance.service.UserPayMoneyService;
+import com.bjpowernode.finance.service.UserTermFinancialService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +30,15 @@ import java.util.List;
 public class BankController {
     @Autowired
     BankService bankService;
+    @Autowired
+    UserTermFinancialService userTermFinancialService;
+    @Autowired
+    UserChangeMoneyService userChangeMoneyService;
+
+    @Autowired
+    UserFundProductService userFundProductService;
+    @Autowired
+    UserPayMoneyService userPayMoneyService;
 
     /**
      * 跳转用户银行推荐界面
@@ -31,6 +53,32 @@ public class BankController {
         model.addAttribute("activeUrl1","financeActive");
         model.addAttribute("activeUrl2","bankActive");
         return "user/finance/bank";
+    }
+
+    /**
+     * 跳转用户银行推荐界面
+     * @param model
+     * @return
+     */
+    @RequestMapping("/user/finance/toLiCai.html")
+    public String toLiCai(Model model, HttpSession session) {
+        User user = (User) session.getAttribute("loginUser");
+        Integer userId = user.getId();
+        List<UserChangeMoney> userChangeMoneyList = userChangeMoneyService.selectUserChangeMoneyByUser(userId);
+        model.addAttribute("userChangeMoneyList", userChangeMoneyList);
+
+        List<UserPayMoney> userPayMoneyList = userPayMoneyService.selectUserPayMoneyByUser(userId);
+        model.addAttribute("userPayMoneyList", userPayMoneyList);
+
+        List<UserTermFinancial> userTermFinancialList = userTermFinancialService.selectUserTermFinancialByUser(userId);
+        model.addAttribute("userTermFinancialList", userTermFinancialList);
+
+        List<UserFundProduct> userFundProductList = userFundProductService.selectUserFundProductByUser(userId);
+        model.addAttribute("userFundProductList", userFundProductList);
+        model.addAttribute("pageTopBarInfo","理财推荐界面");
+        model.addAttribute("activeUrl1","financeActive");
+        model.addAttribute("activeUrl2","liCaiActive");
+        return "user/finance/liCai";
     }
 
     /**
