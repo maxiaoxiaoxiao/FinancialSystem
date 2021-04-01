@@ -61,20 +61,9 @@ public class FundProductController {
         ufp.setAveryield(fp.getMonthlygrowth());
         ufp.setProfit(fp.getLeastmoney().multiply(fp.getMonthlygrowth()));
         ufp.setStatus(1);
-        Integer result = userFundProductService.insertUserFundProduct(ufp);
-        if (result==1){
-            FlowOfFunds fof = new FlowOfFunds();
-            fof.setUserid(userId);
-            fof.setFlowmoney(fp.getLeastmoney());
-            fof.setType(1);
-            fof.setSource(fp.getFunddesc());
-            fof.setCreatetime(new Date());
-            fof.setFunddesc("无");
-            flowOfFundsService.insertFlowOfFunds(fof);
-            return Msg.success();
-        }else {
-            return Msg.fail();
-        }
+        userFundProductService.insertUserFundProduct(ufp);
+        return Msg.success();
+
     }
 
     /**

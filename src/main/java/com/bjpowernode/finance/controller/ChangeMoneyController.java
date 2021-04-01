@@ -60,20 +60,8 @@ public class ChangeMoneyController {
         ucm.setAveryield(cm.getAnnualincome());
         ucm.setProfit(cm.getAnnualincome().multiply(cm.getInvesmoney()));
         ucm.setStatus(1);
-        Integer result = userChangeMoneyService.insertUserChangeMoney(ucm);
-        if (result==1){
-            FlowOfFunds fof = new FlowOfFunds();
-            fof.setUserid(userId);
-            fof.setFlowmoney(cm.getInvesmoney());
-            fof.setType(1);
-            fof.setSource(cm.getName());
-            fof.setCreatetime(new Date());
-            fof.setFunddesc("无");
-            flowOfFundsService.insertFlowOfFunds(fof);
-            return Msg.success();
-        }else {
-            return Msg.fail();
-        }
+        userChangeMoneyService.insertUserChangeMoney(ucm);
+        return Msg.success();
     }
 
     /**

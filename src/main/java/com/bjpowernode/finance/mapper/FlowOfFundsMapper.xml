@@ -71,22 +71,9 @@
   <sql id="Base_Column_List">
     id, userId, flowMoney, type, source, createTime, fundDesc
   </sql>
-  <select id="selectByExample" parameterType="com.bjpowernode.finance.entity.FlowOfFundsExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from flow_of_funds
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from flow_of_funds
     where id = #{id,jdbcType=INTEGER}
@@ -102,11 +89,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.bjpowernode.finance.entity.FlowOfFunds">
-    insert into flow_of_funds (id, userId, flowMoney, 
-      type, source, createTime, 
+    insert into flow_of_funds (id, userId, flowMoney,
+      type, source, createTime,
       fundDesc)
-    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{flowmoney,jdbcType=DECIMAL}, 
-      #{type,jdbcType=INTEGER}, #{source,jdbcType=VARCHAR}, #{createtime,jdbcType=DATE}, 
+    values (#{id,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{flowmoney,jdbcType=DECIMAL},
+      #{type,jdbcType=INTEGER}, #{source,jdbcType=VARCHAR}, #{createtime,jdbcType=DATE},
       #{funddesc,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.bjpowernode.finance.entity.FlowOfFunds">
@@ -158,11 +145,27 @@
       </if>
     </trim>
   </insert>
+  <insert id="addRecord">
+
+    INSERT INTO flow_of_funds (`id`, `userId`, `flowMoney`, `type`, `source`, `createTime`, `fundDesc`)
+    VALUES (null, #{flowOfFunds.userid}, #{flowOfFunds.flowmoney}, #{flowOfFunds.type}, #{flowOfFunds.source},now(), #{flowOfFunds.funddesc})
+
+  </insert>
   <select id="countByExample" parameterType="com.bjpowernode.finance.entity.FlowOfFundsExample" resultType="java.lang.Long">
     select count(*) from flow_of_funds
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <select id="selectFlowOfFunds" resultType="com.bjpowernode.finance.entity.FlowOfFunds">
+    select * from flow_of_funds where 1=1
+    <if test="userId != null">
+      and userId = #{userId}
+    </if>
+    <if test="type != null">
+      and type = #{type}
+    </if>
+
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update flow_of_funds
@@ -239,5 +242,14 @@
       createTime = #{createtime,jdbcType=DATE},
       fundDesc = #{funddesc,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateRecord">
+    UPDATE flow_of_funds set
+    `flowMoney` = #{flowOfFunds.flowmoney},
+     `type` = #{flowOfFunds.type},
+     `source` = #{flowOfFunds.source},
+      `fundDesc` = #{flowOfFunds.funddesc}
+      WHERE `id` = #{flowOfFunds.id}
+
   </update>
 </mapper>

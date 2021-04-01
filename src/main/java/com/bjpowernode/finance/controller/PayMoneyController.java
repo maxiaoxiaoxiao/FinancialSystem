@@ -63,23 +63,8 @@ public class PayMoneyController {
         upm.setProfit(new BigDecimal("0.03123").multiply(pm.getMonthmoney()));
         upm.setStatus(1);
         Integer result = userPayMoneyService.insertUserPayMoney(upm);
-        if (result==1){
-            FlowOfFunds fof = new FlowOfFunds();
-            fof.setUserid(userId);
-            fof.setFlowmoney(pm.getMonthmoney());
-            fof.setType(1);
-            fof.setSource("工资理财");
-            fof.setCreatetime(new Date());
-            if (pm.getType()==1){
-                fof.setFunddesc("国债");
-            }else if(pm.getType()==2){
-                fof.setFunddesc("期货");
-            }
-            flowOfFundsService.insertFlowOfFunds(fof);
-            return Msg.success();
-        }else {
-            return Msg.fail();
-        }
+        return Msg.success();
+
     }
 
     /**

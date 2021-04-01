@@ -64,17 +64,6 @@ public class TermFinancialController {
         utf.setProfit(tf.getAnnualincome().multiply(tf.getLeastmoney()));
         utf.setStatus(1);
         Integer result = userTermFinancialService.insertUserTermFinancial(utf);
-        if (result == 1) {
-            FlowOfFunds fof = new FlowOfFunds();
-            fof.setUserid(userId);
-            fof.setFlowmoney(tf.getLeastmoney());
-            fof.setType(1);
-            fof.setSource(tf.getName());
-            fof.setCreatetime(new Date());
-            fof.setFunddesc("无");
-            flowOfFundsService.insertFlowOfFunds(fof);
-            return Msg.success();
-        }
         return Msg.fail();
     }
 
