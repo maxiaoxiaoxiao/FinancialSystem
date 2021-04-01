@@ -73,22 +73,9 @@
   <sql id="Base_Column_List">
     id, type, code, fundDesc, dailyGrowth, monthlyGrowth, annualGrowth, leastMoney, invesTerm
   </sql>
-  <select id="selectByExample" parameterType="com.bjpowernode.finance.entity.FundProductExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from fund_product
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from fund_product
     where id = #{id,jdbcType=INTEGER}
@@ -104,13 +91,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.bjpowernode.finance.entity.FundProduct">
-    insert into fund_product (id, type, code, 
-      fundDesc, dailyGrowth, monthlyGrowth, 
-      annualGrowth, leastMoney, invesTerm
+    insert into fund_product (id, type, code,
+      fundDesc, dailyGrowth, monthlyGrowth,
+      annualGrowth, leastMoney, invesTerm,risLevel
       )
-    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{code,jdbcType=INTEGER}, 
-      #{funddesc,jdbcType=VARCHAR}, #{dailygrowth,jdbcType=DECIMAL}, #{monthlygrowth,jdbcType=DECIMAL}, 
-      #{annualgrowth,jdbcType=DECIMAL}, #{leastmoney,jdbcType=DECIMAL}, #{investerm,jdbcType=VARCHAR}
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{code,jdbcType=INTEGER},
+      #{funddesc,jdbcType=VARCHAR}, #{dailygrowth,jdbcType=DECIMAL}, #{monthlygrowth,jdbcType=DECIMAL},
+      #{annualgrowth,jdbcType=DECIMAL}, #{leastmoney,jdbcType=DECIMAL}, #{investerm,jdbcType=VARCHAR},#{risLevel,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.bjpowernode.finance.entity.FundProduct">
@@ -143,6 +130,9 @@
       <if test="investerm != null">
         invesTerm,
       </if>
+      <if test="risLevel != null">
+        risLevel,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -172,6 +162,9 @@
       <if test="investerm != null">
         #{investerm,jdbcType=VARCHAR},
       </if>
+      <if test="risLevel != null">
+        #{risLevel,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.bjpowernode.finance.entity.FundProductExample" resultType="java.lang.Long">
@@ -179,6 +172,10 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <select id="selectAllFundProduct"
+          resultType="com.bjpowernode.finance.entity.FundProduct">
+    select * from fund_product
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update fund_product

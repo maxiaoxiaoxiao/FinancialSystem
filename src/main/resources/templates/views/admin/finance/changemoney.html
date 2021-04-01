@@ -499,7 +499,7 @@
         var id  = $("#relaId").val();
         //2、发送ajax请求保存产品
         $.ajax({
-            url: "/admin/addComment",
+            url: "/comment/addComment",
             type: "POST",
             data: $({"type": 1, "relaId" : id, "content" : common }).serialize(),
             success: function (result) {

@@ -15,7 +15,7 @@ public class TermFinancialServiceImpl implements TermFinancialService {
 
     @Override
     public List<TermFinancial> selectAllTermFinancial() {
-        return termFinancialMapper.selectByExample(null);
+        return termFinancialMapper.selectAllTermFinancial();
     }
 
     @Override

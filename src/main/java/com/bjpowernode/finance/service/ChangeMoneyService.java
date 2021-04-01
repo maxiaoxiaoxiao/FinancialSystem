@@ -15,4 +15,5 @@ public interface ChangeMoneyService {
     Integer updateChangeMoney(ChangeMoney changeMoney);
 
     Integer deleteChangeMoneyById(Integer id);
+
 }

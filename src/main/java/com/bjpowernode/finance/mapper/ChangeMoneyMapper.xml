@@ -70,22 +70,9 @@
   <sql id="Base_Column_List">
     id, name, annualIncome, peiIncome, invesTerm, invesMoney
   </sql>
-  <select id="selectByExample" parameterType="com.bjpowernode.finance.entity.ChangeMoneyExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from change_money
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from change_money
     where id = #{id,jdbcType=INTEGER}
@@ -101,11 +88,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.bjpowernode.finance.entity.ChangeMoney">
-    insert into change_money (id, name, annualIncome, 
-      peiIncome, invesTerm, invesMoney
+    insert into change_money (id, name, annualIncome,
+      peiIncome, invesTerm, invesMoney,risLevel
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{annualincome,jdbcType=DECIMAL}, 
-      #{peiincome,jdbcType=DECIMAL}, #{investerm,jdbcType=VARCHAR}, #{invesmoney,jdbcType=DECIMAL}
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{annualincome,jdbcType=DECIMAL},
+      #{peiincome,jdbcType=DECIMAL}, #{investerm,jdbcType=VARCHAR}, #{invesmoney,jdbcType=DECIMAL},#{risLevel,jdbcType=INTEGER}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.bjpowernode.finance.entity.ChangeMoney">
@@ -156,6 +143,10 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <select id="selectAllChangeMoney"
+          resultType="com.bjpowernode.finance.entity.ChangeMoney">
+    select * from change_money
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update change_money
@@ -212,6 +203,9 @@
       </if>
       <if test="invesmoney != null">
         invesMoney = #{invesmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="risLevel != null">
+        risLevel = #{risLevel,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}

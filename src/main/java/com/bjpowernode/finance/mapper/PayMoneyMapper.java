@@ -17,7 +17,6 @@ public interface PayMoneyMapper {
 
     int insertSelective(PayMoney record);
 
-    List<PayMoney> selectByExample(PayMoneyExample example);
 
     PayMoney selectByPrimaryKey(Integer id);
 
@@ -28,4 +27,10 @@ public interface PayMoneyMapper {
     int updateByPrimaryKeySelective(PayMoney record);
 
     int updateByPrimaryKey(PayMoney record);
+
+    /**
+     * 查询你所有的工资理财.
+     * @return
+     */
+    List<PayMoney> selectAllPayMoney();
 }

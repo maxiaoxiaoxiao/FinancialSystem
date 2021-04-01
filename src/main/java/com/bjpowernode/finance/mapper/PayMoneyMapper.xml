@@ -69,22 +69,9 @@
   <sql id="Base_Column_List">
     id, monthMoney, autoInto, type, invesTerm
   </sql>
-  <select id="selectByExample" parameterType="com.bjpowernode.finance.entity.PayMoneyExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from pay_money
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from pay_money
     where id = #{id,jdbcType=INTEGER}
@@ -100,10 +87,10 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.bjpowernode.finance.entity.PayMoney">
-    insert into pay_money (id, monthMoney, autoInto, 
+    insert into pay_money (id, monthMoney, autoInto,risLevel,
       type, invesTerm)
-    values (#{id,jdbcType=INTEGER}, #{monthmoney,jdbcType=DECIMAL}, #{autointo,jdbcType=INTEGER}, 
-      #{type,jdbcType=INTEGER}, #{investerm,jdbcType=VARCHAR})
+    values (#{id,jdbcType=INTEGER}, #{monthmoney,jdbcType=DECIMAL}, #{autointo,jdbcType=INTEGER},
+      #{type,jdbcType=INTEGER}, #{investerm,jdbcType=VARCHAR},#{risLevel,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.bjpowernode.finance.entity.PayMoney">
     insert into pay_money
@@ -123,6 +110,9 @@
       <if test="investerm != null">
         invesTerm,
       </if>
+      <if test="risLevel != null">
+        risLevel,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -140,6 +130,9 @@
       <if test="investerm != null">
         #{investerm,jdbcType=VARCHAR},
       </if>
+      <if test="risLevel != null">
+        #{risLevel,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.bjpowernode.finance.entity.PayMoneyExample" resultType="java.lang.Long">
@@ -147,6 +140,9 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <select id="selectAllPayMoney" resultType="com.bjpowernode.finance.entity.PayMoney">
+    select * from pay_money
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update pay_money

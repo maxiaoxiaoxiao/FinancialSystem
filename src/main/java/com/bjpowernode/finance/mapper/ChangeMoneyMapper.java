@@ -17,7 +17,6 @@ public interface ChangeMoneyMapper {
 
     int insertSelective(ChangeMoney record);
 
-    List<ChangeMoney> selectByExample(ChangeMoneyExample example);
 
     ChangeMoney selectByPrimaryKey(Integer id);
 
@@ -28,4 +27,10 @@ public interface ChangeMoneyMapper {
     int updateByPrimaryKeySelective(ChangeMoney record);
 
     int updateByPrimaryKey(ChangeMoney record);
+
+    /**
+     * 查询所有的零钱理财.
+     * @return
+     */
+    List<ChangeMoney> selectAllChangeMoney();
 }

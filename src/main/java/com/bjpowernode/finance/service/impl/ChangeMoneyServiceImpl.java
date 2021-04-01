@@ -17,7 +17,7 @@ public class ChangeMoneyServiceImpl implements ChangeMoneyService {
 
     @Override
     public List<ChangeMoney> selectAllChangeMoney() {
-        List<ChangeMoney> list = changeMoneyMapper.selectByExample(null);
+        List<ChangeMoney> list = changeMoneyMapper.selectAllChangeMoney();
         return list;
     }
 
@@ -44,4 +44,5 @@ public class ChangeMoneyServiceImpl implements ChangeMoneyService {
     public Integer deleteChangeMoneyById(Integer id) {
         return changeMoneyMapper.deleteByPrimaryKey(id);
     }
+
 }

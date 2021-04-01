@@ -17,7 +17,6 @@ public interface FundProductMapper {
 
     int insertSelective(FundProduct record);
 
-    List<FundProduct> selectByExample(FundProductExample example);
 
     FundProduct selectByPrimaryKey(Integer id);
 
@@ -28,4 +27,10 @@ public interface FundProductMapper {
     int updateByPrimaryKeySelective(FundProduct record);
 
     int updateByPrimaryKey(FundProduct record);
+
+    /**
+     * 查询基金理财.
+     * @return
+     */
+    List<FundProduct> selectAllFundProduct();
 }

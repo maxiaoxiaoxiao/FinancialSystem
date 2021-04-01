@@ -17,7 +17,6 @@ public interface TermFinancialMapper {
 
     int insertSelective(TermFinancial record);
 
-    List<TermFinancial> selectByExample(TermFinancialExample example);
 
     TermFinancial selectByPrimaryKey(Integer id);
 
@@ -28,4 +27,10 @@ public interface TermFinancialMapper {
     int updateByPrimaryKeySelective(TermFinancial record);
 
     int updateByPrimaryKey(TermFinancial record);
+
+    /**
+     * 查询期限理财.
+     * @return
+     */
+    List<TermFinancial> selectAllTermFinancial();
 }

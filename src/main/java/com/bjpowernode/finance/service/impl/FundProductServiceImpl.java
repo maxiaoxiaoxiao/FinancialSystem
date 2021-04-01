@@ -14,7 +14,7 @@ public class FundProductServiceImpl implements FundProductService {
     FundProductMapper fundProductMapper;
     @Override
     public List<FundProduct> selectAllFundProduct() {
-        return fundProductMapper.selectByExample(null);
+        return fundProductMapper.selectAllFundProduct();
     }
 
     @Override

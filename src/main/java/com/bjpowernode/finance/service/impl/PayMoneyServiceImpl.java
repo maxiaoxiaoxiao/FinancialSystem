@@ -16,7 +16,7 @@ public class PayMoneyServiceImpl implements PayMoneyService {
     PayMoneyMapper payMoneyMapper;
     @Override
     public List<PayMoney> selectAllPayMoney() {
-        List<PayMoney> list = payMoneyMapper.selectByExample(null);
+        List<PayMoney> list = payMoneyMapper.selectAllPayMoney();
         return list;
     }
 

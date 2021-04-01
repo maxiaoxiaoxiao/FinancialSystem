@@ -70,22 +70,9 @@
   <sql id="Base_Column_List">
     id, name, invesTerm, leastMoney, profit, annualIncome
   </sql>
-  <select id="selectByExample" parameterType="com.bjpowernode.finance.entity.TermFinancialExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from term_financial
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from term_financial
     where id = #{id,jdbcType=INTEGER}
@@ -101,11 +88,11 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.bjpowernode.finance.entity.TermFinancial">
-    insert into term_financial (id, name, invesTerm, 
-      leastMoney, profit, annualIncome
+    insert into term_financial (id, name, invesTerm,
+      leastMoney, profit, annualIncome,risLevel
       )
-    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{investerm,jdbcType=VARCHAR}, 
-      #{leastmoney,jdbcType=DECIMAL}, #{profit,jdbcType=INTEGER}, #{annualincome,jdbcType=DECIMAL}
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{investerm,jdbcType=VARCHAR},
+      #{leastmoney,jdbcType=DECIMAL}, #{profit,jdbcType=INTEGER}, #{annualincome,jdbcType=DECIMAL},#{risLevel}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.bjpowernode.finance.entity.TermFinancial">
@@ -129,6 +116,9 @@
       <if test="annualincome != null">
         annualIncome,
       </if>
+      <if test="risLevel != null">
+        risLevel,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -149,6 +139,9 @@
       <if test="annualincome != null">
         #{annualincome,jdbcType=DECIMAL},
       </if>
+      <if test="risLevel != null">
+        #{risLevel,jdbcType=INTEGER},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.bjpowernode.finance.entity.TermFinancialExample" resultType="java.lang.Long">
@@ -156,6 +149,10 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <select id="selectAllTermFinancial"
+          resultType="com.bjpowernode.finance.entity.TermFinancial">
+    select * from term_financial
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update term_financial

@@ -16,7 +16,7 @@ public class ChangeMoney {
 
     private BigDecimal invesmoney;
 
-    private Integer riskLevel;
+    private Integer risLevel;
 
     public Integer getId() {
         return id;
@@ -66,11 +66,11 @@ public class ChangeMoney {
         this.invesmoney = invesmoney;
     }
 
-    public String getRisLevel() {
+    public Integer getRisLevel() {
         return risLevel;
     }
 
-    public void setRisLevel(String risLevel) {
+    public void setRisLevel(Integer risLevel) {
         this.risLevel = risLevel;
     }
 }
