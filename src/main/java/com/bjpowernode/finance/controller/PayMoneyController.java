@@ -81,6 +81,9 @@ public class PayMoneyController {
                              Model model, HttpSession session) {
         PageHelper.startPage(pageNum, pageSize);
         List<PayMoney> list = payMoneyService.selectAllPayMoney();
+        list.forEach( s -> {
+            s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel()) ? ("2".equalsIgnoreCase(s.getRisLevel()) ? "中" : "高") : "低" );
+        });
         PageInfo<PayMoney> pageInfo = new PageInfo<PayMoney>(list, 5);
         model.addAttribute("finacnePageInfo",pageInfo);
         model.addAttribute("financeList",list);

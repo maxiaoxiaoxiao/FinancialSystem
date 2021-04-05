@@ -76,6 +76,11 @@
 															<span class="glyphicon glyphicon-trash"
                                                                   aria-hidden="true"></span> 新增评论
                                                 </button>
+                                                <button id="select_common_btn" class="btn btn-primary btn-sm select_btn"
+                                                        th:attr="select-id=${finance.id}">
+															<span class="glyphicon glyphicon-trash"
+                                                                  aria-hidden="true"></span> 查看评论
+                                                </button>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -168,6 +173,41 @@
                                 </div>
                             </div>
 
+                        </div>
+                    </div>
+
+                    <!-- 查看评论的模态框 -->
+                    <div class="modal fade" id="selectCommonModal" tabindex="-1"
+                         role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title">查看零钱理财评论</h4>
+                                </div>
+                                <div class="modal-body">
+                                        <div class="table-responsive">
+                                            <table id="monitor-table" class="table table-hover table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th data-field="item0">序号</th>
+                                                    <th data-field="item1">评论内容</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">关闭
+                                    </button>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
@@ -490,21 +530,27 @@
         });
     });
 
+
+
     //点击保存，保存新增评论。
     $("#save_common_btn").click(function () {
         //清空表单样式
         clean_form("#addModal form");
-        alert(1)
         var common = $("#common_add_input").val();
         var id  = $("#relaId").val();
         //2、发送ajax请求保存产品
         $.ajax({
+            data:JSON.stringify( {
+                "type": 1,
+                "relaId": id,
+                "content": common
+            }),
             url: "/comment/addComment",
             type: "POST",
-            data: $({"type": 1, "relaId" : id, "content" : common }).serialize(),
+            contentType: "application/json; charset=utf-8",
             success: function (result) {
                 if (result.code === 100) {
-                    $("#addModal").modal('hide');
+                    $("#addCommonModal").modal('hide');
                     $.alert('评论新增成功！');
                     setTimeout(function () {
                         var pageNum = [[${finacnePageInfo.pages}]];
@@ -596,7 +642,6 @@
             data: $("#addModal form").serialize(),
             success: function (result) {
                 if (result.code === 100) {
-
                     $("#addModal").modal('hide');
                     $.alert('零钱理财产品新增成功！');
                     setTimeout(function () {
@@ -625,6 +670,18 @@
     });
 
 
+    //点击查看编辑按钮时触发事件
+    $(document).on("click", ".select_btn", function () {
+        //根据用户id发送ajax请求，查出信息并显示
+        getCommonInfo($(this).attr("select-id"));
+        //把用户的id传递给模态框的更新按钮
+        $("#delete_common_btn").attr("update-id", $(this).attr("update-id"));
+        $("#selectCommonModal").modal({
+            backdrop: "static"
+        });
+    });
+
+
     //点击编辑评论按钮时触发事件
     // $(document).on("click", ".update_common_btn", function () {
     //     //根据用户id发送ajax请求，查出信息并显示
@@ -635,6 +692,45 @@
     //         backdrop: "static"
     //     });
     // });
+
+
+    //根据id查出评论信息
+
+    //根据id查出信息并显示
+    function getCommonInfo(id) {
+        var $table = $("#monitor-table");
+        $.ajax({
+            url: "/comment/searchComment",
+            type: "POST",
+            async: false,
+            data:JSON.stringify( {
+                "type": 1,
+                "relaId": id
+            }),
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                if (result.code === 100) {
+                    $("#monitor-table tr:gt(0)").remove();//删除第一行外的所有行
+                    var dataObj = result.extend.list;
+                    console.log(JSON.stringify(result.extend.list))
+                    $.each(dataObj,function(index,item){
+                        var $tr = $('<tr>');
+                        $.each(item,function(name,val){
+                            console.log(val);
+                            var $td = $('<td>').html(val);
+                            $tr.append($td);
+                        });
+                        $table.append($tr);
+                    });
+
+
+                } else {
+                    $.alert('查看新增失败！');
+                }
+            }
+        });
+    }
+
 
     //根据id查出信息并显示
     function getFinanceInfo(id) {

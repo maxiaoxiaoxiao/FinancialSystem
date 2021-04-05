@@ -80,6 +80,9 @@ public class FundProductController {
                                       Model model, HttpSession session) {
         PageHelper.startPage(pageNum, pageSize);
         List<FundProduct> list = fundProductService.selectAllFundProduct();
+        list.forEach( s -> {
+            s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel()) ? ("2".equalsIgnoreCase(s.getRisLevel()) ? "中" : "高") : "低" );
+        });
         PageInfo<FundProduct> pageInfo = new PageInfo<FundProduct>(list, 5);
         model.addAttribute("finacnePageInfo",pageInfo);
         model.addAttribute("financeList",list);
