@@ -72,7 +72,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, username, realname, password, IDcard, phone, email, paypwd, status, reputation
+    id, username, realname, password, IDcard, phone, email, paypwd, status, reputation,risLevel
   </sql>
   <select id="selectByExample" parameterType="com.bjpowernode.finance.entity.UserExample" resultMap="BaseResultMap">
     select

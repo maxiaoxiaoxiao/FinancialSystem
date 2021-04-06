@@ -65,6 +65,11 @@
 															<span class="glyphicon glyphicon-usd"
                                                                   aria-hidden="true"></span> 收藏
                                                 </button>
+                                                <button id="select_common_btn" class="btn btn-primary btn-sm select_btn"
+                                                        th:attr="select-id=${tf.id}">
+															<span class="glyphicon glyphicon-trash"
+                                                                  aria-hidden="true"></span> 查看评论
+                                                </button>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -79,6 +84,42 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- 查看评论的模态框 -->
+                    <div class="modal fade" id="selectCommonModal" tabindex="-1"
+                         role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title">查看期限理财评论</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="table-responsive">
+                                        <table id="monitor-table" class="table table-hover table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th data-field="item0">序号</th>
+                                                <th data-field="item1">评论内容</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">关闭
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </main>
@@ -96,6 +137,55 @@
 <!--自定义js脚本-->
 <script th:src="@{/lyear/js/main.min.js}"></script>
 <script th:inline="javascript">
+
+    //点击查看编辑按钮时触发事件
+    $(document).on("click", ".select_btn", function () {
+        //根据用户id发送ajax请求，查出信息并显示
+        getCommonInfo($(this).attr("select-id"));
+        //把用户的id传递给模态框的更新按钮
+        $("#delete_common_btn").attr("update-id", $(this).attr("update-id"));
+        $("#selectCommonModal").modal({
+            backdrop: "static"
+        });
+    });
+
+
+    //根据id查出信息并显示
+    function getCommonInfo(id) {
+        var $table = $("#monitor-table");
+        $.ajax({
+            url: "/comment/searchComment",
+            type: "POST",
+            async: false,
+            data:JSON.stringify( {
+                "type": 1,
+                "relaId": id
+            }),
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                if (result.code === 100) {
+                    $("#monitor-table tr:gt(0)").remove();//删除第一行外的所有行
+                    var dataObj = result.extend.list;
+                    console.log(JSON.stringify(result.extend.list))
+                    $.each(dataObj,function(index,item){
+                        var $tr = $('<tr>');
+                        $.each(item,function(name,val){
+                            console.log(val);
+                            var $td = $('<td>').html(val);
+                            $tr.append($td);
+                        });
+                        $table.append($tr);
+                    });
+
+
+                } else {
+                    $.alert('查看新增失败！');
+                }
+            }
+        });
+    }
+
+
     $(document).on("click",".buy_btn",function () {
         var termFinancialId = $(this).attr("buyBtnId");
         var userId = [[${session.loginUser.id}]];

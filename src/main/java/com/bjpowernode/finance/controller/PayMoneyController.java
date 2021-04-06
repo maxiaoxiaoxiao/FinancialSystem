@@ -37,6 +37,9 @@ public class PayMoneyController {
     @RequestMapping("/user/finance/toPayMoney.html")
     public String toPaymoney(Model model){
         List<PayMoney> list = payMoneyService.selectAllPayMoney();
+        list.forEach( s -> {
+            s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel()) ? ("2".equalsIgnoreCase(s.getRisLevel()) ? "中" : "高") : "低" );
+        });
         model.addAttribute("payMoneyList",list);
         model.addAttribute("pageTopBarInfo","工资理财界面");
         model.addAttribute("activeUrl1","financeActive");

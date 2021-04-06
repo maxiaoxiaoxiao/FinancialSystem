@@ -21,6 +21,8 @@ public class User {
 
     private String reputation;
 
+    private String risLevel;
+
     public Integer getId() {
         return id;
     }
@@ -99,5 +101,14 @@ public class User {
 
     public void setReputation(String reputation) {
         this.reputation = reputation == null ? null : reputation.trim();
+    }
+
+
+    public String getRisLevel() {
+        return risLevel;
+    }
+
+    public void setRisLevel(String risLevel) {
+        this.risLevel = risLevel;
     }
 }

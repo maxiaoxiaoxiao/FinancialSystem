@@ -36,6 +36,9 @@ public class FundProductController {
     @RequestMapping("/user/finance/toFundProduct.html")
     public String toFundProduct(Model model){
         List<FundProduct> list = fundProductService.selectAllFundProduct();
+        list.forEach( s -> {
+            s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel()) ? ("2".equalsIgnoreCase(s.getRisLevel()) ? "中" : "高") : "低" );
+        });
         model.addAttribute("fundProductList",list);
         model.addAttribute("pageTopBarInfo","基金理财界面");
         model.addAttribute("activeUrl1","financeActive");

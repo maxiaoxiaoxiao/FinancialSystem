@@ -42,6 +42,7 @@
                                             <th class="info">用户名</th>
                                             <th class="info">真实姓名</th>
                                             <th class="info">手机号</th>
+                                            <th class="info">风险级别</th>
                                             <th class="info">邮箱</th>
                                             <th class="info">相关操作</th>
                                         </tr>
@@ -52,6 +53,7 @@
                                             <td th:text="${user.username}"></td>
                                             <td th:text="${user.realname}==null?'未填写':${user.realname}"></td>
                                             <td th:text="${user.phone}==null?'未填写':${user.phone}"></td>
+                                            <td th:text="${user.risLevel}"></td>
                                             <td th:text="${user.email}==null?'未填写':${user.email}"></td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm update_btn"
@@ -63,6 +65,11 @@
                                                         th:attr="delete-id=${user.id},delete-name=${user.username}">
 															<span class="glyphicon glyphicon-trash"
                                                                   aria-hidden="true"></span> 删除
+                                                </button>
+                                                <button id="select_common_btn" class="btn btn-primary btn-sm select_btn"
+                                                        th:attr="select-id=${user.id}">
+															<span class="glyphicon glyphicon-trash"
+                                                                  aria-hidden="true"></span> 理财查看
                                                 </button>
                                             </td>
                                         </tr>
@@ -225,6 +232,29 @@
                                                 <span class="help-block"></span>
                                             </div>
                                         </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">风险级别：</label>
+                                            <div class="col-sm-6">
+                                                <div class="example-box">
+                                                    <label class="lyear-radio radio-inline"> <input
+                                                            type="radio" name="risLevel"
+                                                            value="1" checked="checked"><span>高</span>
+                                                    </label>
+                                                    <label class="lyear-radio radio-inline"> <input
+                                                            type="radio" name="risLevel"
+                                                            value="2"> <span>中</span>
+                                                    </label>
+                                                    <label class="lyear-radio radio-inline"> <input
+                                                            type="radio" name="risLevel"
+                                                            value="3"> <span>低</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -238,6 +268,45 @@
                             </div>
                         </div>
                     </div>
+
+                    <!-- 查看收藏的模态框 -->
+                    <div class="modal fade" id="selectCommonModal" tabindex="-1"
+                         role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title">理财查看</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="table-responsive">
+                                        <table id="monitor-table" class="table table-hover table-striped">
+                                            <thead>
+                                            <tr>
+                                                <th data-field="item0">序号</th>
+                                                <th data-field="item1">理财品类</th>
+                                                <th data-field="item2">产品名称</th>
+                                                <th data-field="item3">风险级别</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">关闭
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
 
                     <!-- 修改用户的模态框 -->
                     <div class="modal fade" id="userUpdateModal" tabindex="-1"
@@ -291,6 +360,28 @@
                                                        id="email_update_input" name="email"
                                                        placeholder="该用户还未填写邮箱：">
                                                 <span class="help-block"></span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">风险级别：</label>
+                                            <div class="col-sm-6">
+                                                <div class="example-box">
+                                                    <label class="lyear-radio radio-inline"> <input
+                                                            type="radio" name="risLevel"
+                                                            value="1" checked="checked"><span>高</span>
+                                                    </label>
+                                                    <label class="lyear-radio radio-inline"> <input
+                                                            type="radio" name="risLevel"
+                                                            value="2"> <span>中</span>
+                                                    </label>
+                                                    <label class="lyear-radio radio-inline"> <input
+                                                            type="radio" name="risLevel"
+                                                            value="3"> <span>低</span>
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
                                             </div>
                                         </div>
                                     </form>
@@ -424,6 +515,52 @@
             }
         });
     });
+
+    //点击查看编辑按钮时触发事件
+    $(document).on("click", ".select_btn", function () {
+        //根据用户id发送ajax请求，查出信息并显示
+        getCommonInfo($(this).attr("select-id"));
+        //把用户的id传递给模态框的更新按钮
+        $("#delete_common_btn").attr("update-id", $(this).attr("update-id"));
+        $("#selectCommonModal").modal({
+            backdrop: "static"
+        });
+    });
+
+
+    //根据id查出信息并显示
+    function getCommonInfo(id) {
+        var $table = $("#monitor-table");
+        $.ajax({
+            url: "/comment/searchFavorites",
+            type: "POST",
+            async: false,
+            data:JSON.stringify( {
+                "id": id
+            }),
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                if (result.code === 100) {
+                    $("#monitor-table tr:gt(0)").remove();//删除第一行外的所有行
+                    var dataObj = result.extend.list;
+                    console.log(JSON.stringify(result.extend.list))
+                    $.each(dataObj,function(index,item){
+                        var $tr = $('<tr>');
+                        $.each(item,function(name,val){
+                            console.log(val);
+                            var $td = $('<td>').html(val);
+                            $tr.append($td);
+                        });
+                        $table.append($tr);
+                    });
+                } else {
+                    $.alert('查看收藏失败！');
+                }
+            }
+        });
+    }
+
+
 
     //点击编辑按钮时触发事件
     $(document).on("click", ".update_btn", function () {
