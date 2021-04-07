@@ -30,9 +30,9 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>资金记录</h4>
+                                <h4>收支记录</h4>
+                                <!-- 新增按钮 -->
                             </div>
-
                             <div th:if="${!flowOfFundsList.isEmpty()}" class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-hover table-striped">
@@ -43,18 +43,26 @@
                                             <th class="info">类型</th>
                                             <th class="info">来源</th>
                                             <th class="info">时间</th>
-                                            <th class="info">备注</th>
+                                            <th class="info">详情</th>
+                                            <th class="info">相关操作</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="fof:${flowOfFundsList}">
                                             <td th:text="${(flowOfFundsPageInfo.pageNum - 1) * flowOfFundsPageInfo.pageSize+fofStat.index+1}"></td>
-                                            <td th:text="${#dates.format(fof.createtime, 'yyyy-MM-dd')}"></td>
+                                            <td th:text="${fof.flowmoney}"></td>
                                             <td th:if="${fof.type==1}" th:text="支出"></td>
                                             <td th:if="${fof.type==2}" th:text="收入"></td>
                                             <td th:text="${fof.source}"></td>
                                             <td th:text="${#dates.format(fof.createtime, 'yyyy-MM-dd')}"></td>
                                             <td th:text="${fof.funddesc}"></td>
+                                            <td>
+                                                <button class="btn btn-danger btn-sm delete_btn"
+                                                        th:attr="delete-id=${fof.id},delete-name=${fof.type}">
+															<span class="glyphicon glyphicon-trash"
+                                                                  aria-hidden="true"></span> 删除
+                                                </button>
+                                            </td>
                                         </tr>
                                         </tbody>
                                     </table>
@@ -63,7 +71,11 @@
                                 <!-- 显示分页信息 -->
                                 <div class="row">
 
-                                    <div class="col-md-5 col-md-offset-1">
+                                    <div class="col-md-1" style="margin-left: 24px">
+                                      <button id="add_modal_btn" class="btn btn-primary">新增</button>
+                                     </div>
+
+                                    <div class="col-md-5 ">
                                         <div class="btn-group">
                                             <button class="btn btn-default">
                                                 <span>页次：</span>
@@ -142,12 +154,105 @@
 
                             <div th:if="${flowOfFundsList.isEmpty()}" class="card-body">
                                 <div class="table-responsive">
-                                    <h4>很抱歉！暂时还没有您的资金记录信息</h4>
+                                    <h4>很抱歉！暂时还没有您的收支记录信息
+
+                                    </h4>
+                                    <div  style="margin-left: 24px">
+                                        <button id="add_modal_btn" class="btn btn-primary">新增</button>
+                                    </div>
                                 </div>
                             </div>
 
+
+
                         </div>
                     </div>
+
+                    <!-- 新增收支记录的模态框 -->
+                    <div class="modal fade" id="addModal" tabindex="-1"
+                         role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title">新增收支记录</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <!--要提交的表单 -->
+                                    <form class="form-horizontal">
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">收支类型：</label>
+                                            <div class="col-sm-6">
+                                                <div class="example-box">
+                                                    <label class="lyear-radio radio-inline">
+                                                        <input type="radio" name="type"
+                                                               value="1" checked="checked"><span>收入</span>
+                                                    </label>
+                                                    <label class="lyear-radio radio-inline">
+                                                        <input type="radio" name="type" id="type_add_input"
+                                                               value="2"> <span>支出</span>
+                                                    </label>
+                                                </div>
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">金额</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="monthmoney_add_input" name="flowmoney"
+                                                       placeholder="请输入金额：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">来源：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="investerm_add_input" name="source"
+                                                       placeholder="请输入来源：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">详情</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="fund_add_input" name="funddesc"
+                                                       placeholder="请输入详情：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">关闭
+                                    </button>
+                                    <button type="button" class="btn btn-primary"
+                                            id="save_btn">保存
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </main>
@@ -164,7 +269,145 @@
 <script th:src="@{/lyear/jconfirm/jquery-confirm.min.js}"></script>
 <!--自定义js脚本-->
 <script th:src="@{/lyear/js/main.min.js}"></script>
-<script th:inline="javascript">
+<script type="text/javascript">
+
+    //点击新增按钮弹出模态框。
+    $("#add_modal_btn").click(function () {
+        //清除表单数据（表单完整重置（表单的数据，表单的样式））
+        reset_form("#addModal form");
+        //弹出模态框
+        $("#addModal").modal({
+            //点击增加框背景不删除增加框
+            backdrop: "static"
+        });
+    });
+
+
+    //点击保存，保存新增产品信息。
+    $("#save_btn").click(function () {
+        //清空表单样式
+        clean_form("#addModal form");
+
+        var monthmoney = $("#monthmoney_add_input").val();
+        var source = $("#investerm_add_input").val();
+        var funddesc = $("#fund_add_input").val();
+
+        var obj = $('input[name="type"]:checked').val();
+        console.log(obj);
+
+        //匹配有1~2位小数的正实数
+        var monthmoneyRegex = /^[0-9]+(.[0-9]{1,2})?$/;
+        if (monthmoney.length === 0) {
+            show_validate_msg("#monthmoney_add_input",
+                "error", "金额为空");
+            return false;
+        } else if (monthmoneyRegex.test(monthmoney) === false) {
+            show_validate_msg("#monthmoney_add_input",
+                "error", "金额不合法（有1~2位小数的正实数）");
+            return false;
+        }
+
+        if (funddesc.length === 0) {
+            show_validate_msg("#investerm_add_input",
+                "error", "详情");
+            return false;
+        }
+
+
+        //2、发送ajax请求保存产品
+        $.ajax({
+            data:JSON.stringify( {
+                "type": obj,
+                "source": source,
+                "flowmoney": monthmoney,
+                "funddesc" : funddesc
+            }),
+            url: "/user/tools/addRecord",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                if (result.code === 100) {
+                    $("#addModal").modal('hide');
+                    $.alert('收支记录添加成功！');
+                    setTimeout(function () {
+                        var pageNum = [[${flowOfFundsPageInfo.pages}]];
+                        var pageSize = [[${flowOfFundsPageInfo.pageSize}]];
+                        location.href = "/user/tools/toRecord.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                    }, 1000);
+                } else {
+                    $.alert('收支记录添加失败！');
+                }
+            }
+        });
+    });
+
+    //单个删除
+    $(document).on("click", ".delete_btn", function () {
+        //1、弹出是否确认删除对话框
+        var id = $(this).attr("delete-id");
+        var type = $(this).attr("delete-name");
+        var name;
+        if (type==1){
+            name="支出";
+        }else if(type==2){
+            name="收入";
+        }
+        $.alert({
+            title: '提示：',
+            content: "确定删除该 <strong>" + name + "</strong> 记录吗？",
+            buttons: {
+                confirm: {
+                    text: '确认',
+                    btnClass: 'btn-primary',
+                    action: function () {
+                        $.ajax({
+                            data:JSON.stringify( {
+                                "id": id
+                            }),
+                            url: "/user/tools/deleteRecord",
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            success: function (result) {
+                                if (result.code === 100) {
+                                    $.alert('删除该收支记录成功！');
+                                    setTimeout(function () {
+                                        var pageNum = [[${flowOfFundsPageInfo.pageNum}]];
+                                        var pageSize = [[${flowOfFundsPageInfo.pageSize}]];
+                                        location.href = "/user/tools/toRecord.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
+                                    }, 1000);
+                                } else {
+                                    $.alert('删除该收支记录失败!');
+                                }
+                            }
+                        });
+                    }
+                },
+                cancel: {
+                    text: '取消',
+                    action: function () {
+                        $.alert('已取消!');
+                    }
+                }
+            }
+        });
+    });
+
+
+    //清空表单样式及内容
+    function reset_form(ele) {
+        $(ele)[0].reset();
+        //清空表单样式
+        $(ele).find("*").removeClass("has-error has-success");
+        $(ele).find(".help-block").text("");
+    }
+
+    //清空表单样式
+    function clean_form(ele) {
+        //清空表单样式
+        $(ele).find("*").removeClass("has-error has-success");
+        $(ele).find(".help-block").text("");
+    }
+
 
 </script>
 </body>

@@ -25,40 +25,38 @@
         <main class="lyear-layout-content">
             <div class="container-fluid">
                 <div class="row">
-                    <div class="col-lg-12">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>新闻资讯</h4>
-                            </div>
+                <div class="col-sm-12">
+                    <div class="card">
+                        <div class="card-header bg-primary">
+                            <h4 th:text="收支记录"></h4>
+                            <ul class="card-actions">
+                            </ul>
+                        </div>
+                        <div class="card-body">
+                            <div id="main" style="width: 600px;height:400px;" class="margin-left: auto; margin-right: auto;"></div>
+                            </p>
                         </div>
                     </div>
-
-                    <div th:if="${!newsList.isEmpty()}" th:each="news:${newsList}">
-                        <div class="col-sm-12">
-                            <div class="card">
-                                <div class="card-header bg-primary">
-                                    <h4 th:text="${news.title}"></h4>
-                                    <ul class="card-actions">
-                                        <li>
-                                            <p th:text="${#dates.format(news.createtime, 'yyyy-MM-dd')}"></p>
-                                        </li>
-                                    </ul>
-                                </div>
-                                <div class="card-body">
-                                    <p th:text="${news.newsdesc}">
-                                    </p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div th:if="${newsList.isEmpty()}" class="card-body">
-                        <div class="table-responsive">
-                            <h4>很抱歉！暂时还没有新闻向您推荐</h4>
-                        </div>
-                    </div>
-
                 </div>
+                </div>
+
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header bg-primary">
+                                <h4 th:text="收藏占比"></h4>
+                                <ul class="card-actions">
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div id="second" style="width: 600px;height:400px;" class="margin-left: auto; margin-right: auto;"></div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </main>
         <!--End 页面主要内容-->
@@ -70,9 +68,91 @@
 <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
 <!--滚动条插件-->
 <script th:src="@{/lyear/js/perfect-scrollbar.min.js}"></script>
+<script th:src="@{/echarts/echarts.min.js}"></script>
 <!--自定义js脚本-->
 <script th:src="@{/lyear/js/main.min.js}"></script>
 <script type="text/javascript">
+
+    var chartDom = document.getElementById('main');
+    var myChart = echarts.init(chartDom);
+    var option;
+
+    option = {
+        title: {
+            text: '收入支出',
+            subtext: '纯属虚构',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+        },
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '50%',
+                data: [
+                    {value: 1048, name: '收入'},
+                    {value: 735, name: '支出'}
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+    option && myChart.setOption(option);
+
+
+    var chart2 = document.getElementById('second');
+    var myChart2 = echarts.init(chart2);
+    var option2;
+
+    option2 = {
+        title: {
+            text: '收藏占比',
+            subtext: '纯属虚构',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+        },
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '50%',
+                data: [
+                    {value: 1048, name: '零钱理财'},
+                    {value: 735, name: '工资理财'},
+                    {value: 580, name: '期限理财'},
+                    {value: 484, name: '基金理财'}
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+    option2 && myChart2.setOption(option2);
 
 </script>
 </body>

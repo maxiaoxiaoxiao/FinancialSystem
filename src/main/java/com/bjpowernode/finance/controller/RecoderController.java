@@ -30,7 +30,7 @@ public class RecoderController {
     FlowOfFundsService flowOfFundsService;
 
     /**
-     * 跳转到资金记录界面
+     * 跳转到收支记录界面
      * @param model
      * @return
      */
@@ -51,7 +51,7 @@ public class RecoderController {
 
         model.addAttribute("flowOfFundsList",list);
         model.addAttribute("flowOfFundsPageInfo",pageInfo);
-        model.addAttribute("pageTopBarInfo", "资金记录界面");
+        model.addAttribute("pageTopBarInfo", "收支记录界面");
         model.addAttribute("activeUrl1", "toolsActive");
         model.addAttribute("activeUrl2", "recordActive");
         return "/user/tools/record";
@@ -63,7 +63,7 @@ public class RecoderController {
      * @param flowOfFunds
      * @return
      */
-    @PostMapping("/user/tools/addRecord")
+    @RequestMapping("/user/tools/addRecord")
     @ResponseBody
     public Msg addRecord(@RequestBody FlowOfFunds flowOfFunds,HttpSession session){
         if (CheckEmptyUtil
@@ -87,11 +87,11 @@ public class RecoderController {
      * @param id
      * @return
      */
-    @GetMapping("/user/tools/deleteRecord/{id}")
-    @ResponseBody
-    public Msg deleteRecord(@PathVariable("id") Integer id){
-
-        return flowOfFundsService.deleteRecord(id);
+        @RequestMapping("/user/tools/deleteRecord")
+        @ResponseBody
+    public Msg deleteRecord(@RequestBody FlowOfFunds flowOfFunds,HttpSession session){
+            Integer id = flowOfFunds.getId();
+            return flowOfFundsService.deleteRecord(id);
     }
 
 }

@@ -168,6 +168,8 @@
                                         </ul>
                                     </nav>
                                 </div>
+
+
                             </div>
 
                         </div>
@@ -536,7 +538,7 @@
     //点击保存，保存新增评论。
     $("#save_common_btn").click(function () {
         //清空表单样式
-        clean_form("#addModal form");
+        clean_form("#addCommonModal form");
         var common = $("#common_add_input").val();
         var id  = $("#relaId").val();
         //2、发送ajax请求保存产品
