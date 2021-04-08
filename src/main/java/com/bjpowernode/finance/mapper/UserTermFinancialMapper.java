@@ -1,5 +1,6 @@
 package com.bjpowernode.finance.mapper;
 
+import com.bjpowernode.finance.entity.TermFinancial;
 import com.bjpowernode.finance.entity.UserTermFinancial;
 import com.bjpowernode.finance.entity.UserTermFinancialExample;
 
@@ -21,7 +22,6 @@ public interface UserTermFinancialMapper {
 
     UserTermFinancial selectByPrimaryKey(Integer id);
 
-    List<UserTermFinancial> selectByExampleWithUserAndTermFinancial(UserTermFinancialExample example);
 
     UserTermFinancial selectByPrimaryKeyWithUserAndTermFinancial(Integer id);
 
@@ -40,4 +40,14 @@ public interface UserTermFinancialMapper {
      * @return
      */
   List<UserTermFinancial> selectUserTermFinancialByUser(@Param("userId") Integer userId);
+
+    /**
+     *
+     * @param userId
+     * @param termFinancialId
+     * @return
+     */
+  Integer selectByUserIdAndtermId(@Param("userId") Integer userId, @Param("termFinancialId") Integer termFinancialId);
+
+    List<TermFinancial> selectUserTermFinancialByUserId(@Param("userId") Integer userId);
 }

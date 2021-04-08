@@ -56,17 +56,7 @@ public class FundProductController {
     @ResponseBody
     public Msg buyFundProduct(@RequestParam("fundProductId")Integer fundProductId,
                               @RequestParam("userId") Integer userId ){
-        UserFundProduct ufp = new UserFundProduct();
-        ufp.setUserid(userId);
-        ufp.setFundid(fundProductId);
-        ufp.setStarttime(new Date());
-        FundProduct fp = fundProductService.selectFundProductById(fundProductId);
-        ufp.setAveryield(fp.getMonthlygrowth());
-        ufp.setProfit(fp.getLeastmoney().multiply(fp.getMonthlygrowth()));
-        ufp.setStatus(1);
-        userFundProductService.insertUserFundProduct(ufp);
-        return Msg.success();
-
+        return userFundProductService.insertUserFundProduct(fundProductId,userId);
     }
 
     /**

@@ -112,20 +112,6 @@
     pm.id, pm.monthMoney, pm.autoInto, pm.type, pm.invesTerm
   </sql>
 
-  <select id="selectByExampleWithUserAndPayMoney" parameterType="com.bjpowernode.finance.entity.UserPayMoneyExample" resultMap="BaseResultMapWithUserAndPayMoney">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List_With_User_And_Pay_Money" />
-    from user_pay_money upm left join user u on upm.userId=u.id left join pay_money pm on upm.payId=pm.id
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByPrimaryKeyWithUserAndPayMoney" parameterType="java.lang.Integer" resultMap="BaseResultMapWithUserAndPayMoney">
     select
     <include refid="Base_Column_List_With_User_And_Pay_Money" />
@@ -234,6 +220,20 @@ FROM
 	user u
 	INNER JOIN pay_money f ON u.fundId = f.id on u.risk_level = f.risk_level
 
+WHERE
+	u.userId = #{userId}
+  </select>
+  <select id="selectByUserIdAndPayId"
+          resultType="java.lang.Integer">
+    select count(id) from user_pay_money where userId = #{userId} and payId = #{payMoneyId}
+  </select>
+  <select id="selectUserPayMoneyByUserId"
+          resultType="com.bjpowernode.finance.entity.PayMoney">
+    		SELECT
+	f.*
+FROM
+	user_pay_money u
+	INNER JOIN pay_money f ON u.payId = f.id
 WHERE
 	u.userId = #{userId}
   </select>

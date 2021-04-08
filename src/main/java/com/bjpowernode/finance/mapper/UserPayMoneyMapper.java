@@ -1,5 +1,6 @@
 package com.bjpowernode.finance.mapper;
 
+import com.bjpowernode.finance.entity.PayMoney;
 import com.bjpowernode.finance.entity.UserPayMoney;
 import com.bjpowernode.finance.entity.UserPayMoneyExample;
 
@@ -21,7 +22,6 @@ public interface UserPayMoneyMapper {
 
     UserPayMoney selectByPrimaryKey(Integer id);
 
-    List<UserPayMoney> selectByExampleWithUserAndPayMoney(UserPayMoneyExample example);
 
     UserPayMoney selectByPrimaryKeyWithUserAndPayMoney(Integer id);
 
@@ -39,4 +39,14 @@ public interface UserPayMoneyMapper {
      * @return
      */
   List<UserPayMoney> selectUserPayMoneyByUser(@Param("userId") Integer userId);
+
+    /**
+     * 查询是否已经收藏过
+     * @param userId
+     * @param payMoneyId
+     * @return
+     */
+  Integer selectByUserIdAndPayId(@Param("userId") Integer userId, @Param("payMoneyId") Integer payMoneyId);
+
+    List<PayMoney> selectUserPayMoneyByUserId(@Param("userId") Integer userId);
 }

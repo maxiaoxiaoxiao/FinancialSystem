@@ -1,5 +1,6 @@
 package com.bjpowernode.finance.mapper;
 
+import com.bjpowernode.finance.entity.OutAndIn;
 import com.bjpowernode.finance.entity.User;
 import com.bjpowernode.finance.entity.UserExample;
 
@@ -31,4 +32,19 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    /**
+     * 查询支出和收入.
+     * @param userId
+     * @return
+     */
+    OutAndIn selectByUser(@Param("userId") Integer userId);
+
+    Integer selectChangeMoney(@Param("userId") Integer userId);
+
+    Integer selectFundProduct(@Param("userId") Integer userId);
+
+    Integer selectPayMoney(@Param("userId") Integer userId);
+
+    Integer selectTermFinancial(@Param("userId") Integer userId);
 }

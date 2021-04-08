@@ -1,15 +1,18 @@
 package com.bjpowernode.finance.service;
 
 
+import com.bjpowernode.finance.common.Msg;
+import com.bjpowernode.finance.entity.PayMoney;
 import com.bjpowernode.finance.entity.UserPayMoney;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface UserPayMoneyService {
 
-    Integer insertUserPayMoney(UserPayMoney userPayMoney);
+    Msg insertUserPayMoney(Integer payMoneyId, Integer userId);
 
-    List<UserPayMoney> selectUserPayMoneyByUserId(Integer userId);
+    List<PayMoney> selectUserPayMoneyByUserId(Integer userId);
 
     Integer updateUserPayMoney(UserPayMoney userPayMoney);
 

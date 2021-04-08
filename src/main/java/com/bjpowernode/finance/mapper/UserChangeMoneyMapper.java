@@ -1,5 +1,6 @@
 package com.bjpowernode.finance.mapper;
 
+import com.bjpowernode.finance.entity.ChangeMoney;
 import com.bjpowernode.finance.entity.UserChangeMoney;
 import com.bjpowernode.finance.entity.UserChangeMoneyExample;
 
@@ -22,8 +23,6 @@ public interface UserChangeMoneyMapper {
 
     UserChangeMoney selectByPrimaryKey(Integer id);
 
-    List<UserChangeMoney> selectByExampleWithUserAndChangeMoney(UserChangeMoneyExample example);
-
     UserChangeMoney selectByPrimaryKeyWithUserAndChangeMoney(Integer id);
 
     int updateByExampleSelective(@Param("record") UserChangeMoney record, @Param("example") UserChangeMoneyExample example);
@@ -40,4 +39,20 @@ public interface UserChangeMoneyMapper {
      * @return
      */
   List<UserChangeMoney> selectUserChangeMoneyByUser(@Param("userId") Integer userId);
+
+    /**
+     * 查询是否存在.
+     * @param userId
+     * @param changeMoneyId
+     * @return
+     */
+  Integer selectByUserIdAndChangeMoneyId(
+      @Param("userId") Integer userId, @Param("changeMoneyId") Integer changeMoneyId);
+
+    /**
+     *
+     * @param userId
+     * @return
+     */
+    List<ChangeMoney> selectUserChangeMoneyByUserId(@Param("userId") Integer userId);
 }

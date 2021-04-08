@@ -55,16 +55,8 @@ public class TermFinancialController {
     @ResponseBody
     public Msg buyTermFinancial(@RequestParam("termFinancialId") Integer termFinancialId,
                                 @RequestParam("userId") Integer userId) {
-        UserTermFinancial utf = new UserTermFinancial();
-        utf.setUserid(userId);
-        utf.setTermid(termFinancialId);
-        utf.setStarttime(new Date());
-        TermFinancial tf = termFinancialService.selectTermFinancialById(termFinancialId);
-        utf.setAveryield(tf.getAnnualincome());
-        utf.setProfit(tf.getAnnualincome().multiply(tf.getLeastmoney()));
-        utf.setStatus(1);
-        Integer result = userTermFinancialService.insertUserTermFinancial(utf);
-        return Msg.fail();
+
+        return userTermFinancialService.insertUserTermFinancial(termFinancialId,userId);
     }
 
     /**

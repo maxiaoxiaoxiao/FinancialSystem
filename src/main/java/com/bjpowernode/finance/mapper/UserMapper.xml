@@ -89,7 +89,7 @@
     </if>
   </select>
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
+    select
     <include refid="Base_Column_List" />
     from user
     where id = #{id,jdbcType=INTEGER}
@@ -105,13 +105,13 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.bjpowernode.finance.entity.User">
-    insert into user (id, username, realname, 
-      password, IDcard, phone, 
-      email, paypwd, status, 
+    insert into user (id, username, realname,
+      password, IDcard, phone,
+      email, paypwd, status,
       reputation)
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{email,jdbcType=VARCHAR}, #{paypwd,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR}, #{idcard,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR},
+      #{email,jdbcType=VARCHAR}, #{paypwd,jdbcType=INTEGER}, #{status,jdbcType=INTEGER},
       #{reputation,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.bjpowernode.finance.entity.User">
@@ -186,6 +186,27 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <select id="selectByUser" resultType="com.bjpowernode.finance.entity.OutAndIn">
+   SELECT
+	sum( IF ( type = 1, flowMoney, 0 ) ) as outMoney,
+	sum( IF ( type = 2, flowMoney, 0 ) ) as inMoney
+FROM
+	flow_of_funds
+WHERE
+	userId = 1
+  </select>
+  <select id="selectChangeMoney" resultType="java.lang.Integer">
+    select count(id) from user_change_money where userId = #{userId}
+  </select>
+  <select id="selectFundProduct" resultType="java.lang.Integer">
+    select count(id) from user_fund_product where userId = #{userId}
+  </select>
+  <select id="selectPayMoney" resultType="java.lang.Integer">
+    select count(id) from user_pay_money where userId = #{userId}
+  </select>
+  <select id="selectTermFinancial" resultType="java.lang.Integer">
+    select count(id) from user_term_financial where userId = #{userId}
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update user

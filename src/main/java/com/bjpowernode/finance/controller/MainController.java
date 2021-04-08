@@ -1,7 +1,8 @@
 package com.bjpowernode.finance.controller;
 
 import com.bjpowernode.finance.entity.Admin;
-import com.bjpowernode.finance.entity.News;
+import com.bjpowernode.finance.entity.Proportion;
+import com.bjpowernode.finance.entity.OutAndIn;
 import com.bjpowernode.finance.entity.User;
 import com.bjpowernode.finance.service.AdminService;
 import com.bjpowernode.finance.service.NewsService;
@@ -94,10 +95,14 @@ public class MainController {
      * @return
      */
     @GetMapping("/user/index.html")
-    public String toUserIndex(Model model){
-        List<News> list = newsService.selectAllNews();
-
-        model.addAttribute("newsList",list);
+    public String toUserIndex(Model model,HttpSession session){
+        User user = (User)session.getAttribute("loginUser");
+        //收入支出
+        OutAndIn outAndIn = userService.selectByUser(user.getId());
+        //收藏占比
+        Proportion proportion = userService.selectCollection(user.getId());
+        model.addAttribute("outAndIn",outAndIn);
+        model.addAttribute("proportion",proportion);
         model.addAttribute("pageTopBarInfo","系统首页");
         model.addAttribute("activeUrl","indexActive");
         return "user/main";

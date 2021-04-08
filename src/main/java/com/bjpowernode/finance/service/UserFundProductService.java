@@ -1,14 +1,17 @@
 package com.bjpowernode.finance.service;
 
+import com.bjpowernode.finance.common.Msg;
+import com.bjpowernode.finance.entity.FundProduct;
 import com.bjpowernode.finance.entity.UserFundProduct;
 
 import java.util.List;
+import org.springframework.web.bind.annotation.RequestParam;
 
 public interface UserFundProductService {
 
-    Integer insertUserFundProduct(UserFundProduct userFundProduct);
+    Msg insertUserFundProduct(Integer fundProductId, Integer userId);
 
-    List<UserFundProduct> selectUserFundProductByUserId(Integer userId);
+    List<FundProduct> selectUserFundProductByUserId(Integer userId);
 
     Integer updateUserFundProduct(UserFundProduct userFundProduct);
 

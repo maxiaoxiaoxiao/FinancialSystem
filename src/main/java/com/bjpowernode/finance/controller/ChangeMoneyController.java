@@ -52,16 +52,8 @@ public class ChangeMoneyController {
     @ResponseBody
     public Msg buyChangeMoney(@RequestParam("changeMoneyId")Integer changeMoneyId,
                               @RequestParam("userId") Integer userId ){
-        ChangeMoney cm = changeMoneyService.selectChangeMoneyById(changeMoneyId);
-        UserChangeMoney ucm = new UserChangeMoney();
-        ucm.setUserid(userId);
-        ucm.setChangeid(changeMoneyId);
-        ucm.setStarttime(new Date());
-        ucm.setAveryield(cm.getAnnualincome());
-        ucm.setProfit(cm.getAnnualincome().multiply(cm.getInvesmoney()));
-        ucm.setStatus(1);
-        userChangeMoneyService.insertUserChangeMoney(ucm);
-        return Msg.success();
+        return userChangeMoneyService.insertUserChangeMoney(changeMoneyId,userId);
+
     }
 
     /**

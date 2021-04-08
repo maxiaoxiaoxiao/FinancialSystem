@@ -1,5 +1,6 @@
 package com.bjpowernode.finance.mapper;
 
+import com.bjpowernode.finance.entity.FundProduct;
 import com.bjpowernode.finance.entity.UserFundProduct;
 import com.bjpowernode.finance.entity.UserFundProductExample;
 
@@ -21,8 +22,6 @@ public interface UserFundProductMapper {
 
     UserFundProduct selectByPrimaryKey(Integer id);
 
-    List<UserFundProduct> selectByExampleWithUserAndFundProduct(UserFundProductExample example);
-
     UserFundProduct selectByPrimaryKeyWithUserAndFundProduct(Integer id);
 
     int updateByExampleSelective(@Param("record") UserFundProduct record, @Param("example") UserFundProductExample example);
@@ -40,4 +39,8 @@ public interface UserFundProductMapper {
      * @return
      */
   List<UserFundProduct> selectUserFundProductByUser(@Param("userId") Integer userId);
+
+    Integer selectByUserIdAndFundId(@Param("userId") Integer userId, @Param("fundProductId") Integer fundProductId);
+
+    List<FundProduct> selectUserFundProductByUserId(@Param("userId") Integer userId);
 }

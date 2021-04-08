@@ -114,20 +114,6 @@
     fp.id, fp.type, fp.code, fp.fundDesc, fp.dailyGrowth, fp.monthlyGrowth, fp.annualGrowth, fp.leastMoney, fp.invesTerm
   </sql>
 
-  <select id="selectByExampleWithUserAndFundProduct" parameterType="com.bjpowernode.finance.entity.UserFundProductExample" resultMap="BaseResultMapWithUserAndFundProduct">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List_With_User_And_FundProduct" />
-    from user_fund_product ufp left join user u on ufp.userId=u.id left join fund_product fp on ufp.fundId=fp.id
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
   <select id="selectByPrimaryKeyWithUserAndFundProduct" parameterType="java.lang.Integer" resultMap="BaseResultMapWithUserAndFundProduct">
     select
     <include refid="Base_Column_List_With_User_And_FundProduct" />
@@ -236,6 +222,19 @@ FROM
 	user u
 	INNER JOIN fund_product f ON u.fundId = f.id on u.risk_level = f.risk_level
 
+WHERE
+	u.userId = #{userId}
+  </select>
+  <select id="selectByUserIdAndFundId" resultType="java.lang.Integer">
+     select count(id) from user_fund_product where userId = #{userId} and fundId = #{fundProductId}
+  </select>
+  <select id="selectUserFundProductByUserId"
+          resultType="com.bjpowernode.finance.entity.FundProduct">
+    SELECT
+	f.*
+FROM
+	user_fund_product u
+	INNER JOIN fund_product f ON u.fundId = f.id
 WHERE
 	u.userId = #{userId}
   </select>

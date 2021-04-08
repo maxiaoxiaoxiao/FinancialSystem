@@ -35,16 +35,16 @@ public class MyFinanceController {
         User user = (User) session.getAttribute("loginUser");
         Integer userId = user.getId();
 
-        List<UserChangeMoney> userChangeMoneyList = userChangeMoneyService.selectUserChangeMoneyByUserId(userId);
+        List<ChangeMoney> userChangeMoneyList = userChangeMoneyService.selectUserChangeMoneyByUserId(userId);
         model.addAttribute("userChangeMoneyList", userChangeMoneyList);
 
-        List<UserPayMoney> userPayMoneyList = userPayMoneyService.selectUserPayMoneyByUserId(userId);
+        List<PayMoney> userPayMoneyList = userPayMoneyService.selectUserPayMoneyByUserId(userId);
         model.addAttribute("userPayMoneyList", userPayMoneyList);
 
-        List<UserTermFinancial> userTermFinancialList = userTermFinancialService.selectUserTermFinancialByUserId(userId);
+        List<TermFinancial> userTermFinancialList = userTermFinancialService.selectUserTermFinancialByUserId(userId);
         model.addAttribute("userTermFinancialList", userTermFinancialList);
 
-        List<UserFundProduct> userFundProductList = userFundProductService.selectUserFundProductByUserId(userId);
+        List<FundProduct> userFundProductList = userFundProductService.selectUserFundProductByUserId(userId);
         model.addAttribute("userFundProductList", userFundProductList);
 
         model.addAttribute("pageTopBarInfo", "我的理财界面");

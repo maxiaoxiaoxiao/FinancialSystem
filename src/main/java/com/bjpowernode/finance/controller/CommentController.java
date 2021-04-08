@@ -2,8 +2,12 @@ package com.bjpowernode.finance.controller;
 
 import com.bjpowernode.finance.common.Msg;
 import com.bjpowernode.finance.entity.Admin;
+import com.bjpowernode.finance.entity.ChangeMoney;
 import com.bjpowernode.finance.entity.Comment;
 import com.bjpowernode.finance.entity.CommonDto;
+import com.bjpowernode.finance.entity.FundProduct;
+import com.bjpowernode.finance.entity.PayMoney;
+import com.bjpowernode.finance.entity.TermFinancial;
 import com.bjpowernode.finance.entity.UseFavorites;
 import com.bjpowernode.finance.entity.User;
 import com.bjpowernode.finance.entity.UserChangeMoney;
@@ -49,7 +53,7 @@ public class CommentController {
      * @return
      */
     @ResponseBody
-    @RequestMapping(value = "addComment")
+    @RequestMapping(value = "/addComment")
     public Msg addComment(@RequestBody Comment comment,HttpSession session) {
       if (CheckEmptyUtil.isEmpty(comment.getAdminId())) {
         Admin admin = (Admin) session.getAttribute("loginAdmin");
@@ -67,7 +71,7 @@ public class CommentController {
    * @return
    */
   @ResponseBody
-  @RequestMapping(value = "searchComment")
+  @RequestMapping(value = "/searchComment")
   public Msg searchComment(@RequestBody Comment comment) {
     List<Comment> list = commentService.searchComment(comment);
     List<CommonDto> cc = new ArrayList<>();
@@ -98,63 +102,63 @@ public class CommentController {
     @ResponseBody
     @RequestMapping(value = "searchFavorites")
     public Msg searchFavorites(@RequestBody User user) {
-//        List<Comment> list = commentService.searchComment(comment);
-        //零钱理财
-        List<UserChangeMoney> userChangeMonies = userChangeMoneyService.selectUserChangeMoneyByUser(user.getId());
-        //工资理财
-        List<UserPayMoney> userPayMonies = userPayMoneyService.selectUserPayMoneyByUserId(user.getId());
-        //期限理财
-        List<UserTermFinancial> userTermFinancials = userTermFinancialService.selectUserTermFinancialByUserId(user.getId());
-        //基金理财
-        List<UserFundProduct> userFundProducts = userFundProductService.selectUserFundProductByUserId(user.getId());
+      //零钱理财
+      List<ChangeMoney> changeMonies = userChangeMoneyService.selectUserChangeMoneyByUserId(user.getId());
+      //工资理财
+      List<PayMoney> payMonies = userPayMoneyService.selectUserPayMoneyByUserId(user.getId());
+      //期限理财
+      List<TermFinancial> termFinancials = userTermFinancialService.selectUserTermFinancialByUserId(user.getId());
+      //基金理财
+      List<FundProduct> fundProducts = userFundProductService.selectUserFundProductByUserId(user.getId());
 
         List<UseFavorites> cc = new ArrayList<>();
         int index =  1;
-        if(CheckEmptyUtil.isNotEmpty(userChangeMonies)){
-            for (UserChangeMoney  c : userChangeMonies) {
+        if(CheckEmptyUtil.isNotEmpty(changeMonies)){
+            for (ChangeMoney  c : changeMonies) {
                 UseFavorites dto = new UseFavorites();
                 dto.setIndex(String.valueOf(index++));
                 dto.setType("零钱理财");
                 //TDDO 加入名称
-                dto.setProductName("名称");
-                dto.setRisLevel("1".equalsIgnoreCase(c.getRisLevel()) ? ("2".equalsIgnoreCase(c.getRisLevel()) ? "中" : "高") : "低" );
+                dto.setProductName(c.getName());
+              dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel()) ? ("2".equalsIgnoreCase(dto.getRisLevel()) ? "中" : "高") : "低" );
                 cc.add(dto);
             }
         }
-        if(CheckEmptyUtil.isNotEmpty(userPayMonies)){
-            for (UserPayMoney  c : userPayMonies) {
+        if(CheckEmptyUtil.isNotEmpty(payMonies)){
+            for (PayMoney  c : payMonies) {
                 UseFavorites dto = new UseFavorites();
                 dto.setIndex(String.valueOf(index++));
                 dto.setType("工资理财");
                 //TDDO 加入名称
-                dto.setProductName("名称");
-                dto.setRisLevel("1".equalsIgnoreCase(c.getRisLevel()) ? ("2".equalsIgnoreCase(c.getRisLevel()) ? "中" : "高") : "低" );
-                cc.add(dto);
+               String type = c.getType() == 1 ? "国债":"期货";
+                dto.setProductName(type + "  " + c.getInvesterm());
+              dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel()) ? ("2".equalsIgnoreCase(dto.getRisLevel()) ? "中" : "高") : "低" );
+
             }
         }
 
 
-        if(CheckEmptyUtil.isNotEmpty(userTermFinancials)){
-            for (UserTermFinancial  c : userTermFinancials) {
+        if(CheckEmptyUtil.isNotEmpty(termFinancials)){
+            for (TermFinancial  c : termFinancials) {
                 UseFavorites dto = new UseFavorites();
                 dto.setIndex(String.valueOf(index++));
                 dto.setType("期限理财");
                 //TDDO加入名称
-                dto.setProductName("名称");
-                dto.setRisLevel("1".equalsIgnoreCase(c.getRisLevel()) ? ("2".equalsIgnoreCase(c.getRisLevel()) ? "中" : "高") : "低" );
+                dto.setProductName(c.getName());
+              dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel()) ? ("2".equalsIgnoreCase(dto.getRisLevel()) ? "中" : "高") : "低" );
                 cc.add(dto);
             }
         }
 
 
-        if(CheckEmptyUtil.isNotEmpty(userFundProducts)){
-            for (UserFundProduct  c : userFundProducts) {
+        if(CheckEmptyUtil.isNotEmpty(fundProducts)){
+            for (FundProduct  c : fundProducts) {
                 UseFavorites dto = new UseFavorites();
                 dto.setIndex(String.valueOf(index++));
                 dto.setType("基金理财");
                 //TDDO加入名称
-                dto.setProductName("名称");
-                dto.setRisLevel("1".equalsIgnoreCase(c.getRisLevel()) ? ("2".equalsIgnoreCase(c.getRisLevel()) ? "中" : "高") : "低" );
+                dto.setProductName(c.getFunddesc());
+              dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel()) ? ("2".equalsIgnoreCase(dto.getRisLevel()) ? "中" : "高") : "低" );
                 cc.add(dto);
             }
         }

@@ -1,5 +1,7 @@
 package com.bjpowernode.finance.service.impl;
 
+import com.bjpowernode.finance.entity.Proportion;
+import com.bjpowernode.finance.entity.OutAndIn;
 import com.bjpowernode.finance.entity.User;
 import com.bjpowernode.finance.entity.UserExample;
 import com.bjpowernode.finance.mapper.UserMapper;
@@ -70,5 +72,24 @@ public class UserServiceImpl implements UserService {
     @Transactional
     public Integer deleteUserById(Integer id) {
         return userMapper.deleteByPrimaryKey(id);
+    }
+
+  @Override
+  public OutAndIn selectByUser(Integer userId) {
+    return userMapper.selectByUser(userId);
+  }
+
+    @Override
+    public Proportion selectCollection(Integer userId) {
+        Integer changeMoney =  userMapper.selectChangeMoney(userId);
+        Integer fundProduct = userMapper.selectFundProduct(userId);
+        Integer payMoney = userMapper.selectPayMoney(userId);
+        Integer termFinancial = userMapper.selectTermFinancial(userId);
+        Proportion proportion = new Proportion();
+        proportion.setChangeMoney(changeMoney);
+        proportion.setFundProduct(fundProduct);
+        proportion.setPayMoney(payMoney);
+        proportion.setTermFinancial(termFinancial);
+        return proportion;
     }
 }

@@ -57,16 +57,7 @@ public class PayMoneyController {
     @ResponseBody
     public Msg buyPayMoney(@RequestParam("payMoneyId")Integer payMoneyId,
                            @RequestParam("userId") Integer userId ){
-        PayMoney pm = payMoneyService.selectPayMoneyById(payMoneyId);
-        UserPayMoney upm = new UserPayMoney();
-        upm.setUserid(userId);
-        upm.setPayid(payMoneyId);
-        upm.setStarttime(new Date());
-        upm.setAveryield(new BigDecimal("0.03123"));
-        upm.setProfit(new BigDecimal("0.03123").multiply(pm.getMonthmoney()));
-        upm.setStatus(1);
-        Integer result = userPayMoneyService.insertUserPayMoney(upm);
-        return Msg.success();
+        return userPayMoneyService.insertUserPayMoney(payMoneyId,userId);
 
     }
 
