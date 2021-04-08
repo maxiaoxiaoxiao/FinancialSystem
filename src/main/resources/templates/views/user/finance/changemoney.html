@@ -180,7 +180,7 @@
 
 
                 } else {
-                    $.alert('查看新增失败！');
+                    $.alert('查看评论失败！');
                 }
             }
         });
@@ -210,7 +210,7 @@
                             },
                             success : function(result) {
                                 if (result.code===100){
-                                    $.alert('收藏成功!');
+                                    $.alert(result.msg);
                                 }else {
                                     $.alert('收藏失败!');
                                 }

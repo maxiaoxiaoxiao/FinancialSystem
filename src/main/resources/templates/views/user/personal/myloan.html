@@ -30,138 +30,173 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>我的借贷</h4>
+                                <h4>调查问卷</h4>
                             </div>
-                            <div th:if="${!loansList.isEmpty()}" class="card-body">
-                                <div class="table-responsive">
-                                    <table class="table table-hover table-striped">
-                                        <thead>
-                                        <tr>
-                                            <th class="info">序号</th>
-                                            <th class="info">借贷资金</th>
-                                            <th class="info">借贷期限</th>
-                                            <th class="info">固定年借贷率</th>
-                                            <th class="info">申请状态</th>
-                                            <th class="info">借贷状态</th>
-                                            <th class="info">操作</th>
-                                        </tr>
-                                        </thead>
-                                        <tbody>
-                                        <tr th:each="loan:${loansList}">
-                                            <td th:text="${(myLoansPageInfo.pageNum - 1) * myLoansPageInfo.pageSize+loanStat.index+1}"></td>
-                                            <td th:text="${#numbers.formatDecimal(loan.amount,1,2)}+'元'"></td>
-                                            <td th:text="${loan.term}+'天'"></td>
-                                            <td th:text="${#numbers.formatDecimal(loan.rate*100,1,2)}+'%'"></td>
-                                            <td th:if="${loan.applystatus==0}" th:text="未审核"></td>
-                                            <td th:if="${loan.applystatus==1}" th:text="审核未通过"></td>
-                                            <td th:if="${loan.applystatus==2}" th:text="审核通过"></td>
-                                            <td th:if="${loan.loanstatus==0}" th:text="未逾期"></td>
-                                            <td th:if="${loan.loanstatus==1}" th:text="逾期"></td>
-                                            <td th:if="${loan.loanstatus==2}" th:text="已还清"></td>
-                                            <td>
-                                                <button class="btn btn-primary btn-sm loan_btn"
-                                                        th:attr="loanBtnId=${loan.id},loanStatus=${loan.loanstatus},
-                                                        loanApplystatus=${loan.applystatus},loanBtnName=${#numbers.formatDecimal(loan.amount,1,2)}+'元'">
-															<span class="glyphicon glyphicon-yen"
-                                                                  aria-hidden="true"></span> 还款
-                                                </button>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
 
-                                <!-- 显示分页信息 -->
-                                <div class="row">
+                            <div class="card">
+                                <div class="card-body">
 
-                                    <!--新增按钮-->
-                                    <div class="col-md-1" style="margin-left: 24px">
-                                        <button id="loan_add_modal_btn" class="btn btn-primary">新增</button>
-                                    </div>
-
-                                    <div class="col-md-5">
-                                        <div class="btn-group">
-                                            <button class="btn btn-default">
-                                                <span>页次：</span>
-                                            </button>
-                                            <button class="btn btn-default">
-                                                <span th:text="${myLoansPageInfo.pageNum}+'/'+${myLoansPageInfo.pages}+'页'"></span>
-                                            </button>
-                                            <button class="btn btn-default">
-                                                <span>每页显示：</span>
-                                            </button>
-                                            <div class="btn-group">
-                                                <button id="btnGroupDrop1"
-                                                        class="btn btn-default dropdown-toggle"
-                                                        data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false"><span
-                                                        th:text="${myLoansPageInfo.pageSize}"></span>
-                                                    <span class="caret"></span>
-                                                </button>
-                                                <ul class="dropdown-menu">
-                                                    <li th:each="i:${#numbers.sequence(1,10)}"><a th:text="${i}"
-                                                                                                  th:href="@{/user/personal/toMyLoan.html(pageNum=${myLoansPageInfo.pageNum},pageSize=${i})}"></a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                            <button class="btn btn-default">
-                                                <span>条</span>
-                                            </button>
-                                            <button class="btn btn-default">
-                                                <span>总记录数：</span>
-                                            </button>
-                                            <button class="btn btn-default">
-                                                <span th:text="${myLoansPageInfo.total}+'条'"></span>
-                                            </button>
+                                    <form>
+                                        <div class="form-group">
+                                            <label>您的性别</label>
+                                                <div class="example-box">
+                                                    <label class="lyear-radio radio-inline">
+                                                        <input type="radio" name="sex"
+                                                               value="1" ><span>男</span>
+                                                    </label>
+                                                    <label class="lyear-radio radio-inline">
+                                                        <input type="radio" name="sex"
+                                                               value="2"> <span>女</span>
+                                                    </label>
+                                                </div>
+                                                <span class="help-block"></span>
                                         </div>
-                                    </div>
 
-                                    <!-- 分页条信息 -->
-                                    <div class="col-md-5">
-                                        <nav aria-label="Page navigation">
-                                            <ul class="pagination pagination-lg pull-right"
-                                                style="margin-top: 0">
-                                                <li>
-                                                    <a th:href="@{/user/personal/toMyLoan.html(pageNum=1,pageSize=${myLoansPageInfo.pageSize})}">首页</a>
-                                                </li>
+                                        <div class="form-group">
+                                            <label>您的年龄是</label>
+                                            <div class="example-box">
+                                                <label class="lyear-radio radio-inline">
+                                                    <input type="radio" name="age"
+                                                           value="1" ><span>20以下</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline">
+                                                    <input type="radio" name="age"
+                                                           value="2"> <span>20到40</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline">
+                                                    <input type="radio" name="age"
+                                                           value="3"> <span>40到60</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline">
+                                                    <input type="radio" name="age"
+                                                           value="4"> <span>60以上</span>
+                                                </label>
+                                            </div>
+                                            <span class="help-block"></span>
+                                        </div>
 
-                                                <li th:if="${myLoansPageInfo.hasPreviousPage }"><a
-                                                        th:href="@{/user/personal/toMyLoan.html(pageNum=${myLoansPageInfo.pageNum}-1,pageSize=${myLoansPageInfo.pageSize})}"
-                                                        aria-label="Previous"> <span aria-hidden="true">&laquo;</span>
-                                                </a></li>
+                                        <div class="form-group">
+                                            <label>偏好什么样的风险</label>
+                                            <div class="example-box">
+                                                <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="risLevel"
+                                                        value="1"><span>低</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="risLevel"
+                                                        value="2"> <span>中</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="risLevel"
+                                                        value="3"> <span>低</span>
+                                                </label>
+                                            </div>
+                                        </div>
 
-                                                <li th:each="page_Num:${myLoansPageInfo.navigatepageNums }"
-                                                    th:class="${page_Num == myLoansPageInfo.pageNum?'active':''}">
-                                                    <a th:if="${page_Num == myLoansPageInfo.pageNum}"
-                                                       th:text="${page_Num}"
-                                                       th:href="@{#}">
-                                                    </a>
-                                                    <a th:text="${page_Num}"
-                                                       th:if="${page_Num != myLoansPageInfo.pageNum}"
-                                                       th:href="@{/user/personal/toMyLoan.html(pageNum=${page_Num},pageSize=${myLoansPageInfo.pageSize})}">
-                                                    </a>
-                                                </li>
+                                        <div class="form-group">
+                                            <label>打算投资多久</label>
+                                            <div class="example-box">
+                                                <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="period"
+                                                        value="1"><span>不固定</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="period"
+                                                        value="2"> <span>1年内</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="period"
+                                                        value="3"> <span>1~3年</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="period"
+                                                        value="4"> <span>3年以上</span>
+                                                </label>
+                                            </div>
+                                        </div>
 
-                                                <li th:if="${myLoansPageInfo.hasNextPage }"><a
-                                                        th:href="@{/user/personal/toMyLoan.html(pageNum=${myLoansPageInfo.pageNum}+1,pageSize=${myLoansPageInfo.pageSize})}"
-                                                        aria-label="Next"> <span aria-hidden="true">&raquo;</span>
-                                                </a></li>
 
-                                                <li><a
-                                                        th:href="@{/user/personal/toMyLoan.html(pageNum=${myLoansPageInfo.pages},pageSize=${myLoansPageInfo.pageSize})}">末页</a>
-                                                </li>
-                                            </ul>
-                                        </nav>
-                                    </div>
+                                        <div class="form-group">
+                                            <label>您的学历是</label>
+                                            <div class="example-box">
+                                                <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="study"
+                                                        value="1"><span>高中/职</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="study"
+                                                        value="2"> <span>本/专科</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="study"
+                                                        value="3"> <span>研究生及以上</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="study"
+                                                        value="4"> <span>初中及以下</span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <label>您有过几年投资经验</label>
+                                            <div class="example-box">
+                                                <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="experience"
+                                                        value="1"><span>1年内</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="experience"
+                                                        value="2"> <span>1～3年</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="experience"
+                                                        value="3"> <span>3年以上</span>
+                                                </label>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="money">您的年收入折合人民币为</label>
+                                            <input class="form-control" type="text" id="money" name="money" placeholder="请输入您的收入">
+                                            <span class="help-block"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="health">请如实告知您的健康状况（已知的疾病）</label>
+                                            <input class="form-control" type="text" id="health" name="health" placeholder="请输入您的健康情况">
+                                            <span class="help-block"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label>假设有两种投资：投资A预期获得5%收益，可能承受的风险很小；投资B预期获得30%收益，但可能承受较大亏损，您会怎么支配您的投资：</label>
+                                            <div class="example-box">
+                                                <label class="lyear-radio radio-inline">
+                                                    <input type="radio" name="checkAB"
+                                                           value="1" ><span>全部投资于收益较大且风险较大的B</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline">
+                                                    <input type="radio" name="checkAB"
+                                                           value="2"> <span>同时投资于A和B，但大部分资金投资收益较大且风险较大的B</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline">
+                                                    <input type="radio" name="checkAB"
+                                                           value="3"> <span>同时投资A和B，但大部分资金投资收益较小且风险较小的A</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline">
+                                                    <input type="radio" name="checkAB"
+                                                           value="4"> <span>全部投资于收益较小且风险较小的A</span>
+                                                </label>
+                                            </div>
+                                            <span class="help-block"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <button class="btn btn-primary" id="submit" type="button">确认</button>
+                                        </div>
+                                    </form>
+
                                 </div>
-
                             </div>
 
-                            <div th:if="${loansList.isEmpty()}" class="card-body">
-                                <div class="table-responsive">
-                                    <h4>很抱歉！暂时还没有查询到您的安全网贷信息</h4>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -182,62 +217,81 @@
 <script th:src="@{/lyear/js/main.min.js}"></script>
 <script th:inline="javascript">
 
-    //跳转到安全网贷界面
-    $("#loan_add_modal_btn").click(function () {
-        location.href = "/user/tools/toApplyLoan.html";
-    });
 
-    //还款
-    $(document).on("click", ".loan_btn", function () {
-        var id = $(this).attr("loanBtnId");
-        var name = $(this).attr("loanBtnName");
-        var loanApplystatus = $(this).attr("loanApplystatus");
-        if (loanApplystatus == 0) {
-            $.alert('请耐心等待管理员审核！');
-            //return false;
-        } else if (loanApplystatus == 1) {
-            $.alert('审核未通过！');
-            //return false;
-        } else if (loanApplystatus == 2) {
-            var loanStatus = $(this).attr("loanStatus");
-            if (loanStatus == 2) {
-                $.alert("已还清！");
-            } else {
-                $.alert({
-                    title: '提示：',
-                    content: "确定还款 <strong>" + name + "</strong> 吗？",
-                    buttons: {
-                        confirm: {
-                            text: '确认',
-                            btnClass: 'btn-primary',
-                            action: function () {
-                                $.ajax({
-                                    url: "/user/repayment/" + id,
-                                    type: "PUT",
-                                    success: function (result) {
-                                        if (result.code === 100) {
-                                            $.alert('还款成功!');
-                                            setTimeout(function () {
-                                                location.href = "/user/personal/toMyLoan.html";
-                                            }, 1000);
-                                        } else {
-                                            $.alert('还款失败!');
-                                        }
-                                    }
-                                });
+
+    //ajax提交网贷申请
+    $("#submit").click(function () {
+        var sex = $('input[name="sex"]:checked').val();
+        var age = $('input[name="age"]:checked').val();
+        var risLevel = $('input[name="risLevel"]:checked').val();
+        var period = $('input[name="period"]:checked').val();
+        var study = $('input[name="study"]:checked').val();
+        var experience = $('input[name="experience"]:checked').val();
+        var money = $("#money").val();
+        var health = $("#health").val();
+        var checkAB = $('input[name="checkAB"]:checked').val();
+        $.alert({
+            title: '提示：',
+            content: "确认您的选项码？",
+            buttons: {
+                confirm: {
+                    text: '确认',
+                    btnClass: 'btn-primary',
+                    action: function(){
+                        $.ajax({
+                            url: "/user/applyLoan",
+                            type: "POST",
+                            contentType: "application/json; charset=utf-8",
+                            data:JSON.stringify( {
+                                "sex": sex,
+                                "age": age,
+                                "risLevel": risLevel,
+                                "period": period,
+                                "study" : study,
+                                "experience" : experience,
+                                "money" : money,
+                                "health" : health,
+                                "checkAB" : checkAB
+                            }),
+                            success: function(result) {
+                                if (result.code === 100) {
+                                    $.alert(result.msg);
+                                    setTimeout(function () {
+                                        location.href = "/user/tools/toApplyLoan.html";
+                                    }, 1000);
+                                } else {
+                                    $.alert('申请失败!');
+                                }
                             }
-                        },
-                        cancel: {
-                            text: '取消',
-                            action: function () {
-                                $.alert('已取消!');
-                            }
-                        }
+                        });
                     }
-                });
+                },
+                cancel: {
+                    text: '取消',
+                    action: function () {
+                        $.alert('已取消!');
+                    }
+                }
             }
+        });
+    }
+
+    //显示校验结果的提示信息
+    function show_validate_msg(ele, status, msg) {
+        //清除当前元素的校验状态
+        $(ele).parent().removeClass("has-success has-error");
+        $(ele).next("span").text("");
+        if ("success" == status) {
+            $(ele).parent().addClass("has-success");
+            $(ele).next("span").text(msg);
+        } else if ("error" == status) {
+            $(ele).parent().addClass("has-error");
+            $(ele).next("span").text(msg);
         }
-    });
+    }
+
+
+
 </script>
 </body>
 </html>
