@@ -29,8 +29,6 @@ public interface UserMapper {
 
     int updateByExample(@Param("record") User record, @Param("example") UserExample example);
 
-    int updateByPrimaryKeySelective(User record);
-
     int updateByPrimaryKey(User record);
 
     /**
@@ -47,4 +45,6 @@ public interface UserMapper {
     Integer selectPayMoney(@Param("userId") Integer userId);
 
     Integer selectTermFinancial(@Param("userId") Integer userId);
+
+    Integer updateUser(@Param("user") User user);
 }

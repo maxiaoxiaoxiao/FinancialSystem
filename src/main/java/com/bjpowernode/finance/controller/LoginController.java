@@ -129,18 +129,4 @@ public class LoginController {
         msg.setCode(100);
         return msg;
     }
-
-    /**
-     * 查询管理员.
-     * @return
-     */
-    @GetMapping("/selectAdmin")
-    @ResponseBody
-    public Msg selectAdmin(){
-        Msg msg = new Msg();
-        List<Admin> list = adminService.selectAdmin();
-        msg.add("list",list);
-        msg.setCode(100);
-        return msg;
-    }
 }

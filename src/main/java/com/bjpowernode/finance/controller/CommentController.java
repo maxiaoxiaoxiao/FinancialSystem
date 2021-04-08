@@ -55,12 +55,20 @@ public class CommentController {
     @ResponseBody
     @RequestMapping(value = "/addComment")
     public Msg addComment(@RequestBody Comment comment,HttpSession session) {
+      Msg msg = new Msg();
+      if (CheckEmptyUtil.isEmpty(comment.getContent())) {
+        msg.setCode(200);
+        msg.setMsg("评论内容不能为空");
+        return msg;
+      }
       if (CheckEmptyUtil.isEmpty(comment.getAdminId())) {
         Admin admin = (Admin) session.getAttribute("loginAdmin");
         comment.setAdminId(admin.getId());
       }
       commentService.addComment(comment);
-      return Msg.success();
+      msg.setCode(100);
+      msg.setMsg("新增评论成功");
+      return msg;
 
     }
 

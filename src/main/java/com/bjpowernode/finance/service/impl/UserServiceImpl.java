@@ -51,7 +51,7 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Integer updateUser(User user) {
-        int result = userMapper.updateByPrimaryKeySelective(user);
+        int result = userMapper.updateUser(user);
         return result;
     }
 
