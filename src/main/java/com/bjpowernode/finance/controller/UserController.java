@@ -1,6 +1,7 @@
 package com.bjpowernode.finance.controller;
 
 import com.bjpowernode.finance.common.Msg;
+import com.bjpowernode.finance.entity.Exam;
 import com.bjpowernode.finance.entity.User;
 import com.bjpowernode.finance.service.UserService;
 import com.github.pagehelper.PageHelper;
@@ -233,4 +234,16 @@ public class UserController {
         return "/admin/userinfo/reputation";
     }
 
+    /**
+     * 问卷调查
+     * @param session
+     * @return
+     */
+    @PostMapping("/user/addRisk")
+    @ResponseBody
+    public Msg addRisk(@RequestBody Exam exam, HttpSession session) {
+        User user = (User)session.getAttribute("loginUser");
+        userService.addRisk(user,exam);
+        return Msg.success();
+    }
 }
