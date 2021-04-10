@@ -99,7 +99,7 @@ public class LoginController {
      * @param admin not null.
      * @return
      */
-    @PostMapping("/addAdmin")
+    @RequestMapping(value = "/addAdmin")
     @ResponseBody
     public Msg addAdmin(@RequestBody Admin admin){
         if (CheckEmptyUtil.isOrEmpty(admin, admin.getUsername(), admin.getPassword())) {
@@ -116,10 +116,11 @@ public class LoginController {
      * @param session
      * @return
      */
-    @GetMapping("/deleteAdmin/{id}")
+    @RequestMapping(value = "/deleteAdmin")
     @ResponseBody
-    public Msg deleteAdmin(@PathVariable("id")Integer id,HttpSession session){
+    public Msg deleteAdmin(@RequestBody Admin admin,HttpSession session){
         Msg msg = new Msg();
+        Integer id = admin.getId();
         if (CheckEmptyUtil.isEmpty(id)) {
             msg.setMsg("请选择删除的管理员");
             msg.setCode(200);

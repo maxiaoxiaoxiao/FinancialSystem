@@ -239,7 +239,7 @@
                     btnClass: 'btn-primary',
                     action: function(){
                         $.ajax({
-                            url: "/user/applyLoan",
+                            url: "/user/addRisk",
                             type: "POST",
                             contentType: "application/json; charset=utf-8",
                             data:JSON.stringify( {
@@ -260,7 +260,7 @@
                                         location.href = "/user/tools/toApplyLoan.html";
                                     }, 1000);
                                 } else {
-                                    $.alert('申请失败!');
+                                    $.alert(result.msg);
                                 }
                             }
                         });

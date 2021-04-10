@@ -9,6 +9,8 @@
     <link th:href="@{/bootstrap/css/bootstrap.css}" rel="stylesheet" type="text/css">
     <!--图标库-->
     <link th:href="@{/lyear/css/materialdesignicons.min.css}" rel="stylesheet" type="text/css"/>
+    <!--弹出框样式-->
+    <link th:href="@{/lyear/jconfirm/jquery-confirm.min.css}" rel="stylesheet" type="text/css"/>
     <!--自定义样式-->
     <link href="../lyear/css/style.min.css" th:href="@{/lyear/css/style.min.css}" rel="stylesheet" type="text/css"/>
 
@@ -40,6 +42,8 @@
                 </div>
                 </div>
 
+                <input id="outAndInInput" th:value="${outAndIn}" hidden ></input>
+                <input id="proportionInput" th:value="${proportion}" hidden></input>
 
                 <div class="row">
                     <div class="col-sm-12">
@@ -69,6 +73,8 @@
 <!--滚动条插件-->
 <script th:src="@{/lyear/js/perfect-scrollbar.min.js}"></script>
 <script th:src="@{/echarts/echarts.min.js}"></script>
+<!--弹出框js-->
+<script th:src="@{/lyear/jconfirm/jquery-confirm.min.js}"></script>
 <!--自定义js脚本-->
 <script th:src="@{/lyear/js/main.min.js}"></script>
 <script type="text/javascript">
@@ -77,10 +83,14 @@
     var myChart = echarts.init(chartDom);
     var option;
 
+
+    var outAndIn  = JSON.parse($("#outAndInInput").val());
+    var proportion = JSON.parse($("#proportionInput").val());
+
     option = {
         title: {
             text: '收入支出',
-            subtext: '纯属虚构',
+            subtext: '',
             left: 'center'
         },
         tooltip: {
@@ -96,8 +106,8 @@
                 type: 'pie',
                 radius: '50%',
                 data: [
-                    {value: 1048, name: '收入'},
-                    {value: 735, name: '支出'}
+                    {value: outAndIn.outMoney, name: '收入'},
+                    {value: outAndIn.inMoney, name: '支出'}
                 ],
                 emphasis: {
                     itemStyle: {
@@ -120,7 +130,7 @@
     option2 = {
         title: {
             text: '收藏占比',
-            subtext: '纯属虚构',
+            subtext: '',
             left: 'center'
         },
         tooltip: {
@@ -136,10 +146,10 @@
                 type: 'pie',
                 radius: '50%',
                 data: [
-                    {value: 1048, name: '零钱理财'},
-                    {value: 735, name: '工资理财'},
-                    {value: 580, name: '期限理财'},
-                    {value: 484, name: '基金理财'}
+                    {value: proportion.changeMoney, name: '零钱理财'},
+                    {value: proportion.payMoney, name: '工资理财'},
+                    {value: proportion.termFinancial, name: '期限理财'},
+                    {value: proportion.fundProduct, name: '基金理财'}
                 ],
                 emphasis: {
                     itemStyle: {
@@ -153,6 +163,14 @@
     };
 
     option2 && myChart2.setOption(option2);
+
+
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]);
+        return null;
+    }
 
 </script>
 </body>

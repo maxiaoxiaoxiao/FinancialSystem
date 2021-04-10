@@ -72,7 +72,7 @@
 															<span class="glyphicon glyphicon-trash"
                                                                   aria-hidden="true"></span> 删除
                                                 </button>
-                                                <button id="add_common_btn" class="btn btn-primary btn-sm"
+                                                <button class="btn btn-primary btn-sm add_btn" id="add_common_btn"
                                                         th:attr="add-id=${finance.id}">
 															<span class="glyphicon glyphicon-trash"
                                                                   aria-hidden="true"></span> 新增评论
@@ -534,7 +534,7 @@
     });
 
     //点击新增评论弹出模态框。
-    $("#add_common_btn").click(function () {
+    $(document).on("click", ".add_btn", function () {
         //清除表单数据（表单完整重置（表单的数据，表单的样式））
         var id = $(this).attr("add-id");  //产品id
         reset_form("#addCommonModal form");
@@ -556,7 +556,7 @@
         //2、发送ajax请求保存产品
         $.ajax({
             data:JSON.stringify( {
-                "type": 3,
+                "type": 4,
                 "relaId": id,
                 "content": common
             }),
@@ -566,14 +566,14 @@
             success: function (result) {
                 if (result.code === 100) {
                     $("#addCommonModal").modal('hide');
-                    $.alert('评论新增成功！');
+                    $.alert(result.msg);
                     setTimeout(function () {
                         var pageNum = [[${finacnePageInfo.pages}]];
                         var pageSize = [[${finacnePageInfo.pageSize}]];
                         location.href = "/admin/finance/toTermFinancial.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
-                    $.alert('评论新增失败！');
+                    $.alert(result.msg);
                 }
             }
         });
@@ -678,7 +678,7 @@
             type: "POST",
             async: false,
             data:JSON.stringify( {
-                "type": 3,
+                "type": 4,
                 "relaId": id
             }),
             contentType: "application/json; charset=utf-8",

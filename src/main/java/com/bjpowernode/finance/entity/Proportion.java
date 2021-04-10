@@ -5,12 +5,12 @@ package com.bjpowernode.finance.entity;
  */
 public class Proportion {
 
-  private Integer changeMoney;
-  private Integer fundProduct;
+  private Integer changeMoney  = 0;
+  private Integer fundProduct = 0;
 
-  private Integer payMoney;
+  private Integer payMoney = 0;
 
-  private Integer termFinancial;
+  private Integer termFinancial = 0;
 
   public Integer getChangeMoney() {
     return changeMoney;

@@ -1,5 +1,6 @@
 package com.bjpowernode.finance.controller;
 
+import com.alibaba.druid.support.json.JSONUtils;
 import com.bjpowernode.finance.entity.Admin;
 import com.bjpowernode.finance.entity.Proportion;
 import com.bjpowernode.finance.entity.OutAndIn;
@@ -7,6 +8,7 @@ import com.bjpowernode.finance.entity.User;
 import com.bjpowernode.finance.service.AdminService;
 import com.bjpowernode.finance.service.NewsService;
 import com.bjpowernode.finance.service.UserService;
+import com.bjpowernode.finance.utils.JsonMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -101,8 +103,8 @@ public class MainController {
         OutAndIn outAndIn = userService.selectByUser(user.getId());
         //收藏占比
         Proportion proportion = userService.selectCollection(user.getId());
-        model.addAttribute("outAndIn",outAndIn);
-        model.addAttribute("proportion",proportion);
+        model.addAttribute("outAndIn", JsonMapper.toJsonString(outAndIn));
+        model.addAttribute("proportion",JsonMapper.toJsonString(proportion));
         model.addAttribute("pageTopBarInfo","系统首页");
         model.addAttribute("activeUrl","indexActive");
         return "user/main";
