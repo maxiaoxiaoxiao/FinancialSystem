@@ -1,5 +1,6 @@
 package com.bjpowernode.finance.service;
 
+import com.bjpowernode.finance.entity.Exam;
 import com.bjpowernode.finance.entity.Proportion;
 import com.bjpowernode.finance.entity.OutAndIn;
 import com.bjpowernode.finance.entity.User;
@@ -35,4 +36,11 @@ public interface UserService {
      * @return
      */
     Proportion selectCollection(Integer userId);
+
+    /**
+     * 增加风险级别.
+     * @param user
+     * @param exam
+     */
+    void addRisk(User user, Exam exam);
 }
