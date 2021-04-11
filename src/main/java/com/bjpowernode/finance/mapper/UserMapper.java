@@ -1,5 +1,6 @@
 package com.bjpowernode.finance.mapper;
 
+import com.bjpowernode.finance.entity.AdminUserRela;
 import com.bjpowernode.finance.entity.OutAndIn;
 import com.bjpowernode.finance.entity.User;
 import com.bjpowernode.finance.entity.UserExample;
@@ -20,6 +21,8 @@ public interface UserMapper {
     int insert(User record);
 
     int insertSelective(User record);
+
+    Integer insertUser(User record);
 
     List<User> selectByExample(UserExample example);
 
@@ -47,4 +50,14 @@ public interface UserMapper {
     Integer selectTermFinancial(@Param("userId") Integer userId);
 
     Integer updateUser(@Param("user") User user);
+
+    List<User> selectAllUser(@Param("adminId") Integer adminId);
+
+    User selectByName(@Param("username") String username);
+
+    void insertAdminUser(@Param("adminId") Integer adminId, @Param("userId") Integer userId);
+
+    AdminUserRela selectAdminUser(@Param("adminId") Integer adminId, @Param("userId") Integer userId);
+
+    void deleteAdminser(@Param("id") Integer id);
 }

@@ -1,12 +1,13 @@
 package com.bjpowernode.finance.service.impl;
 
 import com.bjpowernode.finance.common.Msg;
+import com.bjpowernode.finance.entity.News;
 import com.bjpowernode.finance.entity.TermFinancial;
-import com.bjpowernode.finance.entity.User;
 import com.bjpowernode.finance.entity.UserTermFinancial;
 import com.bjpowernode.finance.mapper.TermFinancialMapper;
 import com.bjpowernode.finance.mapper.UserTermFinancialMapper;
 import com.bjpowernode.finance.service.UserTermFinancialService;
+import java.util.ArrayList;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -71,4 +72,33 @@ public class UserTermFinancialServiceImpl implements UserTermFinancialService {
     public void deleteUserTermFinancial(UserTermFinancial utf) {
         userTermFinancialMapper.deleteByPrimaryKey(utf.getId());
     }
+
+  @Override
+  public void buyTermFinancialList(
+      Integer termFinancialId, List<Integer> userIdList, Integer adminId) {
+        List<News> news = new ArrayList<>();
+        //查询产品名称
+      TermFinancial termFinancial = termFinancialMapper.selectByPrimaryKey(termFinancialId);
+      Date date = new Date();
+      userIdList.stream()
+          .forEach(
+              id -> {
+                  Integer integer =
+                      userTermFinancialMapper.selectByUserIdAndtermId(id,termFinancialId);
+                  if (integer == 0) {
+                      UserTermFinancial userTermFinancial = new UserTermFinancial();
+                      userTermFinancial.setTermid(termFinancialId);
+                      userTermFinancial.setUserid(id);
+                      userTermFinancialMapper.insertSelective(userTermFinancial);
+                  }
+                  News n = new News();
+                  n.setCreatetime(date);
+                  n.setAdminId(adminId);
+                  n.setName(termFinancial.getName());
+                  n.setStatus(0);
+                  n.setUserId(id);
+                  news.add(n);
+              });
+      userTermFinancialMapper.insertNews(news);
+  }
 }

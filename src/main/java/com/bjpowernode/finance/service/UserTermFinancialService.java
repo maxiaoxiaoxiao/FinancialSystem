@@ -24,4 +24,7 @@ public interface UserTermFinancialService {
     List<TermFinancial> selectUserTermFinancialByUser(Integer userId);
 
     void deleteUserTermFinancial(UserTermFinancial utf);
+
+    void buyTermFinancialList(
+        Integer termFinancialId, List<Integer> userIdList, Integer adminId);
 }

@@ -18,6 +18,36 @@ public class ChangeMoney {
 
     private Integer risLevel;
 
+    private String company;
+
+    private String people;
+
+    private String instruction;
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getPeople() {
+        return people;
+    }
+
+    public void setPeople(String people) {
+        this.people = people;
+    }
+
+    public String getInstruction() {
+        return instruction;
+    }
+
+    public void setInstruction(String instruction) {
+        this.instruction = instruction;
+    }
+
     public Integer getId() {
         return id;
     }

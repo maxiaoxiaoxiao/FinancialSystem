@@ -15,6 +15,38 @@ public class PayMoney {
 
     private String risLevel;
 
+    private String company;
+
+    private String people;
+
+    private String instruction;
+
+    private String name;
+
+    public String getCompany() {
+        return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
+    }
+
+    public String getPeople() {
+        return people;
+    }
+
+    public void setPeople(String people) {
+        this.people = people;
+    }
+
+    public String getInstruction() {
+        return instruction;
+    }
+
+    public void setInstruction(String instruction) {
+        this.instruction = instruction;
+    }
+
 
     public Integer getId() {
         return id;
@@ -62,6 +94,14 @@ public class PayMoney {
 
     public void setInvesterm(String investerm) {
         this.investerm = investerm == null ? null : investerm.trim();
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }
 

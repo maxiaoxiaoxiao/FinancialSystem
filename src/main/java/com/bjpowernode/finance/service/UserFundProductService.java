@@ -24,4 +24,7 @@ public interface UserFundProductService {
   List<FundProduct> selectUserFundProductByUser(Integer userId);
 
     void deleteUserFundProduct(UserFundProduct ufp);
+
+  void insertUserFundProductList(
+      Integer fundProductId, List<Integer> userIdList, Integer adminId);
 }

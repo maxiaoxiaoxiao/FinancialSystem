@@ -87,7 +87,7 @@ public class UserRealm extends AuthorizingRealm {
             return new SimpleAuthenticationInfo(user.getUsername(), user.getPassword(), "");
         }
 
-        Admin admin = adminService.selectAdminByTerms(userToken.getUsername(), null);
+        Admin admin = adminService.selectAdminByName(userToken.getUsername());
         if (admin!=null){
             Subject currentSubject = SecurityUtils.getSubject();
             Session session = currentSubject.getSession();

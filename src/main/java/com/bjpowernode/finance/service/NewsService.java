@@ -3,8 +3,9 @@ package com.bjpowernode.finance.service;
 import com.bjpowernode.finance.entity.News;
 
 import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface NewsService {
 
-    List<News> selectAllNews();
+    String selectAllNews(@Param("id") Integer id);
 }

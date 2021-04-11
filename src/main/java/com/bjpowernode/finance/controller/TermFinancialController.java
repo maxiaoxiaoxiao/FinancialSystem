@@ -1,6 +1,7 @@
 package com.bjpowernode.finance.controller;
 
 import com.bjpowernode.finance.common.Msg;
+import com.bjpowernode.finance.entity.Admin;
 import com.bjpowernode.finance.entity.FlowOfFunds;
 import com.bjpowernode.finance.entity.TermFinancial;
 import com.bjpowernode.finance.entity.UserTermFinancial;
@@ -59,6 +60,15 @@ public class TermFinancialController {
         return userTermFinancialService.insertUserTermFinancial(termFinancialId,userId);
     }
 
+    @PostMapping("/user/buyTermFinancialList")
+    @ResponseBody
+    public Msg buyTermFinancialList(@RequestParam("termFinancialId") Integer termFinancialId,
+                                @RequestParam("userIdList") List<Integer> userIdList,HttpSession session) {
+
+        Admin admin = (Admin)session.getAttribute("loginAdmin");
+        userTermFinancialService.buyTermFinancialList(termFinancialId,userIdList,admin.getId());
+        return Msg.success();
+    }
     /**
      * 跳转到期限理财管理界面（管理员）
      * @param pageNum

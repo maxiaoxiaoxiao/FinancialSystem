@@ -2,10 +2,13 @@ package com.bjpowernode.finance.service.impl;
 
 import com.bjpowernode.finance.common.Msg;
 import com.bjpowernode.finance.entity.FundProduct;
+import com.bjpowernode.finance.entity.News;
 import com.bjpowernode.finance.entity.UserFundProduct;
 import com.bjpowernode.finance.mapper.FundProductMapper;
 import com.bjpowernode.finance.mapper.UserFundProductMapper;
+import com.bjpowernode.finance.mapper.UserTermFinancialMapper;
 import com.bjpowernode.finance.service.UserFundProductService;
+import java.util.ArrayList;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +22,8 @@ public class UserFundProductServiceImpl implements UserFundProductService {
     UserFundProductMapper userFundProductMapper;
     @Autowired
     FundProductMapper fundProductMapper;
+    @Autowired
+    UserTermFinancialMapper userTermFinancialMapper;
 
     @Override
     @Transactional
@@ -71,4 +76,33 @@ public class UserFundProductServiceImpl implements UserFundProductService {
     public void deleteUserFundProduct(UserFundProduct ufp) {
         userFundProductMapper.deleteByPrimaryKey(ufp.getId());
     }
+
+  @Override
+  public void insertUserFundProductList(
+      Integer fundProductId, List<Integer> userIdList, Integer adminId) {
+        List<News> news = new ArrayList<>();
+      FundProduct fundProduct = fundProductMapper.selectByPrimaryKey(fundProductId);
+      Date date = new Date();
+      userIdList.stream()
+          .forEach(
+              id -> {
+                  Integer integer =
+                      userFundProductMapper.selectByUserIdAndFundId(id, fundProductId);
+                  if (integer == 0) {
+                      UserFundProduct userFundProduct = new UserFundProduct();
+                      userFundProduct.setFundid(fundProductId);
+                      userFundProduct.setUserid(id);
+                      userFundProductMapper.insertSelective(userFundProduct);
+                  }
+                  News n = new News();
+                  n.setCreatetime(date);
+                  n.setAdminId(adminId);
+                  n.setName(fundProduct.getFunddesc());
+                  n.setStatus(0);
+                  n.setUserId(id);
+                  news.add(n);
+              });
+
+      userTermFinancialMapper.insertNews(news);
+  }
 }

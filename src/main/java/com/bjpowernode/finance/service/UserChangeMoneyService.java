@@ -25,4 +25,14 @@ public interface UserChangeMoneyService {
   List<ChangeMoney> selectUserChangeMoneyByUser(Integer userId);
 
     void deletUserChangeMoney(UserChangeMoney ucm);
+
+  /**
+   * 推荐理财.
+   * @param changeMoneyId
+   * @param userIdList
+   * @param adminId
+   * @return
+   */
+  void insertUserListChangeMoney(
+      Integer changeMoneyId, List<Integer> userIdList, Integer adminId);
 }

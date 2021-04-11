@@ -40,4 +40,8 @@ public interface AdminMapper {
      * @return
      */
   List<Admin> selectAdmin();
+
+    Admin selectById(@Param("id") Integer id);
+
+    Admin selectAdminByName(@Param("username") String username);
 }
