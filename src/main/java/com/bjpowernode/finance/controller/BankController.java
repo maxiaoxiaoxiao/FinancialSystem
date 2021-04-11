@@ -2,6 +2,10 @@ package com.bjpowernode.finance.controller;
 
 import com.bjpowernode.finance.common.Msg;
 import com.bjpowernode.finance.entity.Bank;
+import com.bjpowernode.finance.entity.ChangeMoney;
+import com.bjpowernode.finance.entity.FundProduct;
+import com.bjpowernode.finance.entity.PayMoney;
+import com.bjpowernode.finance.entity.TermFinancial;
 import com.bjpowernode.finance.entity.User;
 import com.bjpowernode.finance.entity.UserChangeMoney;
 import com.bjpowernode.finance.entity.UserFundProduct;
@@ -64,20 +68,20 @@ public class BankController {
     public String toLiCai(Model model, HttpSession session) {
         User user = (User) session.getAttribute("loginUser");
         Integer userId = user.getId();
-        List<UserChangeMoney> userChangeMoneyList = userChangeMoneyService.selectUserChangeMoneyByUser(userId);
+        List<ChangeMoney> userChangeMoneyList = userChangeMoneyService.selectUserChangeMoneyByUser(userId);
         model.addAttribute("userChangeMoneyList", userChangeMoneyList);
 
-        List<UserPayMoney> userPayMoneyList = userPayMoneyService.selectUserPayMoneyByUser(userId);
+        List<PayMoney> userPayMoneyList = userPayMoneyService.selectUserPayMoneyByUser(userId);
         model.addAttribute("userPayMoneyList", userPayMoneyList);
 
-        List<UserTermFinancial> userTermFinancialList = userTermFinancialService.selectUserTermFinancialByUser(userId);
+        List<TermFinancial> userTermFinancialList = userTermFinancialService.selectUserTermFinancialByUser(userId);
         model.addAttribute("userTermFinancialList", userTermFinancialList);
 
-        List<UserFundProduct> userFundProductList = userFundProductService.selectUserFundProductByUser(userId);
+        List<FundProduct> userFundProductList = userFundProductService.selectUserFundProductByUser(userId);
         model.addAttribute("userFundProductList", userFundProductList);
         model.addAttribute("pageTopBarInfo","理财推荐界面");
         model.addAttribute("activeUrl1","financeActive");
-        model.addAttribute("activeUrl2","liCaiActive");
+        model.addAttribute("activeUrl2","bankActive");
         return "user/finance/liCai";
     }
 

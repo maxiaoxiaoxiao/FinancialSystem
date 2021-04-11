@@ -38,7 +38,7 @@ public interface UserChangeMoneyMapper {
      * @param userId
      * @return
      */
-  List<UserChangeMoney> selectUserChangeMoneyByUser(@Param("userId") Integer userId);
+  List<ChangeMoney> selectUserChangeMoneyByUser(@Param("userId") Integer userId);
 
     /**
      * 查询是否存在.

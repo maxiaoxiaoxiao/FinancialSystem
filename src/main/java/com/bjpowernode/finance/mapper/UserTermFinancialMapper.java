@@ -39,7 +39,7 @@ public interface UserTermFinancialMapper {
      * @param userId
      * @return
      */
-  List<UserTermFinancial> selectUserTermFinancialByUser(@Param("userId") Integer userId);
+  List<TermFinancial> selectUserTermFinancialByUser(@Param("userId") Integer userId);
 
     /**
      *

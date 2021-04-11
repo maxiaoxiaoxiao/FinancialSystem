@@ -5,7 +5,6 @@ import com.bjpowernode.finance.entity.TermFinancial;
 import com.bjpowernode.finance.entity.UserTermFinancial;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestParam;
 
 public interface UserTermFinancialService {
 
@@ -22,5 +21,5 @@ public interface UserTermFinancialService {
      * @param userId
      * @return
      */
-    List<UserTermFinancial> selectUserTermFinancialByUser(Integer userId);
+    List<TermFinancial> selectUserTermFinancialByUser(Integer userId);
 }

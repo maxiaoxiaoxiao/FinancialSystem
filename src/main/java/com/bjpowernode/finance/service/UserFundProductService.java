@@ -5,7 +5,6 @@ import com.bjpowernode.finance.entity.FundProduct;
 import com.bjpowernode.finance.entity.UserFundProduct;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestParam;
 
 public interface UserFundProductService {
 
@@ -22,5 +21,5 @@ public interface UserFundProductService {
    * @param userId
    * @return
    */
-  List<UserFundProduct> selectUserFundProductByUser(Integer userId);
+  List<FundProduct> selectUserFundProductByUser(Integer userId);
 }

@@ -3,12 +3,10 @@ package com.bjpowernode.finance.service.impl;
 import com.bjpowernode.finance.common.Msg;
 import com.bjpowernode.finance.entity.TermFinancial;
 import com.bjpowernode.finance.entity.UserTermFinancial;
-import com.bjpowernode.finance.entity.UserTermFinancialExample;
 import com.bjpowernode.finance.mapper.TermFinancialMapper;
 import com.bjpowernode.finance.mapper.UserTermFinancialMapper;
 import com.bjpowernode.finance.service.UserTermFinancialService;
 import java.util.Date;
-import java.util.concurrent.atomic.AtomicIntegerFieldUpdater;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,7 +61,7 @@ public class UserTermFinancialServiceImpl implements UserTermFinancialService {
     }
 
   @Override
-  public List<UserTermFinancial> selectUserTermFinancialByUser(Integer userId) {
+  public List<TermFinancial> selectUserTermFinancialByUser(Integer userId) {
 
         return userTermFinancialMapper.selectUserTermFinancialByUser(userId);
   }

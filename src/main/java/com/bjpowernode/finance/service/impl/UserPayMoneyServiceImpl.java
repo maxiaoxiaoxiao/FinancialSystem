@@ -64,7 +64,7 @@ public class UserPayMoneyServiceImpl implements UserPayMoneyService {
     }
 
   @Override
-  public List<UserPayMoney> selectUserPayMoneyByUser(Integer userId) {
+  public List<PayMoney> selectUserPayMoneyByUser(Integer userId) {
 
         return userPayMoneyMapper.selectUserPayMoneyByUser(userId);
   }

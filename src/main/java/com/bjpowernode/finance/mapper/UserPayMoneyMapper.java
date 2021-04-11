@@ -38,7 +38,7 @@ public interface UserPayMoneyMapper {
      * @param userId
      * @return
      */
-  List<UserPayMoney> selectUserPayMoneyByUser(@Param("userId") Integer userId);
+  List<PayMoney> selectUserPayMoneyByUser(@Param("userId") Integer userId);
 
     /**
      * 查询是否已经收藏过

@@ -3,7 +3,6 @@ package com.bjpowernode.finance.service.impl;
 import com.bjpowernode.finance.common.Msg;
 import com.bjpowernode.finance.entity.FundProduct;
 import com.bjpowernode.finance.entity.UserFundProduct;
-import com.bjpowernode.finance.entity.UserFundProductExample;
 import com.bjpowernode.finance.mapper.FundProductMapper;
 import com.bjpowernode.finance.mapper.UserFundProductMapper;
 import com.bjpowernode.finance.service.UserFundProductService;
@@ -63,7 +62,7 @@ public class UserFundProductServiceImpl implements UserFundProductService {
     }
 
   @Override
-  public List<UserFundProduct> selectUserFundProductByUser(Integer userId) {
+  public List<FundProduct> selectUserFundProductByUser(Integer userId) {
 
         return userFundProductMapper.selectUserFundProductByUser(userId);
   }

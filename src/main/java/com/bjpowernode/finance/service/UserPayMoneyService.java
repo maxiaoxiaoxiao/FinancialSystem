@@ -23,5 +23,5 @@ public interface UserPayMoneyService {
    * @param userId
    * @return
    */
-  List<UserPayMoney> selectUserPayMoneyByUser(Integer userId);
+  List<PayMoney> selectUserPayMoneyByUser(Integer userId);
 }

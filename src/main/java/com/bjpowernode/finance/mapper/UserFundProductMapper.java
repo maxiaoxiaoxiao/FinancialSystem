@@ -38,7 +38,7 @@ public interface UserFundProductMapper {
      * @param userId
      * @return
      */
-  List<UserFundProduct> selectUserFundProductByUser(@Param("userId") Integer userId);
+  List<FundProduct> selectUserFundProductByUser(@Param("userId") Integer userId);
 
     Integer selectByUserIdAndFundId(@Param("userId") Integer userId, @Param("fundProductId") Integer fundProductId);
 

@@ -23,5 +23,5 @@ public interface UserChangeMoneyService {
    * @param userId
    * @return
    */
-  List<UserChangeMoney> selectUserChangeMoneyByUser(Integer userId);
+  List<ChangeMoney> selectUserChangeMoneyByUser(Integer userId);
 }

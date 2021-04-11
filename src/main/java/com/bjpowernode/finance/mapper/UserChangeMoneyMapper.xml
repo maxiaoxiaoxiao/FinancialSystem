@@ -215,7 +215,7 @@
     </if>
   </select>
   <select id="selectUserChangeMoneyByUser"
-          resultType="com.bjpowernode.finance.entity.UserChangeMoney">
+          resultType="com.bjpowernode.finance.entity.ChangeMoney">
     	SELECT
 	f.*
 FROM

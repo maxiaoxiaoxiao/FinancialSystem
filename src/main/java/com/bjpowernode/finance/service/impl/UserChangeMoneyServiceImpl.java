@@ -63,7 +63,7 @@ public class UserChangeMoneyServiceImpl implements UserChangeMoneyService {
     }
 
   @Override
-  public List<UserChangeMoney> selectUserChangeMoneyByUser(Integer userId) {
+  public List<ChangeMoney> selectUserChangeMoneyByUser(Integer userId) {
 
       return userChangeMoneyMapper.selectUserChangeMoneyByUser(userId);
   }
