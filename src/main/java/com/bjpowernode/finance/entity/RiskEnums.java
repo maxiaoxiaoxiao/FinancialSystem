@@ -5,9 +5,9 @@ package com.bjpowernode.finance.entity;
  * @since 2021/4/10 11:32
  */
 public enum RiskEnums {
-  ONE(1,5),
+  ONE(1,15),
   SECOND(2,10),
-  THREE(3,15)
+  THREE(3,5)
   ;
   private Integer select;
 

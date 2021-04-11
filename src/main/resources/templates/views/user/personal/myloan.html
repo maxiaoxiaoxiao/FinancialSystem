@@ -80,7 +80,7 @@
                                             <div class="example-box">
                                                 <label class="lyear-radio radio-inline"> <input
                                                         type="radio" name="risLevel"
-                                                        value="1"><span>低</span>
+                                                        value="1"><span>高</span>
                                                 </label>
                                                 <label class="lyear-radio radio-inline"> <input
                                                         type="radio" name="risLevel"
@@ -158,10 +158,24 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label for="money">您的年收入折合人民币为</label>
-                                            <input class="form-control" type="text" id="money" name="money" placeholder="请输入您的收入">
-                                            <span class="help-block"></span>
+                                            <label>您的年收入折合人民币为</label>
+                                            <div class="example-box">
+                                                <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="money"
+                                                        value="1"><span>>=10W</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="money"
+                                                        value="2"> <span>5-10W</span>
+                                                </label>
+                                                <label class="lyear-radio radio-inline"> <input
+                                                        type="radio" name="money"
+                                                        value="3"> <span>5W以下</span>
+                                                </label>
+                                            </div>
                                         </div>
+
+
                                         <div class="form-group">
                                             <label for="health">请如实告知您的健康状况（已知的疾病）</label>
                                             <input class="form-control" type="text" id="health" name="health" placeholder="请输入您的健康情况">
@@ -227,7 +241,7 @@
         var period = $('input[name="period"]:checked').val();
         var study = $('input[name="study"]:checked').val();
         var experience = $('input[name="experience"]:checked').val();
-        var money = $("#money").val();
+        var money =   $('input[name="money"]:checked').val();
         var health = $("#health").val();
         var checkAB = $('input[name="checkAB"]:checked').val();
         $.alert({

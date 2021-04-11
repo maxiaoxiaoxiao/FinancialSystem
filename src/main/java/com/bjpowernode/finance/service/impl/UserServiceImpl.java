@@ -109,7 +109,7 @@ public class UserServiceImpl implements UserService {
             score + AgeEnums.getScoreByS(exam.getAge()) + RiskEnums.getScoreByS(exam.getRisLevel())
                 + PeriodEnums.getScoreByS(exam.getPeriod()) + ExperienceEnums
                 .getScoreByS(exam.getExperience()) + MoneyEnums.getScoreByS(exam.getMoney())
-                + CheckAbEnums.getScoreByS(exam.getCheckAb());
+                + CheckAbEnums.getScoreByS(exam.getCheckAB());
         if (CheckEmptyUtil.isEmpty(exam.getHealth())) {
             score = score + 10;
         }

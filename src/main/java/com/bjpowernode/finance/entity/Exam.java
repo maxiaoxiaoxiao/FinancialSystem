@@ -33,7 +33,7 @@ public class Exam {
   private Integer money;
 
 
-  private Integer checkAb;
+  private Integer checkAB;
 
   private String health;
 
@@ -93,19 +93,19 @@ public class Exam {
     this.money = money;
   }
 
-  public Integer getCheckAb() {
-    return checkAb;
-  }
-
-  public void setCheckAb(Integer checkAb) {
-    this.checkAb = checkAb;
-  }
-
   public String getHealth() {
     return health;
   }
 
   public void setHealth(String health) {
     this.health = health;
+  }
+
+  public Integer getCheckAB() {
+    return checkAB;
+  }
+
+  public void setCheckAB(Integer checkAB) {
+    this.checkAB = checkAB;
   }
 }
