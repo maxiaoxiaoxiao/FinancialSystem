@@ -144,7 +144,7 @@ public class UserController {
         PageHelper.startPage(pageNum, pageSize);
         List<User> list = userService.selectAllUser();
         list.forEach( s -> {
-            s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel()) ? ("2".equalsIgnoreCase(s.getRisLevel()) ? "中" : "高") : "低" );
+            s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
         });
         // 使用PageInfo包装查询后的结果，并交给页面处理
         // PageInfo封装了详细的分页信息，包括我们查询出来的数据，还可以传入连续显示的页数（5）

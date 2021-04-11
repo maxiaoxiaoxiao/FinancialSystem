@@ -492,8 +492,9 @@
                 return false;
             }
         }
-        var pwd = $("#password").val();
-        $("#password").val($.md5(pwd));
+        if(password){
+          $("#password_add_input").val($.md5(password));
+        }
         //2、发送ajax请求保存用户
         $.ajax({
             url: "/user/addUser",
@@ -598,6 +599,7 @@
     $("#user_update_btn").click(function () {
         //清空表单样式
         clean_form("#userUpdateModal form");
+
 
         var realname = $("#realname_update_input").val();
         var phone = $("#phone_update_input").val();

@@ -128,7 +128,7 @@ public class CommentController {
                 dto.setType("零钱理财");
                 //TDDO 加入名称
                 dto.setProductName(c.getName());
-              dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel()) ? ("2".equalsIgnoreCase(dto.getRisLevel()) ? "中" : "高") : "低" );
+              dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel())? "高":("2".equalsIgnoreCase(dto.getRisLevel())?"中":"低"));
                 cc.add(dto);
             }
         }
@@ -140,7 +140,7 @@ public class CommentController {
                 //TDDO 加入名称
                String type = c.getType() == 1 ? "国债":"期货";
                 dto.setProductName(type + "  " + c.getInvesterm());
-              dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel()) ? ("2".equalsIgnoreCase(dto.getRisLevel()) ? "中" : "高") : "低" );
+              dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel())? "高":("2".equalsIgnoreCase(dto.getRisLevel())?"中":"低"));
 
             }
         }
@@ -153,7 +153,7 @@ public class CommentController {
                 dto.setType("期限理财");
                 //TDDO加入名称
                 dto.setProductName(c.getName());
-              dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel()) ? ("2".equalsIgnoreCase(dto.getRisLevel()) ? "中" : "高") : "低" );
+              dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel())? "高":("2".equalsIgnoreCase(dto.getRisLevel())?"中":"低"));
                 cc.add(dto);
             }
         }
@@ -166,7 +166,7 @@ public class CommentController {
                 dto.setType("基金理财");
                 //TDDO加入名称
                 dto.setProductName(c.getFunddesc());
-              dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel()) ? ("2".equalsIgnoreCase(dto.getRisLevel()) ? "中" : "高") : "低" );
+              dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel())? "高":("2".equalsIgnoreCase(dto.getRisLevel())?"中":"低"));
                 cc.add(dto);
             }
         }

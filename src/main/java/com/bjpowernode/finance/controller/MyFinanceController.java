@@ -40,7 +40,7 @@ public class MyFinanceController {
 
         List<PayMoney> userPayMoneyList = userPayMoneyService.selectUserPayMoneyByUserId(userId);
         userPayMoneyList.forEach( s -> {
-            s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel()) ? ("2".equalsIgnoreCase(s.getRisLevel()) ? "中" : "高") : "低" );
+            s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
         });
         model.addAttribute("userPayMoneyList", userPayMoneyList);
 
@@ -50,7 +50,7 @@ public class MyFinanceController {
         List<FundProduct> userFundProductList = userFundProductService.selectUserFundProductByUserId(userId);
         model.addAttribute("userFundProductList", userFundProductList);
         userFundProductList.forEach( s -> {
-            s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel()) ? ("2".equalsIgnoreCase(s.getRisLevel()) ? "中" : "高") : "低" );
+            s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
         });
 
         model.addAttribute("pageTopBarInfo", "我的理财界面");

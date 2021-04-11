@@ -147,6 +147,9 @@
       <if test="reputation != null">
         reputation,
       </if>
+      <if test="risLevel != null">
+        risLevel,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -178,6 +181,9 @@
       </if>
       <if test="reputation != null">
         #{reputation,jdbcType=VARCHAR},
+      </if>
+      <if test="risLevel != null">
+        #{risLevel,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -280,11 +286,11 @@ WHERE
 
     UPDATE `user`
     SET
-    <if test="user.username != null">
-      `username` = #{user.username},
-    </if>
     <if test="user.realname != null">
       `realname` = #{user.realname},
+    </if>
+    <if test="user.username != null">
+      `username` = #{user.username},
     </if>
     <if test="user.password != null">
       `password` = #{user.password},
@@ -298,9 +304,6 @@ WHERE
     <if test="user.email != null">
       `email` = #{user.email},
     </if>
-    <if test="user.risLevel != null">
-      `risLevel` = #{user.risLevel},
-    </if>
     <if test="user.status != null">
     `status` = #{user.status},
   </if>
@@ -308,7 +311,10 @@ WHERE
       `reputation` = #{user.reputation},
     </if>
     <if test="user.paypwd != null">
-      `paypwd` = #{user.paypwd}
+      `paypwd` = #{user.paypwd},
+    </if>
+    <if test="user.risLevel != null">
+      `risLevel` = #{user.risLevel}
     </if>
        WHERE `id` = #{user.id}
   </update>

@@ -38,7 +38,7 @@ public class PayMoneyController {
     public String toPaymoney(Model model){
         List<PayMoney> list = payMoneyService.selectAllPayMoney();
         list.forEach( s -> {
-            s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel()) ? ("2".equalsIgnoreCase(s.getRisLevel()) ? "中" : "高") : "低" );
+            s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
         });
         model.addAttribute("payMoneyList",list);
         model.addAttribute("pageTopBarInfo","工资理财界面");
@@ -76,7 +76,7 @@ public class PayMoneyController {
         PageHelper.startPage(pageNum, pageSize);
         List<PayMoney> list = payMoneyService.selectAllPayMoney();
         list.forEach( s -> {
-            s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel()) ? ("2".equalsIgnoreCase(s.getRisLevel()) ? "中" : "高") : "低" );
+            s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
         });
         PageInfo<PayMoney> pageInfo = new PageInfo<PayMoney>(list, 5);
         model.addAttribute("finacnePageInfo",pageInfo);
