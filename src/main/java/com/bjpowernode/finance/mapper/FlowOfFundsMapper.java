@@ -46,5 +46,5 @@ public interface FlowOfFundsMapper {
      * @param type
      * @return
      */
-    List<FlowOfFunds> selectFlowOfFunds(@Param("userId") Integer userId, @Param("type") Integer type);
+    List<FlowOfFunds> selectFlowOfFunds(@Param("userId") Integer userId);
 }

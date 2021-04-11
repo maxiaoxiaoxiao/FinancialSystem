@@ -2,6 +2,7 @@ package com.bjpowernode.finance.service.impl;
 
 import com.bjpowernode.finance.common.Msg;
 import com.bjpowernode.finance.entity.TermFinancial;
+import com.bjpowernode.finance.entity.User;
 import com.bjpowernode.finance.entity.UserTermFinancial;
 import com.bjpowernode.finance.mapper.TermFinancialMapper;
 import com.bjpowernode.finance.mapper.UserTermFinancialMapper;
@@ -56,8 +57,8 @@ public class UserTermFinancialServiceImpl implements UserTermFinancialService {
     }
 
     @Override
-    public UserTermFinancial selectUserTermFinancialById(Integer id) {
-        return userTermFinancialMapper.selectByPrimaryKeyWithUserAndTermFinancial(id);
+    public UserTermFinancial selectUserTermFinancialById(Integer id, Integer userId) {
+        return userTermFinancialMapper.selectByPrimaryKeyWithUserAndTermFinancial(id, userId);
     }
 
   @Override
@@ -65,4 +66,9 @@ public class UserTermFinancialServiceImpl implements UserTermFinancialService {
 
         return userTermFinancialMapper.selectUserTermFinancialByUser(userId);
   }
+
+    @Override
+    public void deleteUserTermFinancial(UserTermFinancial utf) {
+        userTermFinancialMapper.deleteByPrimaryKey(utf.getId());
+    }
 }

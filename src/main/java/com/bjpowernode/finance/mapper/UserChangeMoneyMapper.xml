@@ -117,7 +117,7 @@
     select
     <include refid="Base_Column_List_With_User_And_ChangeMoney" />
     from user_change_money ucm left join user u on ucm.userId=u.id left join change_money cm on ucm.changeId=cm.id
-    where ucm.id = #{id,jdbcType=INTEGER}
+    where ucm.changeId = #{id,jdbcType=INTEGER} and ucm.userId = #{userId}
   </select>
 
 
@@ -220,9 +220,9 @@
 	f.*
 FROM
 	user u
-	INNER JOIN fund_product f ON u.fundId = f.id and u.risk_level = f.risk_level
+	INNER JOIN change_money f ON  u.risLevel = f.risLevel
 WHERE
-	u.userId = #{userId}
+	u.id = #{userId}
   </select>
   <select id="selectByUserIdAndChangeMoneyId" resultType="java.lang.Integer">
     select count(id) from user_change_money where userId = #{userId} and changeId = #{changeMoneyId}

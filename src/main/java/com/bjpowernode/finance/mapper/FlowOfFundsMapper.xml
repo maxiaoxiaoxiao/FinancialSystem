@@ -162,10 +162,6 @@
     <if test="userId != null">
       and userId = #{userId}
     </if>
-    <if test="type != null">
-      and type = #{type}
-    </if>
-
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update flow_of_funds

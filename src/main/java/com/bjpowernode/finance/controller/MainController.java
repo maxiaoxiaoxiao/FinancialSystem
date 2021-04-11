@@ -8,6 +8,7 @@ import com.bjpowernode.finance.entity.User;
 import com.bjpowernode.finance.service.AdminService;
 import com.bjpowernode.finance.service.NewsService;
 import com.bjpowernode.finance.service.UserService;
+import com.bjpowernode.finance.utils.CheckEmptyUtil;
 import com.bjpowernode.finance.utils.JsonMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -101,6 +102,9 @@ public class MainController {
         User user = (User)session.getAttribute("loginUser");
         //收入支出
         OutAndIn outAndIn = userService.selectByUser(user.getId());
+        if(CheckEmptyUtil.isEmpty(outAndIn)){
+            outAndIn = new OutAndIn();
+        }
         //收藏占比
         Proportion proportion = userService.selectCollection(user.getId());
         model.addAttribute("outAndIn", JsonMapper.toJsonString(outAndIn));

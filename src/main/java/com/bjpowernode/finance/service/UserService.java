@@ -42,5 +42,5 @@ public interface UserService {
      * @param user
      * @param exam
      */
-    void addRisk(User user, Exam exam);
+    String addRisk(User user, Exam exam);
 }

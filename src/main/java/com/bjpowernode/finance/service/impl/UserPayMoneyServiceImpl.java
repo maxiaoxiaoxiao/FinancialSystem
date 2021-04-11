@@ -59,8 +59,8 @@ public class UserPayMoneyServiceImpl implements UserPayMoneyService {
     }
 
     @Override
-    public UserPayMoney selectUserPayMoneyById(Integer id) {
-        return userPayMoneyMapper.selectByPrimaryKeyWithUserAndPayMoney(id);
+    public UserPayMoney selectUserPayMoneyById(Integer id,Integer userId) {
+        return userPayMoneyMapper.selectByPrimaryKeyWithUserAndPayMoney(id,userId);
     }
 
   @Override
@@ -68,4 +68,9 @@ public class UserPayMoneyServiceImpl implements UserPayMoneyService {
 
         return userPayMoneyMapper.selectUserPayMoneyByUser(userId);
   }
+
+    @Override
+    public void deleteUserPayMoney(UserPayMoney upm) {
+        userPayMoneyMapper.deleteByPrimaryKey(upm.getId());
+    }
 }

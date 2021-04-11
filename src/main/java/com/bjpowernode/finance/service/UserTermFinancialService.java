@@ -14,7 +14,7 @@ public interface UserTermFinancialService {
 
     Integer updateUserTermFinancial(UserTermFinancial userTermFinancial);
 
-    UserTermFinancial selectUserTermFinancialById(Integer id);
+    UserTermFinancial selectUserTermFinancialById(Integer id, Integer userId);
 
     /**
      * 推荐的期限理财.
@@ -22,4 +22,6 @@ public interface UserTermFinancialService {
      * @return
      */
     List<TermFinancial> selectUserTermFinancialByUser(Integer userId);
+
+    void deleteUserTermFinancial(UserTermFinancial utf);
 }

@@ -28,35 +28,255 @@
                     <div class="col-lg-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4>银行推荐</h4>
+                                <h4>推荐理财</h4>
                             </div>
-                        </div>
-                    </div>
 
-                    <div th:if="${!bankList.isEmpty()}" th:each="bank:${bankList}">
-                        <div class="col-sm-12">
-                            <div class="card">
-                                <div class="card-header bg-primary">
-                                    <h4 th:text="${bank.name+'  ('+bank.type+')'}"></h4>
-                                    <ul class="card-actions">
-                                        <li>
-                                            <h4 th:text="${'资产：'+bank.assets}"></h4>
-                                        </li>
-                                    </ul>
+                            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+
+                                <!--零钱理财 -->
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading" role="tab" id="headingOne">
+                                        <h4 class="panel-title">
+                                            <a role="button" data-toggle="collapse" data-parent="#accordion"
+                                               href="#collapseOne"
+                                               aria-expanded="true" aria-controls="collapseOne">
+                                                零钱理财
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseOne"
+                                         th:class="${session.myFinanceActiveUrl=='changeMoneyActive'?'panel-collapse collapse in':'panel-collapse collapse'}"
+                                         class="panel-collapse collapse in" role="tabpanel"
+                                         aria-labelledby="headingOne">
+                                        <div th:if="${!userChangeMoneyList.isEmpty()}" class="panel-body">
+
+                                            <table class="table table-hover table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th class="info">序号</th>
+                                                    <th class="info">产品名称</th>
+                                                    <th class="info">七日年化收益率</th>
+                                                    <th class="info">每万元收益</th>
+                                                    <th class="info">投资期限</th>
+                                                    <th class="info">起投金额</th>
+                                                    <th class="info">风险级别</th>
+                                                    <th class="info">相关操作</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="ucm:${userChangeMoneyList}">
+                                                    <td th:text="${ucmStat.index+1}"></td>
+                                                    <td th:text="${ucm.name}"></td>
+                                                    <td th:text="${#numbers.formatDecimal(ucm.annualincome*100,1,3)}+'%'"></td>
+                                                    <td th:text="${#numbers.formatDecimal(ucm.peiincome,1,2)}+'元'"></td>
+                                                    <td th:text="${ucm.investerm}"></td>
+                                                    <td th:text="${ucm.invesmoney}+'元'"></td>
+                                                    <td th:if="${ucm.risLevel==null}" th:text="空"></td>
+                                                    <td th:if="${ucm.risLevel==1}" th:text="高"></td>
+                                                    <td th:if="${ucm.risLevel==2}" th:text="中"></td>
+                                                    <td th:if="${ucm.risLevel==3}" th:text="低"></td>
+                                                    <td>
+                                                        <button class="btn btn-danger btn-sm ucm_btn"
+                                                                th:attr="ucmBtnId=${ucm.id},ucmBtnName=${ucm.name}">
+															<span class="glyphicon glyphicon-remove"
+                                                                  aria-hidden="true"></span> 撤销
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                        <div th:if="${userChangeMoneyList.isEmpty()}" class="panel-body">
+                                            <h4>很抱歉！暂时还没有查询到您的零钱理财信息</h4>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="card-body">
-                                    <div th:utext="${bank.bankdesc}"></div>
+
+                                <!--工资理财 -->
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading" role="tab" id="headingTwo">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse"
+                                               data-parent="#accordion"
+                                               href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                                工资理财
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseTwo"
+                                         th:class="${session.myFinanceActiveUrl=='payMoneyActive'?'panel-collapse collapse in':'panel-collapse collapse'}"
+                                         role="tabpanel"
+                                         aria-labelledby="headingTwo">
+                                        <div th:if="${!userPayMoneyList.isEmpty()}" class="panel-body">
+                                            <table class="table table-hover table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th class="info">序号</th>
+                                                    <th class="info">产品类型</th>
+                                                    <th class="info">每月金额设定</th>
+                                                    <th class="info">自动转入</th>
+                                                    <th class="info">投资期限</th>
+                                                    <th class="info">风险级别</th>
+                                                    <th class="info">相关操作</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="upm:${userPayMoneyList}">
+                                                    <td th:text="${upmStat.index+1}"></td>
+                                                    <td th:if="${upm.type==1}" th:text="国债"></td>
+                                                    <td th:if="${upm.type==2}" th:text="期货"></td>
+                                                    <td th:text="${#numbers.formatDecimal(upm.monthmoney,1,2)}+'元'"></td>
+                                                    <td th:if="${upm.autointo==1}" th:text="是"></td>
+                                                    <td th:if="${upm.autointo==2}" th:text="否"></td>
+                                                    <td th:text="${upm.investerm}"></td>
+                                                    <td th:text="${upm.risLevel}"></td>
+                                                    <td>
+                                                        <button class="btn btn-danger btn-sm upm_btn"
+                                                                th:attr="upmBtnId=${upm.id},upmBtnName=${upm.type}">
+															<span class="glyphicon glyphicon-remove"
+                                                                  aria-hidden="true"></span> 撤销
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <div th:if="${userPayMoneyList.isEmpty()}" class="panel-body">
+                                            <h4>很抱歉！暂时还没有查询到您的工资理财信息</h4>
+                                        </div>
+
+                                    </div>
                                 </div>
+
+                                <!--期限理财 -->
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading" role="tab" id="headingThree">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse"
+                                               data-parent="#accordion"
+                                               href="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">
+                                                期限理财
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseThree"
+                                         th:class="${session.myFinanceActiveUrl=='termFinancialActive'?'panel-collapse collapse in':'panel-collapse collapse'}"
+                                         role="tabpanel"
+                                         aria-labelledby="headingThree">
+                                        <div th:if="${!userTermFinancialList.isEmpty()}" class="panel-body">
+
+                                            <table class="table table-hover table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th class="info">序号</th>
+                                                    <th class="info">产品名称</th>
+                                                    <th class="info">收益方式</th>
+                                                    <th class="info">七日年化收益率</th>
+                                                    <th class="info">起投金额</th>
+                                                    <th class="info">投资期限</th>
+                                                    <th class="info">风险级别</th>
+                                                    <th class="info">相关操作</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="utf:${userTermFinancialList}">
+                                                    <td th:text="${utfStat.index+1}"></td>
+                                                    <td th:text="${utf.name}"></td>
+                                                    <td th:if="${utf.profit==1}" th:text="收益性"></td><td th:if="${utf.profit==2}" th:text="净值型"></td>
+                                                    <td th:text="${#numbers.formatDecimal(utf.annualincome*100,1,2)}+'%'"></td>
+                                                    <td th:text="${#numbers.formatDecimal(utf.leastmoney,1,2)}+'元'"></td>
+                                                    <td th:text="${utf.investerm}"></td>
+                                                    <td th:if="${utf.risLevel==null}" th:text="空"></td>
+                                                    <td th:if="${utf.risLevel==1}" th:text="高"></td>
+                                                    <td th:if="${utf.risLevel==2}" th:text="中"></td>
+                                                    <td th:if="${utf.risLevel==3}" th:text="低"></td>
+                                                    <td>
+                                                        <button class="btn btn-danger btn-sm utf_btn"
+                                                                th:attr="utfBtnId=${utf.id},utfBtnName=${utf.name}">
+															<span class="glyphicon glyphicon-remove"
+                                                                  aria-hidden="true"></span> 撤销
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                        <div th:if="${userTermFinancialList.isEmpty()}" class="panel-body">
+                                            <h4>很抱歉！暂时还没有查询到您的期限理财信息</h4>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--基金理财 -->
+                                <div class="panel panel-primary">
+                                    <div class="panel-heading" role="tab" id="headingFour">
+                                        <h4 class="panel-title">
+                                            <a class="collapsed" role="button" data-toggle="collapse"
+                                               data-parent="#accordion"
+                                               href="#collapseFour" aria-expanded="false" aria-controls="collapseTwo">
+                                                基金理财
+                                            </a>
+                                        </h4>
+                                    </div>
+                                    <div id="collapseFour"
+                                         th:class="${session.myFinanceActiveUrl=='fundProductActive'?'panel-collapse collapse in':'panel-collapse collapse'}"
+                                         role="tabpanel"
+                                         aria-labelledby="headingFour">
+                                        <div th:if="${!userFundProductList.isEmpty()}" class="panel-body">
+
+                                            <table class="table table-hover table-striped">
+                                                <thead>
+                                                <tr>
+                                                    <th class="info">序号</th>
+                                                    <th class="info">基金代码</th>
+                                                    <th class="info">基金简称</th>
+                                                    <th class="info">基金类型</th>
+                                                    <th class="info">日增长率</th>
+                                                    <th class="info">月增长率</th>
+                                                    <th class="info">年增长率</th>
+                                                    <th class="info">起投金额</th>
+                                                    <th class="info">投资期限</th>
+                                                    <th class="info">风险级别</th>
+                                                    <th class="info">相关操作</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="ufp:${userFundProductList}">
+                                                    <td th:text="${ufpStat.index+1}"></td>
+                                                    <td th:text="${ufp.code}"></td>
+                                                    <td th:text="${ufp.funddesc}"></td>
+                                                    <td th:if="${ufp.type==1}" th:text="股票型基金"></td><td th:if="${ufp.type==2}" th:text="债券型基金"></td>
+                                                    <td th:if="${ufp.type==3}" th:text="货币型基金"></td><td th:if="${ufp.type==4}" th:text="混合型基金"></td>
+                                                    <td th:text="${#numbers.formatDecimal(ufp.dailygrowth*100,1,2)}+'%'"></td>
+                                                    <td th:text="${#numbers.formatDecimal(ufp.monthlygrowth*100,1,2)}+'%'"></td>
+                                                    <td th:text="${#numbers.formatDecimal(ufp.annualgrowth*100,1,2)}+'%'"></td>
+                                                    <td th:text="${#numbers.formatDecimal(ufp.leastmoney,1,2)}+'元'"></td>
+                                                    <td th:text="${ufp.investerm}"></td>
+                                                    <td th:text="${ufp.risLevel}"></td>
+                                                    <td>
+                                                        <button class="btn btn-danger btn-sm ufp_btn"
+                                                                th:attr="ufpBtnId=${ufp.id},ufpBtnName=${ufp.funddesc}">
+															<span class="glyphicon glyphicon-remove"
+                                                                  aria-hidden="true"></span> 撤销
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+
+                                        </div>
+                                        <div th:if="${userFundProductList.isEmpty()}" class="panel-body">
+                                            <h4>很抱歉！暂时还没有查询到推荐基金理财信息</h4>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
+
                         </div>
                     </div>
-
-                    <div th:if="${bankList.isEmpty()}" class="card-body">
-                        <div class="table-responsive">
-                            <h4>很抱歉！暂时还没有银行向您推荐</h4>
-                        </div>
-                    </div>
-
                 </div>
             </div>
         </main>

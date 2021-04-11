@@ -23,7 +23,7 @@ public interface UserTermFinancialMapper {
     UserTermFinancial selectByPrimaryKey(Integer id);
 
 
-    UserTermFinancial selectByPrimaryKeyWithUserAndTermFinancial(Integer id);
+    UserTermFinancial selectByPrimaryKeyWithUserAndTermFinancial(@Param("id") Integer id, @Param("userId") Integer userId);
 
     int updateByExampleSelective(@Param("record") UserTermFinancial record, @Param("example") UserTermFinancialExample example);
 

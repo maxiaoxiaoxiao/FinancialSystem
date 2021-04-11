@@ -32,7 +32,7 @@ public enum AgeEnums {
         return tem.getScore();
       }
     }
-    return null;
+    return 0;
   }
 
 }

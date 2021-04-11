@@ -200,7 +200,7 @@
 FROM
 	flow_of_funds
 WHERE
-	userId = 1
+	userId = #{userId}
   </select>
   <select id="selectChangeMoney" resultType="java.lang.Integer">
     select count(id) from user_change_money where userId = #{userId}
@@ -286,6 +286,7 @@ WHERE
 
     UPDATE `user`
     SET
+    <trim  suffixOverrides=",">
     <if test="user.realname != null">
       `realname` = #{user.realname},
     </if>
@@ -314,8 +315,9 @@ WHERE
       `paypwd` = #{user.paypwd},
     </if>
     <if test="user.risLevel != null">
-      `risLevel` = #{user.risLevel}
+      `risLevel` = #{user.risLevel},
     </if>
+    </trim>
        WHERE `id` = #{user.id}
   </update>
 </mapper>

@@ -65,56 +65,42 @@ public class MyFinanceController {
     @PutMapping("/user/revokeUserChangeMoney")
     @ResponseBody
     public Msg revokeUserChangeMoney(@RequestParam("userChangeMoneyId") Integer userChangeMoneyId, HttpSession session) {
-        UserChangeMoney ucm = userChangeMoneyService.selectUserChangeMoneyById(userChangeMoneyId);
-        ucm.setStatus(3);
-        Integer result = userChangeMoneyService.updateUserChangeMoney(ucm);
-        if (result == 1) {
-            session.setAttribute("myFinanceActiveUrl", "changeMoneyActive");
-            return Msg.success();
-        }
-        return Msg.fail();
+        User user = (User)session.getAttribute("loginUser");
+        UserChangeMoney ucm = userChangeMoneyService.selectUserChangeMoneyById(userChangeMoneyId,user.getId());
+        userChangeMoneyService.deletUserChangeMoney(ucm);
+        session.setAttribute("myFinanceActiveUrl", "changeMoneyActive");
+        return Msg.success();
     }
 
     @PutMapping("/user/revokeUserPayMoney")
     @ResponseBody
     public Msg revokeUserPayMoney(@RequestParam("userPayMoneyId") Integer userPayMoneyId, HttpSession session) {
-        UserPayMoney upm = userPayMoneyService.selectUserPayMoneyById(userPayMoneyId);
-        upm.setStatus(3);
-        Integer result = userPayMoneyService.updateUserPayMoney(upm);
-
-        if (result == 1) {
-            session.setAttribute("myFinanceActiveUrl", "payMoneyActive");
-            return Msg.success();
-        }
-        return Msg.fail();
+        User user = (User)session.getAttribute("loginUser");
+        UserPayMoney upm = userPayMoneyService.selectUserPayMoneyById(userPayMoneyId,user.getId());
+        userPayMoneyService.deleteUserPayMoney(upm);
+        session.setAttribute("myFinanceActiveUrl", "payMoneyActive");
+        return Msg.success();
     }
 
     @PutMapping("/user/revokeUserTermFinancial")
     @ResponseBody
     public Msg revokeUserTermFinancial(@RequestParam("userTermFinancialId") Integer userTermFinancialId, HttpSession session) {
-        UserTermFinancial utf = userTermFinancialService.selectUserTermFinancialById(userTermFinancialId);
-        utf.setStatus(3);
-        Integer result = userTermFinancialService.updateUserTermFinancial(utf);
-
-        if (result == 1) {
-            session.setAttribute("myFinanceActiveUrl", "termFinancialActive");
-            return Msg.success();
-        }
-        return Msg.fail();
+        User user = (User)session.getAttribute("loginUser");
+        UserTermFinancial utf = userTermFinancialService.selectUserTermFinancialById(userTermFinancialId,user.getId());
+        userTermFinancialService.deleteUserTermFinancial(utf);
+        session.setAttribute("myFinanceActiveUrl", "termFinancialActive");
+        return Msg.success();
     }
 
     @PutMapping("/user/revokeUserFundProduct")
     @ResponseBody
     public Msg revokeUserFundProduct(@RequestParam("userFundProductId") Integer userFundProductId,HttpSession session) {
 
-        UserFundProduct ufp = userFundProductService.selectUserFundProductById(userFundProductId);
-        ufp.setStatus(3);
-        Integer result = userFundProductService.updateUserFundProduct(ufp);
+        User user = (User) session.getAttribute("loginUser");
+        UserFundProduct ufp = userFundProductService.selectUserFundProductById(userFundProductId, user.getId());
+        userFundProductService.deleteUserFundProduct(ufp);
 
-        if (result == 1) {
-            session.setAttribute("myFinanceActiveUrl", "fundProductActive");
-            return Msg.success();
-        }
-        return Msg.fail();
+        session.setAttribute("myFinanceActiveUrl", "fundProductActive");
+        return Msg.success();
     }
 }

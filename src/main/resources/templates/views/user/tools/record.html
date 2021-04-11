@@ -51,8 +51,8 @@
                                         <tr th:each="fof:${flowOfFundsList}">
                                             <td th:text="${(flowOfFundsPageInfo.pageNum - 1) * flowOfFundsPageInfo.pageSize+fofStat.index+1}"></td>
                                             <td th:text="${fof.flowmoney}"></td>
-                                            <td th:if="${fof.type==1}" th:text="支出"></td>
-                                            <td th:if="${fof.type==2}" th:text="收入"></td>
+                                            <td th:if="${fof.type==1}" th:text="收入"></td>
+                                            <td th:if="${fof.type==2}" th:text="支出"></td>
                                             <td th:text="${fof.source}"></td>
                                             <td th:text="${#dates.format(fof.createtime, 'yyyy-MM-dd')}"></td>
                                             <td th:text="${fof.funddesc}"></td>
@@ -216,7 +216,7 @@
                                         </div>
 
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">来源：</label>
+                                            <label class="col-sm-2 control-label">来源</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
                                                        id="investerm_add_input" name="source"

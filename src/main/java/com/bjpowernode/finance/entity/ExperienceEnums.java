@@ -31,6 +31,6 @@ public enum ExperienceEnums {
         return tem.getScore();
       }
     }
-    return null;
+    return 0;
   }
 }

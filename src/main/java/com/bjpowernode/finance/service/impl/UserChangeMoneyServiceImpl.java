@@ -3,7 +3,6 @@ package com.bjpowernode.finance.service.impl;
 import com.bjpowernode.finance.common.Msg;
 import com.bjpowernode.finance.entity.ChangeMoney;
 import com.bjpowernode.finance.entity.UserChangeMoney;
-import com.bjpowernode.finance.entity.UserChangeMoneyExample;
 import com.bjpowernode.finance.mapper.ChangeMoneyMapper;
 import com.bjpowernode.finance.mapper.UserChangeMoneyMapper;
 import com.bjpowernode.finance.service.UserChangeMoneyService;
@@ -58,8 +57,8 @@ public class UserChangeMoneyServiceImpl implements UserChangeMoneyService {
     }
 
     @Override
-    public UserChangeMoney selectUserChangeMoneyById(Integer id) {
-        return userChangeMoneyMapper.selectByPrimaryKeyWithUserAndChangeMoney(id);
+    public UserChangeMoney selectUserChangeMoneyById(Integer id, Integer userId) {
+        return userChangeMoneyMapper.selectByPrimaryKeyWithUserAndChangeMoney(id,userId);
     }
 
   @Override
@@ -67,4 +66,9 @@ public class UserChangeMoneyServiceImpl implements UserChangeMoneyService {
 
       return userChangeMoneyMapper.selectUserChangeMoneyByUser(userId);
   }
+
+    @Override
+    public void deletUserChangeMoney(UserChangeMoney ucm) {
+        userChangeMoneyMapper.deleteByPrimaryKey(ucm.getId());
+    }
 }

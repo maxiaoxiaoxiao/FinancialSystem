@@ -23,7 +23,7 @@ public interface UserPayMoneyMapper {
     UserPayMoney selectByPrimaryKey(Integer id);
 
 
-    UserPayMoney selectByPrimaryKeyWithUserAndPayMoney(Integer id);
+    UserPayMoney selectByPrimaryKeyWithUserAndPayMoney(@Param("id") Integer id, @Param("userId") Integer userId);
 
     int updateByExampleSelective(@Param("record") UserPayMoney record, @Param("example") UserPayMoneyExample example);
 

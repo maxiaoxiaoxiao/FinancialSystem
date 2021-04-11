@@ -16,7 +16,7 @@ public interface UserPayMoneyService {
 
     Integer updateUserPayMoney(UserPayMoney userPayMoney);
 
-    UserPayMoney selectUserPayMoneyById(Integer id);
+    UserPayMoney selectUserPayMoneyById(Integer id,Integer userId);
 
   /**
    * 推荐的工资理财.
@@ -24,4 +24,6 @@ public interface UserPayMoneyService {
    * @return
    */
   List<PayMoney> selectUserPayMoneyByUser(Integer userId);
+
+    void deleteUserPayMoney(UserPayMoney upm);
 }

@@ -31,6 +31,6 @@ public enum MoneyEnums {
         return tem.getScore();
       }
     }
-    return null;
+    return 0;
   }
 }

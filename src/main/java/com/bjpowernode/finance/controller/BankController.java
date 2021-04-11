@@ -44,27 +44,13 @@ public class BankController {
     @Autowired
     UserPayMoneyService userPayMoneyService;
 
-    /**
-     * 跳转用户银行推荐界面
-     * @param model
-     * @return
-     */
-    @RequestMapping("/user/finance/toBank.html")
-    public String toBank(Model model){
-        List<Bank> list = bankService.selectAllBank();
-        model.addAttribute("bankList",list);
-        model.addAttribute("pageTopBarInfo","银行推荐界面");
-        model.addAttribute("activeUrl1","financeActive");
-        model.addAttribute("activeUrl2","bankActive");
-        return "user/finance/bank";
-    }
 
     /**
      * 跳转用户银行推荐界面
      * @param model
      * @return
      */
-    @RequestMapping("/user/finance/toLiCai.html")
+    @RequestMapping("/user/finance/toBank.html")
     public String toLiCai(Model model, HttpSession session) {
         User user = (User) session.getAttribute("loginUser");
         Integer userId = user.getId();
@@ -82,7 +68,7 @@ public class BankController {
         model.addAttribute("pageTopBarInfo","理财推荐界面");
         model.addAttribute("activeUrl1","financeActive");
         model.addAttribute("activeUrl2","bankActive");
-        return "user/finance/liCai";
+        return "user/finance/bank";
     }
 
     /**

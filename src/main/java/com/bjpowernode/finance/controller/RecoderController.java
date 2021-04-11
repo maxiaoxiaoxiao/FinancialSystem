@@ -37,14 +37,13 @@ public class RecoderController {
     @RequestMapping("/user/tools/toRecord.html")
     public String toRecoder(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                             @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-//                            @RequestParam(value = "type") Integer type,
                             Model model, HttpSession session) {
 
         // 引入PageHelper插件，在查询之前调用startPage方法，传入页码以及每页大小
         PageHelper.startPage(pageNum, pageSize);
         User user = (User) session.getAttribute("loginUser");
-        Integer type = 1;
-        List<FlowOfFunds> list = flowOfFundsService.selectFlowOfFundsByUserId(user.getId(),type);
+
+        List<FlowOfFunds> list = flowOfFundsService.selectFlowOfFundsByUserId(user.getId());
         // 使用PageInfo包装查询后的结果，并交给页面处理
         // PageInfo封装了详细的分页信息，包括我们查询出来的数据，还可以传入连续显示的页数（5）
         PageInfo<FlowOfFunds> pageInfo = new PageInfo<FlowOfFunds>(list, 5);

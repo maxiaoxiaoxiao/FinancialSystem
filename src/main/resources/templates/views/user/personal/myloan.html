@@ -237,27 +237,27 @@
                 confirm: {
                     text: '确认',
                     btnClass: 'btn-primary',
-                    action: function(){
+                    action: function () {
                         $.ajax({
                             url: "/user/addRisk",
                             type: "POST",
                             contentType: "application/json; charset=utf-8",
-                            data:JSON.stringify( {
+                            data: JSON.stringify({
                                 "sex": sex,
                                 "age": age,
                                 "risLevel": risLevel,
                                 "period": period,
-                                "study" : study,
-                                "experience" : experience,
-                                "money" : money,
-                                "health" : health,
-                                "checkAB" : checkAB
+                                "study": study,
+                                "experience": experience,
+                                "money": money,
+                                "health": health,
+                                "checkAB": checkAB
                             }),
-                            success: function(result) {
+                            success: function (result) {
                                 if (result.code === 100) {
                                     $.alert(result.msg);
                                     setTimeout(function () {
-                                        location.href = "/user/tools/toApplyLoan.html";
+                                        location.href = "/user/personal/toMyFinance.html";
                                     }, 1000);
                                 } else {
                                     $.alert(result.msg);
@@ -274,7 +274,7 @@
                 }
             }
         });
-    }
+    })
 
     //显示校验结果的提示信息
     function show_validate_msg(ele, status, msg) {

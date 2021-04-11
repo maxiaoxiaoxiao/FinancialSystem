@@ -19,9 +19,9 @@ public class FlowOfFundsServiceImpl implements FlowOfFundsService {
     FlowOfFundsMapper flowOfFundsMapper;
 
     @Override
-    public List<FlowOfFunds> selectFlowOfFundsByUserId(Integer userId,Integer type) {
+    public List<FlowOfFunds> selectFlowOfFundsByUserId(Integer userId) {
 
-        return flowOfFundsMapper.selectFlowOfFunds(userId,type);
+        return flowOfFundsMapper.selectFlowOfFunds(userId);
     }
 
     @Override

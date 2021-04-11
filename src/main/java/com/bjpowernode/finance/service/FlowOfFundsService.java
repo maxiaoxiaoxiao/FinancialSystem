@@ -8,7 +8,7 @@ import java.util.List;
 public interface FlowOfFundsService {
 
 
-    List<FlowOfFunds> selectFlowOfFundsByUserId(Integer userId,Integer type);
+    List<FlowOfFunds> selectFlowOfFundsByUserId(Integer userId);
 
     /**
      * 新增或者是编辑收支记录.

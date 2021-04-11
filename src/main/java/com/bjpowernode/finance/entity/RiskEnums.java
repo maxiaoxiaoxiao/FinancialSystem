@@ -32,6 +32,6 @@ public enum RiskEnums {
         return tem.getScore();
       }
     }
-    return null;
+    return 0;
   }
 }

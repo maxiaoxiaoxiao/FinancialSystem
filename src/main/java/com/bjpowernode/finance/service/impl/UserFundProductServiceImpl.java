@@ -57,8 +57,8 @@ public class UserFundProductServiceImpl implements UserFundProductService {
     }
 
     @Override
-    public UserFundProduct selectUserFundProductById(Integer id) {
-        return userFundProductMapper.selectByPrimaryKeyWithUserAndFundProduct(id);
+    public UserFundProduct selectUserFundProductById(Integer id, Integer userId) {
+        return userFundProductMapper.selectByPrimaryKeyWithUserAndFundProduct(id,userId);
     }
 
   @Override
@@ -66,4 +66,9 @@ public class UserFundProductServiceImpl implements UserFundProductService {
 
         return userFundProductMapper.selectUserFundProductByUser(userId);
   }
+
+    @Override
+    public void deleteUserFundProduct(UserFundProduct ufp) {
+        userFundProductMapper.deleteByPrimaryKey(ufp.getId());
+    }
 }

@@ -5,7 +5,6 @@ import com.bjpowernode.finance.entity.ChangeMoney;
 import com.bjpowernode.finance.entity.UserChangeMoney;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestParam;
 
 public interface UserChangeMoneyService {
 
@@ -15,7 +14,7 @@ public interface UserChangeMoneyService {
 
     Integer updateUserChangeMoney(UserChangeMoney userChangeMoney);
 
-    UserChangeMoney selectUserChangeMoneyById(Integer id);
+    UserChangeMoney selectUserChangeMoneyById(Integer id, Integer userId);
 
   /**
    * 查询推荐的零钱理财.
@@ -24,4 +23,6 @@ public interface UserChangeMoneyService {
    * @return
    */
   List<ChangeMoney> selectUserChangeMoneyByUser(Integer userId);
+
+    void deletUserChangeMoney(UserChangeMoney ucm);
 }

@@ -22,7 +22,7 @@ public interface UserFundProductMapper {
 
     UserFundProduct selectByPrimaryKey(Integer id);
 
-    UserFundProduct selectByPrimaryKeyWithUserAndFundProduct(Integer id);
+    UserFundProduct selectByPrimaryKeyWithUserAndFundProduct(@Param("id") Integer id, @Param("userId") Integer userId);
 
     int updateByExampleSelective(@Param("record") UserFundProduct record, @Param("example") UserFundProductExample example);
 

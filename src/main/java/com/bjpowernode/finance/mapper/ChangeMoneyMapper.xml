@@ -116,6 +116,9 @@
       <if test="invesmoney != null">
         invesMoney,
       </if>
+      <if test="risLevel != null">
+        risLevel,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -135,6 +138,9 @@
       </if>
       <if test="invesmoney != null">
         #{invesmoney,jdbcType=DECIMAL},
+      </if>
+      <if test="risLevel != null">
+        #{risLevel,jdbcType=DECIMAL},
       </if>
     </trim>
   </insert>

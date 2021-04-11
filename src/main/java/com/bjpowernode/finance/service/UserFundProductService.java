@@ -14,7 +14,7 @@ public interface UserFundProductService {
 
     Integer updateUserFundProduct(UserFundProduct userFundProduct);
 
-    UserFundProduct selectUserFundProductById(Integer id);
+    UserFundProduct selectUserFundProductById(Integer id, Integer userId);
 
   /**
    * 推荐的基金理财.
@@ -22,4 +22,6 @@ public interface UserFundProductService {
    * @return
    */
   List<FundProduct> selectUserFundProductByUser(Integer userId);
+
+    void deleteUserFundProduct(UserFundProduct ufp);
 }

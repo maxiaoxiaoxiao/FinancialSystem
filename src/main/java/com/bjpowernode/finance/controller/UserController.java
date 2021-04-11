@@ -243,7 +243,10 @@ public class UserController {
     @ResponseBody
     public Msg addRisk(@RequestBody Exam exam, HttpSession session) {
         User user = (User)session.getAttribute("loginUser");
-        userService.addRisk(user,exam);
-        return Msg.success();
+        String s = userService.addRisk(user, exam);
+        Msg msg = new Msg();
+        msg.setCode(100);
+        msg.setMsg("您的投资意向为" +  s + "风险,谢谢您的参与");
+        return msg;
     }
 }

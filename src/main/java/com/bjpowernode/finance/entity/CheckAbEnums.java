@@ -31,6 +31,6 @@ public enum CheckAbEnums {
         return tem.getScore();
       }
     }
-    return null;
+    return 0;
   }
 }

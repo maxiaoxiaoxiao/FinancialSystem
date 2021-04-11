@@ -102,7 +102,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public void addRisk(User user, Exam exam) {
+    public String addRisk(User user, Exam exam) {
         //计算分数
         Integer score = 6;
         score =
@@ -124,5 +124,6 @@ public class UserServiceImpl implements UserService {
         }
         user.setRisLevel(risk);
         userMapper.updateUser(user);
+        return "1".equalsIgnoreCase(risk)? "高":("2".equalsIgnoreCase(risk)?"中":"低");
     }
 }
