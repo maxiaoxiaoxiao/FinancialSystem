@@ -7,7 +7,7 @@ import java.util.List;
 public interface TermFinancialService {
 
     List<TermFinancial> selectAllTermFinancial(
-        Integer id, String name, String company, String people);
+        String code, String name, String company, String people);
 
     TermFinancial selectTermFinancialById(Integer id);
 

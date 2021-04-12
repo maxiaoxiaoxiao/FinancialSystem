@@ -32,13 +32,13 @@ public interface PayMoneyMapper {
    * 查询你所有的工资理财.
    *
    * @return
-   * @param id
+   * @param code
    * @param name
    * @param company
    * @param people
    */
   List<PayMoney> selectAllPayMoney(
-      @Param("id") Integer id,
+      @Param("code") String code,
       @Param("name") String name,
       @Param("company") String company,
       @Param("people") String people);

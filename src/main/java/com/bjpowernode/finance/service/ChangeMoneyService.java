@@ -7,7 +7,7 @@ import java.util.List;
 public interface ChangeMoneyService {
 
     List<ChangeMoney> selectAllChangeMoney(
-        Integer id, String name, String company, String people);
+        String code, String name, String company, String people);
 
     ChangeMoney selectChangeMoneyById(Integer id);
 

@@ -32,11 +32,11 @@ public class ChangeMoneyController {
      */
     @RequestMapping("/user/finance/toChangeMoney.html")
     public String toChangemoney(Model model,
-                                @RequestParam(value = "id",required = false) Integer id,
+                                @RequestParam(value = "code",required = false) String code,
                                 @RequestParam(value = "name",required = false) String name,
                                 @RequestParam(value = "company",required = false) String company,
                                 @RequestParam(value = "people",required = false) String people){
-        List<ChangeMoney> list = changeMoneyService.selectAllChangeMoney(id, name, company, people);
+        List<ChangeMoney> list = changeMoneyService.selectAllChangeMoney(code, name, company, people);
         model.addAttribute("changeMoneyList",list);
         model.addAttribute("pageTopBarInfo","零钱理财界面");
         model.addAttribute("activeUrl1","financeActive");
@@ -85,13 +85,13 @@ public class ChangeMoneyController {
     @GetMapping("/admin/finance/toChangeMoney.html")
     public String toUserInfo(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                              @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                             @RequestParam(value = "id",required = false) Integer id,
+                             @RequestParam(value = "code",required = false) String code,
                              @RequestParam(value = "name",required = false) String name,
                              @RequestParam(value = "company",required = false) String company,
                              @RequestParam(value = "people",required = false) String people,
                              Model model, HttpSession session) {
         PageHelper.startPage(pageNum, pageSize);
-        List<ChangeMoney> list = changeMoneyService.selectAllChangeMoney(id,name,company,people);
+        List<ChangeMoney> list = changeMoneyService.selectAllChangeMoney(code,name,company,people);
         PageInfo<ChangeMoney> pageInfo = new PageInfo<ChangeMoney>(list, 5);
         model.addAttribute("finacnePageInfo",pageInfo);
         model.addAttribute("financeList",list);

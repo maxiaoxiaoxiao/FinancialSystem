@@ -32,13 +32,13 @@ public interface FundProductMapper {
    * 查询基金理财.
    *
    * @return
-   * @param id
+   * @param code
    * @param name
    * @param company
    * @param people
    */
   List<FundProduct> selectAllFundProduct(
-      @Param("id") Integer id,
+      @Param("code") String code,
       @Param("name") String name,
       @Param("company") String company,
       @Param("people") String people);

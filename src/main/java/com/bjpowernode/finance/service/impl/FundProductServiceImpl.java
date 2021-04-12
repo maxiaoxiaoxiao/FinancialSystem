@@ -14,8 +14,8 @@ public class FundProductServiceImpl implements FundProductService {
     FundProductMapper fundProductMapper;
     @Override
     public List<FundProduct> selectAllFundProduct(
-        Integer id, String name, String company, String people) {
-        return fundProductMapper.selectAllFundProduct(id,name,company,people);
+        String code, String name, String company, String people) {
+        return fundProductMapper.selectAllFundProduct(code,name,company,people);
     }
 
     @Override

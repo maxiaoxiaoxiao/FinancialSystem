@@ -23,6 +23,16 @@ public class TermFinancial {
 
     private String instruction;
 
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
     public String getCompany() {
         return company;
     }

@@ -32,12 +32,12 @@ public class PayMoneyController {
      * @return
      */
     @RequestMapping("/user/finance/toPayMoney.html")
-    public String toPaymoney( @RequestParam(value = "id",required = false) Integer id,
+    public String toPaymoney( @RequestParam(value = "code",required = false) String code,
                               @RequestParam(value = "name",required = false) String name,
                               @RequestParam(value = "company",required = false) String company,
                               @RequestParam(value = "people",required = false) String people,
                               Model model){
-        List<PayMoney> list = payMoneyService.selectAllPayMoney(id, name, company, people);
+        List<PayMoney> list = payMoneyService.selectAllPayMoney(code, name, company, people);
         list.forEach( s -> {
             s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
         });
@@ -93,14 +93,14 @@ public class PayMoneyController {
   public String toPayMoneyInfo(
       @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-      @RequestParam(value = "id",required = false) Integer id,
+      @RequestParam(value = "code",required = false) String code,
       @RequestParam(value = "name",required = false) String name,
       @RequestParam(value = "company",required = false) String company,
       @RequestParam(value = "people",required = false) String people,
       Model model,
       HttpSession session) {
         PageHelper.startPage(pageNum, pageSize);
-        List<PayMoney> list = payMoneyService.selectAllPayMoney(id,name,company,people);
+        List<PayMoney> list = payMoneyService.selectAllPayMoney(code,name,company,people);
         list.forEach( s -> {
             s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
         });

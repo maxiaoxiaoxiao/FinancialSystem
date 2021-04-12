@@ -29,17 +29,19 @@ public class FundProductController {
   /**
    * 跳转到基金理财界面
    *
+   *
+   * @param code
    * @param model
    * @return
    */
   @RequestMapping("/user/finance/toFundProduct.html")
   public String toFundProduct(
-      @RequestParam(value = "id",required = false) Integer id,
+      @RequestParam(value = "code",required = false) String code,
       @RequestParam(value = "name",required = false) String name,
       @RequestParam(value = "company",required = false) String company,
       @RequestParam(value = "people",required = false) String people,
       Model model) {
-        List<FundProduct> list = fundProductService.selectAllFundProduct(id, name, company, people);
+        List<FundProduct> list = fundProductService.selectAllFundProduct(code, name, company, people);
         list.forEach( s -> {
             s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
         });
@@ -87,14 +89,14 @@ public class FundProductController {
   public String toFundProduct(
       @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-      @RequestParam(value = "id",required = false) Integer id,
+      @RequestParam(value = "code",required = false) String code,
       @RequestParam(value = "name",required = false) String name,
       @RequestParam(value = "company",required = false) String company,
       @RequestParam(value = "people",required = false) String people,
       Model model,
       HttpSession session) {
         PageHelper.startPage(pageNum, pageSize);
-        List<FundProduct> list = fundProductService.selectAllFundProduct(id,name,company,people);
+        List<FundProduct> list = fundProductService.selectAllFundProduct(code,name,company,people);
         list.forEach( s -> {
             s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
         });
