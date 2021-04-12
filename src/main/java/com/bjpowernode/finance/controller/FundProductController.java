@@ -34,10 +34,10 @@ public class FundProductController {
    */
   @RequestMapping("/user/finance/toFundProduct.html")
   public String toFundProduct(
-      @RequestParam(value = "id") Integer id,
-      @RequestParam(value = "name") String name,
-      @RequestParam(value = "company") String company,
-      @RequestParam(value = "people") String people,
+      @RequestParam(value = "id",required = false) Integer id,
+      @RequestParam(value = "name",required = false) String name,
+      @RequestParam(value = "company",required = false) String company,
+      @RequestParam(value = "people",required = false) String people,
       Model model) {
         List<FundProduct> list = fundProductService.selectAllFundProduct(id, name, company, people);
         list.forEach( s -> {
@@ -63,12 +63,15 @@ public class FundProductController {
         return userFundProductService.insertUserFundProduct(fundProductId,userId);
     }
 
-    @PostMapping("/user/buyFundProductList")
-    @ResponseBody
-    public Msg buyFundProductList(@RequestParam("fundProductId")Integer fundProductId,
-                              @RequestParam("userIdList") List<Integer> userIdList,HttpSession session ){
+  @PostMapping("/user/buyFundProductList")
+  @ResponseBody
+  public Msg buyFundProductList(
+      @RequestParam("fundProductId") Integer fundProductId,
+      @RequestParam("userIdList") List<Integer> userIdList,
+      HttpSession session,
+      @RequestParam("content") String content) {
         Admin admin = (Admin)session.getAttribute("loginAdmin");
-        userFundProductService.insertUserFundProductList(fundProductId,userIdList,admin.getId());
+        userFundProductService.insertUserFundProductList(fundProductId,userIdList,admin.getId(),content);
         return Msg.success();
     }
   /**
@@ -84,10 +87,10 @@ public class FundProductController {
   public String toFundProduct(
       @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-      @RequestParam(value = "id") Integer id,
-      @RequestParam(value = "name") String name,
-      @RequestParam(value = "company") String company,
-      @RequestParam(value = "people") String people,
+      @RequestParam(value = "id",required = false) Integer id,
+      @RequestParam(value = "name",required = false) String name,
+      @RequestParam(value = "company",required = false) String company,
+      @RequestParam(value = "people",required = false) String people,
       Model model,
       HttpSession session) {
         PageHelper.startPage(pageNum, pageSize);

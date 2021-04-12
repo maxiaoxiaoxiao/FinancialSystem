@@ -33,10 +33,10 @@ public class TermFinancialController {
      * @return
      */
     @RequestMapping("/user/finance/toTermFinancial.html")
-    public String toPaymoney(@RequestParam(value = "id") Integer id,
-                             @RequestParam(value = "name") String name,
-                             @RequestParam(value = "company") String company,
-                             @RequestParam(value = "people") String people,
+    public String toPaymoney(@RequestParam(value = "id",required = false) Integer id,
+                             @RequestParam(value = "name",required = false) String name,
+                             @RequestParam(value = "company",required = false) String company,
+                             @RequestParam(value = "people",required = false) String people,
                              Model model) {
         List<TermFinancial> list = termFinancialService.selectAllTermFinancial(
             id, name, company, people);
@@ -57,20 +57,23 @@ public class TermFinancialController {
     @PostMapping("/user/buyTermFinancial")
     @ResponseBody
     public Msg buyTermFinancial(@RequestParam("termFinancialId") Integer termFinancialId,
-                                @RequestParam("userId") Integer userId) {
+                                @RequestParam("userId") Integer userId,@RequestParam("content")  String content) {
 
         return userTermFinancialService.insertUserTermFinancial(termFinancialId,userId);
     }
 
-    @PostMapping("/user/buyTermFinancialList")
-    @ResponseBody
-    public Msg buyTermFinancialList(@RequestParam("termFinancialId") Integer termFinancialId,
-                                @RequestParam("userIdList") List<Integer> userIdList,HttpSession session) {
-
-        Admin admin = (Admin)session.getAttribute("loginAdmin");
-        userTermFinancialService.buyTermFinancialList(termFinancialId,userIdList,admin.getId());
-        return Msg.success();
-    }
+  @PostMapping("/user/buyTermFinancialList")
+  @ResponseBody
+  public Msg buyTermFinancialList(
+      @RequestParam("termFinancialId") Integer termFinancialId,
+      @RequestParam("content") String content,
+      @RequestParam("userIdList") List<Integer> userIdList,
+      HttpSession session) {
+    Admin admin = (Admin) session.getAttribute("loginAdmin");
+    userTermFinancialService.buyTermFinancialList(
+        termFinancialId, userIdList, admin.getId(), content);
+    return Msg.success();
+  }
   /**
    * 跳转到期限理财管理界面（管理员）
    *
@@ -84,10 +87,10 @@ public class TermFinancialController {
   public String toTermFinancialInfo(
       @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-      @RequestParam(value = "id") Integer id,
-      @RequestParam(value = "name") String name,
-      @RequestParam(value = "company") String company,
-      @RequestParam(value = "people") String people,
+      @RequestParam(value = "id",required = false) Integer id,
+      @RequestParam(value = "name",required = false) String name,
+      @RequestParam(value = "company",required = false) String company,
+      @RequestParam(value = "people",required = false) String people,
       Model model,
       HttpSession session) {
     PageHelper.startPage(pageNum, pageSize);

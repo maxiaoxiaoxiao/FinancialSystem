@@ -5,7 +5,6 @@ import com.bjpowernode.finance.entity.News;
 import com.bjpowernode.finance.entity.PayMoney;
 import com.bjpowernode.finance.entity.UserPayMoney;
 import com.bjpowernode.finance.mapper.PayMoneyMapper;
-import com.bjpowernode.finance.mapper.TermFinancialMapper;
 import com.bjpowernode.finance.mapper.UserPayMoneyMapper;
 import com.bjpowernode.finance.mapper.UserTermFinancialMapper;
 import com.bjpowernode.finance.service.UserPayMoneyService;
@@ -81,7 +80,7 @@ public class UserPayMoneyServiceImpl implements UserPayMoneyService {
 
   @Override
   public void insertUserPayMoneyList(
-      Integer payMoneyId, List<Integer> userIdList, Integer adminId) {
+      Integer payMoneyId, List<Integer> userIdList, Integer adminId, String content) {
       List<News> news = new ArrayList<>();
       Date date = new Date();
     PayMoney payMoney = payMoneyMapper.selectByPrimaryKey(payMoneyId);
@@ -102,6 +101,7 @@ public class UserPayMoneyServiceImpl implements UserPayMoneyService {
               n.setName(payMoney.getName());
               n.setStatus(0);
               n.setUserId(id);
+              n.setContent(content);
               news.add(n);
             });
 

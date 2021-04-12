@@ -32,10 +32,10 @@ public class ChangeMoneyController {
      */
     @RequestMapping("/user/finance/toChangeMoney.html")
     public String toChangemoney(Model model,
-                                @RequestParam(value = "id") Integer id,
-                                @RequestParam(value = "name") String name,
-                                @RequestParam(value = "company") String company,
-                                @RequestParam(value = "people") String people){
+                                @RequestParam(value = "id",required = false) Integer id,
+                                @RequestParam(value = "name",required = false) String name,
+                                @RequestParam(value = "company",required = false) String company,
+                                @RequestParam(value = "people",required = false) String people){
         List<ChangeMoney> list = changeMoneyService.selectAllChangeMoney(id, name, company, people);
         model.addAttribute("changeMoneyList",list);
         model.addAttribute("pageTopBarInfo","零钱理财界面");
@@ -66,7 +66,7 @@ public class ChangeMoneyController {
     @RequestMapping("/user/buyChangeMoneyList")
     @ResponseBody
     public Msg buyChangeMoneyList(@RequestParam("changeMoneyId")Integer changeMoneyId,
-                              @RequestParam("conctent")  String content,
+                              @RequestParam("content")  String content,
                               @RequestParam("userIdList") List<Integer> userIdList,HttpSession session ){
         Admin admin = (Admin)session.getAttribute("loginAdmin");
         userChangeMoneyService.insertUserListChangeMoney(changeMoneyId,userIdList,admin.getId(),content);
@@ -85,10 +85,10 @@ public class ChangeMoneyController {
     @GetMapping("/admin/finance/toChangeMoney.html")
     public String toUserInfo(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                              @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                             @RequestParam(value = "id") Integer id,
-                             @RequestParam(value = "name") String name,
-                             @RequestParam(value = "company") String company,
-                             @RequestParam(value = "people") String people,
+                             @RequestParam(value = "id",required = false) Integer id,
+                             @RequestParam(value = "name",required = false) String name,
+                             @RequestParam(value = "company",required = false) String company,
+                             @RequestParam(value = "people",required = false) String people,
                              Model model, HttpSession session) {
         PageHelper.startPage(pageNum, pageSize);
         List<ChangeMoney> list = changeMoneyService.selectAllChangeMoney(id,name,company,people);

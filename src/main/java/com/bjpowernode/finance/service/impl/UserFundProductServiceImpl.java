@@ -79,7 +79,7 @@ public class UserFundProductServiceImpl implements UserFundProductService {
 
   @Override
   public void insertUserFundProductList(
-      Integer fundProductId, List<Integer> userIdList, Integer adminId) {
+      Integer fundProductId, List<Integer> userIdList, Integer adminId, String content) {
         List<News> news = new ArrayList<>();
       FundProduct fundProduct = fundProductMapper.selectByPrimaryKey(fundProductId);
       Date date = new Date();
@@ -100,6 +100,7 @@ public class UserFundProductServiceImpl implements UserFundProductService {
                   n.setName(fundProduct.getFunddesc());
                   n.setStatus(0);
                   n.setUserId(id);
+                  n.setContent(content);
                   news.add(n);
               });
 

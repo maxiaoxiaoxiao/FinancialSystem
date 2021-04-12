@@ -32,10 +32,10 @@ public class PayMoneyController {
      * @return
      */
     @RequestMapping("/user/finance/toPayMoney.html")
-    public String toPaymoney( @RequestParam(value = "id") Integer id,
-                              @RequestParam(value = "name") String name,
-                              @RequestParam(value = "company") String company,
-                              @RequestParam(value = "people") String people,
+    public String toPaymoney( @RequestParam(value = "id",required = false) Integer id,
+                              @RequestParam(value = "name",required = false) String name,
+                              @RequestParam(value = "company",required = false) String company,
+                              @RequestParam(value = "people",required = false) String people,
                               Model model){
         List<PayMoney> list = payMoneyService.selectAllPayMoney(id, name, company, people);
         list.forEach( s -> {
@@ -62,19 +62,22 @@ public class PayMoneyController {
 
     }
 
-    /**
-     * 购买工资理财产品
-     * @param payMoneyId
-     * @return
-     */
-    @PostMapping("/user/buyPayMoneyList")
-    @ResponseBody
-    public Msg buyPayMoneyList(@RequestParam("payMoneyId")Integer payMoneyId,
-                           @RequestParam("userIdList") List<Integer> userIdList,HttpSession session ){
-        Admin admin = (Admin)session.getAttribute("loginAdmin");
-        userPayMoneyService.insertUserPayMoneyList(payMoneyId,userIdList,admin.getId());
-        return Msg.success();
-
+  /**
+   * 购买工资理财产品
+   *
+   * @param payMoneyId
+   * @return
+   */
+  @PostMapping("/user/buyPayMoneyList")
+  @ResponseBody
+  public Msg buyPayMoneyList(
+      @RequestParam("payMoneyId") Integer payMoneyId,
+      @RequestParam("userIdList") List<Integer> userIdList,
+      HttpSession session,
+      @RequestParam("content") String content) {
+    Admin admin = (Admin) session.getAttribute("loginAdmin");
+    userPayMoneyService.insertUserPayMoneyList(payMoneyId, userIdList, admin.getId(),content);
+    return Msg.success();
     }
 
   /**
@@ -90,10 +93,10 @@ public class PayMoneyController {
   public String toPayMoneyInfo(
       @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
       @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-      @RequestParam(value = "id") Integer id,
-      @RequestParam(value = "name") String name,
-      @RequestParam(value = "company") String company,
-      @RequestParam(value = "people") String people,
+      @RequestParam(value = "id",required = false) Integer id,
+      @RequestParam(value = "name",required = false) String name,
+      @RequestParam(value = "company",required = false) String company,
+      @RequestParam(value = "people",required = false) String people,
       Model model,
       HttpSession session) {
         PageHelper.startPage(pageNum, pageSize);

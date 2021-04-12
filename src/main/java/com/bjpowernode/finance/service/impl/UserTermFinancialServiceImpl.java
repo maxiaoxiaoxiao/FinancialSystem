@@ -75,7 +75,7 @@ public class UserTermFinancialServiceImpl implements UserTermFinancialService {
 
   @Override
   public void buyTermFinancialList(
-      Integer termFinancialId, List<Integer> userIdList, Integer adminId) {
+      Integer termFinancialId, List<Integer> userIdList, Integer adminId, String content) {
         List<News> news = new ArrayList<>();
         //查询产品名称
       TermFinancial termFinancial = termFinancialMapper.selectByPrimaryKey(termFinancialId);
@@ -97,6 +97,7 @@ public class UserTermFinancialServiceImpl implements UserTermFinancialService {
                   n.setName(termFinancial.getName());
                   n.setStatus(0);
                   n.setUserId(id);
+                  n.setContent(content);
                   news.add(n);
               });
       userTermFinancialMapper.insertNews(news);

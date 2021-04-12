@@ -26,5 +26,6 @@ public interface UserTermFinancialService {
     void deleteUserTermFinancial(UserTermFinancial utf);
 
     void buyTermFinancialList(
-        Integer termFinancialId, List<Integer> userIdList, Integer adminId);
+        Integer termFinancialId, List<Integer> userIdList, Integer adminId,
+        String content);
 }

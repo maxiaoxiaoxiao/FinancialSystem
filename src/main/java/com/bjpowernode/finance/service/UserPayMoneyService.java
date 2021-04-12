@@ -27,5 +27,5 @@ public interface UserPayMoneyService {
     void deleteUserPayMoney(UserPayMoney upm);
 
   void insertUserPayMoneyList(
-      Integer payMoneyId, List<Integer> userIdList, Integer adminId);
+      Integer payMoneyId, List<Integer> userIdList, Integer adminId, String content);
 }
