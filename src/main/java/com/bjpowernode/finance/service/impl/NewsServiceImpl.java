@@ -20,8 +20,9 @@ public class NewsServiceImpl implements NewsService {
         String msg = "";
         if (CheckEmptyUtil.isNotEmpty(news)) {
            for (String n :news) {
-               msg = msg + n;
+               msg = msg + n + "\n";
            }
+           msg = msg + "请去我的收藏查看";
         }
         return msg;
     }

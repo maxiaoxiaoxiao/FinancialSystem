@@ -28,9 +28,18 @@ public interface ChangeMoneyMapper {
 
     int updateByPrimaryKey(ChangeMoney record);
 
-    /**
-     * 查询所有的零钱理财.
-     * @return
-     */
-    List<ChangeMoney> selectAllChangeMoney();
+  /**
+   * 查询所有的零钱理财.
+   *
+   * @return
+   * @param id
+   * @param name
+   * @param company
+   * @param people
+   */
+  List<ChangeMoney> selectAllChangeMoney(
+      @Param("id") Integer id,
+      @Param("name") String name,
+      @Param("company") String company,
+      @Param("people") String people);
 }

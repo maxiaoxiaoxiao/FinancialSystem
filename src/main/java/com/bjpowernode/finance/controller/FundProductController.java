@@ -2,9 +2,7 @@ package com.bjpowernode.finance.controller;
 
 import com.bjpowernode.finance.common.Msg;
 import com.bjpowernode.finance.entity.Admin;
-import com.bjpowernode.finance.entity.FlowOfFunds;
 import com.bjpowernode.finance.entity.FundProduct;
-import com.bjpowernode.finance.entity.UserFundProduct;
 import com.bjpowernode.finance.service.FlowOfFundsService;
 import com.bjpowernode.finance.service.FundProductService;
 import com.bjpowernode.finance.service.UserFundProductService;
@@ -16,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -29,14 +26,20 @@ public class FundProductController {
     @Autowired
     FlowOfFundsService flowOfFundsService;
 
-    /**
-     * 跳转到基金理财界面
-     * @param model
-     * @return
-     */
-    @RequestMapping("/user/finance/toFundProduct.html")
-    public String toFundProduct(Model model){
-        List<FundProduct> list = fundProductService.selectAllFundProduct();
+  /**
+   * 跳转到基金理财界面
+   *
+   * @param model
+   * @return
+   */
+  @RequestMapping("/user/finance/toFundProduct.html")
+  public String toFundProduct(
+      @RequestParam(value = "id") Integer id,
+      @RequestParam(value = "name") String name,
+      @RequestParam(value = "company") String company,
+      @RequestParam(value = "people") String people,
+      Model model) {
+        List<FundProduct> list = fundProductService.selectAllFundProduct(id, name, company, people);
         list.forEach( s -> {
             s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
         });
@@ -68,20 +71,27 @@ public class FundProductController {
         userFundProductService.insertUserFundProductList(fundProductId,userIdList,admin.getId());
         return Msg.success();
     }
-    /**
-     * 跳转到基金理财管理界面（管理员）
-     * @param pageNum
-     * @param pageSize
-     * @param model
-     * @param session
-     * @return
-     */
-    @GetMapping("/admin/finance/toFundProduct.html")
-    public String toFundProduct(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                                      @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                      Model model, HttpSession session) {
+  /**
+   * 跳转到基金理财管理界面（管理员）
+   *
+   * @param pageNum
+   * @param pageSize
+   * @param model
+   * @param session
+   * @return
+   */
+  @GetMapping("/admin/finance/toFundProduct.html")
+  public String toFundProduct(
+      @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+      @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+      @RequestParam(value = "id") Integer id,
+      @RequestParam(value = "name") String name,
+      @RequestParam(value = "company") String company,
+      @RequestParam(value = "people") String people,
+      Model model,
+      HttpSession session) {
         PageHelper.startPage(pageNum, pageSize);
-        List<FundProduct> list = fundProductService.selectAllFundProduct();
+        List<FundProduct> list = fundProductService.selectAllFundProduct(id,name,company,people);
         list.forEach( s -> {
             s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
         });

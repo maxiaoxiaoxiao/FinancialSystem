@@ -13,8 +13,9 @@ public class FundProductServiceImpl implements FundProductService {
     @Autowired
     FundProductMapper fundProductMapper;
     @Override
-    public List<FundProduct> selectAllFundProduct() {
-        return fundProductMapper.selectAllFundProduct();
+    public List<FundProduct> selectAllFundProduct(
+        Integer id, String name, String company, String people) {
+        return fundProductMapper.selectAllFundProduct(id,name,company,people);
     }
 
     @Override

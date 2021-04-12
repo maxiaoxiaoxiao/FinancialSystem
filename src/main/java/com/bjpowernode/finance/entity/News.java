@@ -15,6 +15,8 @@ public class News {
 
     private Integer status;
 
+    private String content;
+
     public Integer getId() {
         return id;
     }
@@ -61,5 +63,13 @@ public class News {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content;
     }
 }

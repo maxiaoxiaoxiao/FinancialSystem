@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface PayMoneyService {
 
-    List<PayMoney> selectAllPayMoney();
+    List<PayMoney> selectAllPayMoney(
+        Integer id, String name, String company, String people);
 
     PayMoney selectPayMoneyById(Integer id);
 

@@ -3,8 +3,6 @@ package com.bjpowernode.finance.controller;
 import com.bjpowernode.finance.common.Msg;
 import com.bjpowernode.finance.entity.Admin;
 import com.bjpowernode.finance.entity.ChangeMoney;
-import com.bjpowernode.finance.entity.FlowOfFunds;
-import com.bjpowernode.finance.entity.UserChangeMoney;
 import com.bjpowernode.finance.service.ChangeMoneyService;
 import com.bjpowernode.finance.service.FlowOfFundsService;
 import com.bjpowernode.finance.service.UserChangeMoneyService;
@@ -16,9 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.util.List;
-import sun.nio.fs.AbstractFileTypeDetector;
 
 @Controller
 public class ChangeMoneyController {
@@ -35,8 +31,12 @@ public class ChangeMoneyController {
      * @return
      */
     @RequestMapping("/user/finance/toChangeMoney.html")
-    public String toChangemoney(Model model){
-        List<ChangeMoney> list = changeMoneyService.selectAllChangeMoney();
+    public String toChangemoney(Model model,
+                                @RequestParam(value = "id") Integer id,
+                                @RequestParam(value = "name") String name,
+                                @RequestParam(value = "company") String company,
+                                @RequestParam(value = "people") String people){
+        List<ChangeMoney> list = changeMoneyService.selectAllChangeMoney(id, name, company, people);
         model.addAttribute("changeMoneyList",list);
         model.addAttribute("pageTopBarInfo","零钱理财界面");
         model.addAttribute("activeUrl1","financeActive");
@@ -66,9 +66,10 @@ public class ChangeMoneyController {
     @RequestMapping("/user/buyChangeMoneyList")
     @ResponseBody
     public Msg buyChangeMoneyList(@RequestParam("changeMoneyId")Integer changeMoneyId,
+                              @RequestParam("conctent")  String content,
                               @RequestParam("userIdList") List<Integer> userIdList,HttpSession session ){
         Admin admin = (Admin)session.getAttribute("loginAdmin");
-        userChangeMoneyService.insertUserListChangeMoney(changeMoneyId,userIdList,admin.getId());
+        userChangeMoneyService.insertUserListChangeMoney(changeMoneyId,userIdList,admin.getId(),content);
         return Msg.success();
 
     }
@@ -84,9 +85,13 @@ public class ChangeMoneyController {
     @GetMapping("/admin/finance/toChangeMoney.html")
     public String toUserInfo(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                              @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+                             @RequestParam(value = "id") Integer id,
+                             @RequestParam(value = "name") String name,
+                             @RequestParam(value = "company") String company,
+                             @RequestParam(value = "people") String people,
                              Model model, HttpSession session) {
         PageHelper.startPage(pageNum, pageSize);
-        List<ChangeMoney> list = changeMoneyService.selectAllChangeMoney();
+        List<ChangeMoney> list = changeMoneyService.selectAllChangeMoney(id,name,company,people);
         PageInfo<ChangeMoney> pageInfo = new PageInfo<ChangeMoney>(list, 5);
         model.addAttribute("finacnePageInfo",pageInfo);
         model.addAttribute("financeList",list);

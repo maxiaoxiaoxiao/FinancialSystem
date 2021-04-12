@@ -78,7 +78,7 @@ public class UserChangeMoneyServiceImpl implements UserChangeMoneyService {
 
   @Override
   public void insertUserListChangeMoney(
-      Integer changeMoneyId, List<Integer> userIdList, Integer adminId) {
+      Integer changeMoneyId, List<Integer> userIdList, Integer adminId, String content) {
     List<News> news = new ArrayList<>();
     Date date = new Date();
     ChangeMoney changeMoney = changeMoneyMapper.selectByPrimaryKey(changeMoneyId);
@@ -99,6 +99,7 @@ public class UserChangeMoneyServiceImpl implements UserChangeMoneyService {
               n.setName(changeMoney.getName());
               n.setStatus(0);
               n.setUserId(id);
+              n.setContent(content);
               news.add(n);
             });
 

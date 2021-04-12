@@ -15,8 +15,9 @@ public class PayMoneyServiceImpl implements PayMoneyService {
     @Autowired
     PayMoneyMapper payMoneyMapper;
     @Override
-    public List<PayMoney> selectAllPayMoney() {
-        List<PayMoney> list = payMoneyMapper.selectAllPayMoney();
+    public List<PayMoney> selectAllPayMoney(
+        Integer id, String name, String company, String people) {
+        List<PayMoney> list = payMoneyMapper.selectAllPayMoney(id,name,company,people);
         return list;
     }
 

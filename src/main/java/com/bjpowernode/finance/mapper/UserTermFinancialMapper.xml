@@ -216,7 +216,8 @@
       #{n.userId},
       #{n.createTime},
       #{n.name},
-      #{n.status}
+      #{n.status},
+      #{n.content}
       )
     </foreach>
   </insert>

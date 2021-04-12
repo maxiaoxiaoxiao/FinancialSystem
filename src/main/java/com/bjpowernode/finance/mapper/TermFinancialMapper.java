@@ -28,9 +28,18 @@ public interface TermFinancialMapper {
 
     int updateByPrimaryKey(TermFinancial record);
 
-    /**
-     * 查询期限理财.
-     * @return
-     */
-    List<TermFinancial> selectAllTermFinancial();
+  /**
+   * 查询期限理财.
+   *
+   * @return
+   * @param id
+   * @param name
+   * @param company
+   * @param people
+   */
+  List<TermFinancial> selectAllTermFinancial(
+      @Param("id") Integer id,
+      @Param("name") String name,
+      @Param("company") String company,
+      @Param("people") String people);
 }

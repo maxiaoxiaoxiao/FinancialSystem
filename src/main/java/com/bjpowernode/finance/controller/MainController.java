@@ -113,6 +113,7 @@ public class MainController {
         model.addAttribute("outAndIn", JsonMapper.toJsonString(outAndIn));
         model.addAttribute("proportion",JsonMapper.toJsonString(proportion));
         model.addAttribute("pageTopBarInfo","系统首页");
+        model.addAttribute("message",message);
         model.addAttribute("activeUrl","indexActive");
         return "user/main";
     }

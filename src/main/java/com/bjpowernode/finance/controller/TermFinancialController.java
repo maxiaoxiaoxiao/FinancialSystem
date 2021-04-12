@@ -2,9 +2,7 @@ package com.bjpowernode.finance.controller;
 
 import com.bjpowernode.finance.common.Msg;
 import com.bjpowernode.finance.entity.Admin;
-import com.bjpowernode.finance.entity.FlowOfFunds;
 import com.bjpowernode.finance.entity.TermFinancial;
-import com.bjpowernode.finance.entity.UserTermFinancial;
 import com.bjpowernode.finance.service.FlowOfFundsService;
 import com.bjpowernode.finance.service.TermFinancialService;
 import com.bjpowernode.finance.service.UserTermFinancialService;
@@ -16,7 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -36,8 +33,13 @@ public class TermFinancialController {
      * @return
      */
     @RequestMapping("/user/finance/toTermFinancial.html")
-    public String toPaymoney(Model model) {
-        List<TermFinancial> list = termFinancialService.selectAllTermFinancial();
+    public String toPaymoney(@RequestParam(value = "id") Integer id,
+                             @RequestParam(value = "name") String name,
+                             @RequestParam(value = "company") String company,
+                             @RequestParam(value = "people") String people,
+                             Model model) {
+        List<TermFinancial> list = termFinancialService.selectAllTermFinancial(
+            id, name, company, people);
         model.addAttribute("termFinancialList", list);
         model.addAttribute("pageTopBarInfo", "期限理财界面");
         model.addAttribute("activeUrl1", "financeActive");
@@ -69,29 +71,36 @@ public class TermFinancialController {
         userTermFinancialService.buyTermFinancialList(termFinancialId,userIdList,admin.getId());
         return Msg.success();
     }
-    /**
-     * 跳转到期限理财管理界面（管理员）
-     * @param pageNum
-     * @param pageSize
-     * @param model
-     * @param session
-     * @return
-     */
-    @GetMapping("/admin/finance/toTermFinancial.html")
-    public String toTermFinancialInfo(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                                 @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                                 Model model, HttpSession session) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<TermFinancial> list = termFinancialService.selectAllTermFinancial();
-        PageInfo<TermFinancial> pageInfo = new PageInfo<TermFinancial>(list, 5);
-        model.addAttribute("finacnePageInfo",pageInfo);
-        model.addAttribute("financeList",list);
+  /**
+   * 跳转到期限理财管理界面（管理员）
+   *
+   * @param pageNum
+   * @param pageSize
+   * @param model
+   * @param session
+   * @return
+   */
+  @GetMapping("/admin/finance/toTermFinancial.html")
+  public String toTermFinancialInfo(
+      @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+      @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+      @RequestParam(value = "id") Integer id,
+      @RequestParam(value = "name") String name,
+      @RequestParam(value = "company") String company,
+      @RequestParam(value = "people") String people,
+      Model model,
+      HttpSession session) {
+    PageHelper.startPage(pageNum, pageSize);
+    List<TermFinancial> list = termFinancialService.selectAllTermFinancial(id,name,company,people);
+    PageInfo<TermFinancial> pageInfo = new PageInfo<TermFinancial>(list, 5);
+    model.addAttribute("finacnePageInfo", pageInfo);
+    model.addAttribute("financeList", list);
 
-        model.addAttribute("activeUrl1", "financeActive");
-        model.addAttribute("activeUrl2", "termfinancialActive");
-        model.addAttribute("pageTopBarInfo", "期限理财管理界面");
-        return "/admin/finance/termfinancial";
-    }
+    model.addAttribute("activeUrl1", "financeActive");
+    model.addAttribute("activeUrl2", "termfinancialActive");
+    model.addAttribute("pageTopBarInfo", "期限理财管理界面");
+    return "/admin/finance/termfinancial";
+  }
 
     /**
      * 新增期限理财产品

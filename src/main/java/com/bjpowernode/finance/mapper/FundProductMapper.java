@@ -28,9 +28,18 @@ public interface FundProductMapper {
 
     int updateByPrimaryKey(FundProduct record);
 
-    /**
-     * 查询基金理财.
-     * @return
-     */
-    List<FundProduct> selectAllFundProduct();
+  /**
+   * 查询基金理财.
+   *
+   * @return
+   * @param id
+   * @param name
+   * @param company
+   * @param people
+   */
+  List<FundProduct> selectAllFundProduct(
+      @Param("id") Integer id,
+      @Param("name") String name,
+      @Param("company") String company,
+      @Param("people") String people);
 }

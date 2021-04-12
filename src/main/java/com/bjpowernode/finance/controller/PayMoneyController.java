@@ -2,9 +2,7 @@ package com.bjpowernode.finance.controller;
 
 import com.bjpowernode.finance.common.Msg;
 import com.bjpowernode.finance.entity.Admin;
-import com.bjpowernode.finance.entity.FlowOfFunds;
 import com.bjpowernode.finance.entity.PayMoney;
-import com.bjpowernode.finance.entity.UserPayMoney;
 import com.bjpowernode.finance.service.FlowOfFundsService;
 import com.bjpowernode.finance.service.PayMoneyService;
 import com.bjpowernode.finance.service.UserPayMoneyService;
@@ -16,8 +14,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 @Controller
@@ -36,8 +32,12 @@ public class PayMoneyController {
      * @return
      */
     @RequestMapping("/user/finance/toPayMoney.html")
-    public String toPaymoney(Model model){
-        List<PayMoney> list = payMoneyService.selectAllPayMoney();
+    public String toPaymoney( @RequestParam(value = "id") Integer id,
+                              @RequestParam(value = "name") String name,
+                              @RequestParam(value = "company") String company,
+                              @RequestParam(value = "people") String people,
+                              Model model){
+        List<PayMoney> list = payMoneyService.selectAllPayMoney(id, name, company, people);
         list.forEach( s -> {
             s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
         });
@@ -77,20 +77,27 @@ public class PayMoneyController {
 
     }
 
-    /**
-     * 跳转到工资理财管理界面（管理员）
-     * @param pageNum
-     * @param pageSize
-     * @param model
-     * @param session
-     * @return
-     */
-    @GetMapping("/admin/finance/toPayMoney.html")
-    public String toPayMoneyInfo(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
-                             @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
-                             Model model, HttpSession session) {
+  /**
+   * 跳转到工资理财管理界面（管理员）
+   *
+   * @param pageNum
+   * @param pageSize
+   * @param model
+   * @param session
+   * @return
+   */
+  @GetMapping("/admin/finance/toPayMoney.html")
+  public String toPayMoneyInfo(
+      @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
+      @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
+      @RequestParam(value = "id") Integer id,
+      @RequestParam(value = "name") String name,
+      @RequestParam(value = "company") String company,
+      @RequestParam(value = "people") String people,
+      Model model,
+      HttpSession session) {
         PageHelper.startPage(pageNum, pageSize);
-        List<PayMoney> list = payMoneyService.selectAllPayMoney();
+        List<PayMoney> list = payMoneyService.selectAllPayMoney(id,name,company,people);
         list.forEach( s -> {
             s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
         });

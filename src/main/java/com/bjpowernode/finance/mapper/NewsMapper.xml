@@ -115,7 +115,7 @@
 
   <select id="selectAllNews" resultType="java.lang.String">
     SELECT
-	concat('被',a.username,'推荐',n.name,'请去我的收藏查看')
+	concat('被',a.username,'推荐',n.name,'。推荐理由是：',n.content)
 FROM
 	news n
 	INNER JOIN admin a ON a.id = n.adminId

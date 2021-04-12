@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface FundProductService {
 
-    List<FundProduct> selectAllFundProduct();
+    List<FundProduct> selectAllFundProduct(
+        Integer id, String name, String company, String people);
 
     FundProduct selectFundProductById(Integer id);
 

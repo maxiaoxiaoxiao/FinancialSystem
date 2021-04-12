@@ -28,9 +28,18 @@ public interface PayMoneyMapper {
 
     int updateByPrimaryKey(PayMoney record);
 
-    /**
-     * 查询你所有的工资理财.
-     * @return
-     */
-    List<PayMoney> selectAllPayMoney();
+  /**
+   * 查询你所有的工资理财.
+   *
+   * @return
+   * @param id
+   * @param name
+   * @param company
+   * @param people
+   */
+  List<PayMoney> selectAllPayMoney(
+      @Param("id") Integer id,
+      @Param("name") String name,
+      @Param("company") String company,
+      @Param("people") String people);
 }

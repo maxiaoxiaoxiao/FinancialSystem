@@ -170,7 +170,19 @@
   </select>
   <select id="selectAllChangeMoney"
           resultType="com.bjpowernode.finance.entity.ChangeMoney">
-    select * from change_money
+    select * from change_money where 1=1
+    <if test="id != null">
+      and id = #{id}
+    </if>
+    <if test="name != null">
+      and name like concat('%',#{name},'%')
+    </if>
+    <if test="people != null">
+      and people like concat('%',#{people},'%')
+    </if>
+    <if test="company != null">
+      and company like concat('%',#{company},'%')
+    </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update change_money

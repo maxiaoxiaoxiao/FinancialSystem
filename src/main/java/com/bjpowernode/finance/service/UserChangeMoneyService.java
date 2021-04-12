@@ -31,8 +31,9 @@ public interface UserChangeMoneyService {
    * @param changeMoneyId
    * @param userIdList
    * @param adminId
+   * @param content
    * @return
    */
   void insertUserListChangeMoney(
-      Integer changeMoneyId, List<Integer> userIdList, Integer adminId);
+      Integer changeMoneyId, List<Integer> userIdList, Integer adminId, String content);
 }

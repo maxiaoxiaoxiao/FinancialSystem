@@ -16,8 +16,9 @@ public class ChangeMoneyServiceImpl implements ChangeMoneyService {
     ChangeMoneyMapper changeMoneyMapper;
 
     @Override
-    public List<ChangeMoney> selectAllChangeMoney() {
-        List<ChangeMoney> list = changeMoneyMapper.selectAllChangeMoney();
+    public List<ChangeMoney> selectAllChangeMoney(
+        Integer id, String name, String company, String people) {
+        List<ChangeMoney> list = changeMoneyMapper.selectAllChangeMoney(id,name,company,people);
         return list;
     }
 

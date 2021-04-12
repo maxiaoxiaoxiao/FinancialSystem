@@ -193,7 +193,19 @@
   </select>
   <select id="selectAllFundProduct"
           resultType="com.bjpowernode.finance.entity.FundProduct">
-    select * from fund_product
+    select * from fund_product  where 1=1
+    <if test="id != null">
+      and id = #{id}
+    </if>
+    <if test="name != null">
+      and name like concat('%',#{name},'%')
+    </if>
+    <if test="people != null">
+      and people like concat('%',#{people},'%')
+    </if>
+    <if test="company != null">
+      and company like concat('%',#{company},'%')
+    </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update fund_product
