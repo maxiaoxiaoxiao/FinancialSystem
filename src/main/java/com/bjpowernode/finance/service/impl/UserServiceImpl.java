@@ -1,5 +1,8 @@
 package com.bjpowernode.finance.service.impl;
 
+import com.bjpowernode.finance.common.Msg;
+import com.bjpowernode.finance.entity.Admin;
+import com.bjpowernode.finance.entity.AdminUserRela;
 import com.bjpowernode.finance.entity.AgeEnums;
 import com.bjpowernode.finance.entity.CheckAbEnums;
 import com.bjpowernode.finance.entity.Exam;
@@ -11,6 +14,7 @@ import com.bjpowernode.finance.entity.OutAndIn;
 import com.bjpowernode.finance.entity.RiskEnums;
 import com.bjpowernode.finance.entity.User;
 import com.bjpowernode.finance.entity.UserExample;
+import com.bjpowernode.finance.mapper.AdminMapper;
 import com.bjpowernode.finance.mapper.UserMapper;
 import com.bjpowernode.finance.service.UserService;
 import com.bjpowernode.finance.utils.CheckEmptyUtil;
@@ -25,6 +29,8 @@ public class UserServiceImpl implements UserService {
 
     @Autowired(required = false)
     UserMapper userMapper;
+    @Autowired
+    AdminMapper adminMapper;
 
     @Override
     public User selectUserByTerms(String username, String password) {
@@ -44,17 +50,15 @@ public class UserServiceImpl implements UserService {
         }
     }
 
-    @Override
-    public List<User> selectUserByStatusDesc() {
-        UserExample userExample = new UserExample();
-        userExample.setOrderByClause("status desc");
-        return userMapper.selectByExample(userExample);
-    }
 
-    @Override
-    public List<User> selectAllUser() {
-        return userMapper.selectByExample(null);
+  @Override
+  public List<User> selectAllUser(Admin admin) {
+    if (admin.getType().equals(1)) {
+      return userMapper.selectAllUser(admin.getId());
+    } else {
+      return userMapper.selectByExample(null);
     }
+  }
 
     @Override
     @Transactional
@@ -79,7 +83,9 @@ public class UserServiceImpl implements UserService {
     @Override
     @Transactional
     public Integer deleteUserById(Integer id) {
-        return userMapper.deleteByPrimaryKey(id);
+         userMapper.deleteByPrimaryKey(id);
+         userMapper.deleteAdminser(id);
+         return 1;
     }
 
   @Override
@@ -126,4 +132,45 @@ public class UserServiceImpl implements UserService {
         userMapper.updateUser(user);
         return "1".equalsIgnoreCase(risk)? "高":("2".equalsIgnoreCase(risk)?"中":"低");
     }
+
+    @Override
+    public Msg insertAdminUser(Integer adminId, User user) {
+        //判定不是管理员
+        Msg msg = new Msg();
+        Admin admin = adminMapper.selectById(adminId);
+        if (admin.getType().equals(0)) {
+            msg.setCode(200);
+            msg.setMsg("不能选择管理员作为投资顾问");
+            return msg;
+        }
+        //查询用户是否重名
+        User user1 = userMapper.selectByName(user.getUsername());
+        if (CheckEmptyUtil.isNotEmpty(user1)) {
+            msg.setCode(200);
+            msg.setMsg("该用户名已经存在");
+            return msg;
+        }
+        AdminUserRela adminUserRela = userMapper.selectAdminUser(adminId, user.getId());
+        if (CheckEmptyUtil.isNotEmpty(adminUserRela)) {
+          msg.setCode(200);
+          msg.setMsg("该用户名已经归属于" + adminUserRela.getUsername() + "不能重复添加");
+          return msg;
+        }
+      userMapper.insertUser(user);
+        userMapper.insertAdminUser(adminId,user.getId());
+        msg.setCode(100);
+        msg.setMsg("新用户新增成功");
+        return msg;
+
+    }
+
+  @Override
+  public List<Admin> selectAllAdmin() {
+    return adminMapper.selectAdmin();
+  }
+
+  @Override
+  public List<User> selectUser() {
+    return userMapper.selectByExample(null);
+  }
 }

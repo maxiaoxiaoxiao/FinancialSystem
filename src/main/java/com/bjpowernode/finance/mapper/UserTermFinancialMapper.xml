@@ -207,6 +207,19 @@
       </if>
     </trim>
   </insert>
+  <insert id="insertNews">
+    insert into news
+    values
+    <foreach collection="news" item="n" index="index" separator=",">
+      (
+      #{n.adminId},
+      #{n.userId},
+      #{n.createTime},
+      #{n.name},
+      #{n.status}
+      )
+    </foreach>
+  </insert>
   <select id="countByExample" parameterType="com.bjpowernode.finance.entity.UserTermFinancialExample" resultType="java.lang.Long">
     select count(*) from user_term_financial
     <if test="_parameter != null">

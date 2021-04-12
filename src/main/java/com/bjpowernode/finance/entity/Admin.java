@@ -8,6 +8,7 @@ public class Admin {
     private String password;
 
     private Integer status;
+    private Integer type;
 
     public Integer getId() {
         return id;
@@ -39,5 +40,13 @@ public class Admin {
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public Integer getType() {
+        return type;
+    }
+
+    public void setType(Integer type) {
+        this.type = type;
     }
 }

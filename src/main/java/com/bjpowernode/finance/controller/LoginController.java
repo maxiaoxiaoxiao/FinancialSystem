@@ -94,7 +94,7 @@ public class LoginController {
     }
 
     /**
-     * 增加管理员.
+     * 增加投资顾问.
      *
      * @param admin not null.
      * @return
@@ -111,8 +111,7 @@ public class LoginController {
     }
 
     /**
-     * 删除管理员.
-     * @param id
+     * 删除投资顾问.
      * @param session
      * @return
      */

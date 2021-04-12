@@ -104,6 +104,9 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
+  <delete id="deleteAdminser">
+    delete from admin_user_rela where userId = #{id}
+  </delete>
   <insert id="insert" parameterType="com.bjpowernode.finance.entity.User">
     insert into user (id, username, realname,
       password, IDcard, phone,
@@ -187,6 +190,78 @@
       </if>
     </trim>
   </insert>
+  <insert id="insertAdminUser">
+    insert admin_user_rela values (null,#{adminId},#{userId},now())
+  </insert>
+  <insert id="insertUser"  parameterType="com.bjpowernode.finance.entity.User" keyProperty="id" useGeneratedKeys="true"
+          keyColumn="id">
+    insert into user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+
+      <if test="username != null">
+        username,
+      </if>
+      <if test="realname != null">
+        realname,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="idcard != null">
+        IDcard,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="paypwd != null">
+        paypwd,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="reputation != null">
+        reputation,
+      </if>
+      <if test="risLevel != null">
+        risLevel,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="idcard != null">
+        #{idcard,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="paypwd != null">
+        #{paypwd,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="reputation != null">
+        #{reputation,jdbcType=VARCHAR},
+      </if>
+      <if test="risLevel != null">
+        #{risLevel,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
   <select id="countByExample" parameterType="com.bjpowernode.finance.entity.UserExample" resultType="java.lang.Long">
     select count(*) from user
     <if test="_parameter != null">
@@ -213,6 +288,21 @@ WHERE
   </select>
   <select id="selectTermFinancial" resultType="java.lang.Integer">
     select count(id) from user_term_financial where userId = #{userId}
+  </select>
+  <select id="selectAllUser" resultType="com.bjpowernode.finance.entity.User">
+    SELECT
+	u.*
+FROM
+	admin a
+	INNER JOIN admin_user_rela r ON r.adminId = a.id
+	INNER JOIN `user` u ON u.id = r.userId
+	where r.adminId = #{adminId}
+  </select>
+  <select id="selectByName" resultType="com.bjpowernode.finance.entity.User">
+    select * from user where username = #{username}
+  </select>
+  <select id="selectAdminUser" resultType="com.bjpowernode.finance.entity.AdminUserRela">
+    select r.* ,a.username from admin_user_rela r inner join admin a on a.id = r.adminId where userId = #{userId} and adminId = #{adminId}
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update user

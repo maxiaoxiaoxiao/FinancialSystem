@@ -6,7 +6,6 @@ import com.bjpowernode.finance.entity.PayMoney;
 import com.bjpowernode.finance.entity.UserPayMoney;
 
 import java.util.List;
-import org.springframework.web.bind.annotation.RequestParam;
 
 public interface UserPayMoneyService {
 
@@ -26,4 +25,7 @@ public interface UserPayMoneyService {
   List<PayMoney> selectUserPayMoneyByUser(Integer userId);
 
     void deleteUserPayMoney(UserPayMoney upm);
+
+  void insertUserPayMoneyList(
+      Integer payMoneyId, List<Integer> userIdList, Integer adminId);
 }

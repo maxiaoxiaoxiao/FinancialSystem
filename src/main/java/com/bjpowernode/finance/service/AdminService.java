@@ -36,4 +36,11 @@ public interface AdminService {
      * @return
      */
     List<Admin> selectAdmin();
+
+    /**
+     * 查询管理员.
+     * @param username
+     * @return
+     */
+    Admin selectAdminByName(String username);
 }

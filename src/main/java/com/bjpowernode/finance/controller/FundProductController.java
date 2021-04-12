@@ -1,6 +1,7 @@
 package com.bjpowernode.finance.controller;
 
 import com.bjpowernode.finance.common.Msg;
+import com.bjpowernode.finance.entity.Admin;
 import com.bjpowernode.finance.entity.FlowOfFunds;
 import com.bjpowernode.finance.entity.FundProduct;
 import com.bjpowernode.finance.entity.UserFundProduct;
@@ -59,6 +60,14 @@ public class FundProductController {
         return userFundProductService.insertUserFundProduct(fundProductId,userId);
     }
 
+    @PostMapping("/user/buyFundProductList")
+    @ResponseBody
+    public Msg buyFundProductList(@RequestParam("fundProductId")Integer fundProductId,
+                              @RequestParam("userIdList") List<Integer> userIdList,HttpSession session ){
+        Admin admin = (Admin)session.getAttribute("loginAdmin");
+        userFundProductService.insertUserFundProductList(fundProductId,userIdList,admin.getId());
+        return Msg.success();
+    }
     /**
      * 跳转到基金理财管理界面（管理员）
      * @param pageNum

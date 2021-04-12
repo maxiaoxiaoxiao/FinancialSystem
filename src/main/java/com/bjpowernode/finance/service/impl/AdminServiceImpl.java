@@ -70,19 +70,18 @@ public class AdminServiceImpl implements AdminService {
   @Override
   public Msg deleteAdminById(Integer id, HttpSession session) {
     Msg msg = new Msg();
-    Admin loginAdmin = (Admin) session.getAttribute("loginAdmin");
-    Admin admin = adminMapper.selectByPrimaryKey(id);
+    Admin admin = adminMapper.selectById(id);
     if (CheckEmptyUtil.isEmpty(admin)) {
       msg.setCode(200);
-      msg.setMsg("管理员不存在");
+      msg.setMsg("投资顾问不存在");
       return msg;
     }
-    if (loginAdmin.getUsername().equals(admin.getUsername())) {
+    if (admin.getType().equals(0)) {
       msg.setCode(200);
-      msg.setMsg("当前账号不能删除");
+      msg.setMsg("不能删除管理员");
       return msg;
     }
-    Integer result = adminMapper.deleteByPrimaryKey(id);
+    adminMapper.deleteByPrimaryKey(id);
     msg.setCode(100);
     msg.setMsg("删除成功");
     return msg;
@@ -92,5 +91,10 @@ public class AdminServiceImpl implements AdminService {
   public List<Admin> selectAdmin() {
     return adminMapper.selectAdmin();
 
+  }
+
+  @Override
+  public Admin selectAdminByName(String username) {
+    return adminMapper.selectAdminByName(username);
   }
 }

@@ -5,11 +5,15 @@ import java.util.Date;
 public class News {
     private Integer id;
 
-    private String title;
+    private Integer adminId;
 
-    private String newsdesc;
+    private Integer userId;
 
     private Date createtime;
+
+    private String name;
+
+    private Integer status;
 
     public Integer getId() {
         return id;
@@ -19,27 +23,43 @@ public class News {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
-    }
-
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
-    }
-
-    public String getNewsdesc() {
-        return newsdesc;
-    }
-
-    public void setNewsdesc(String newsdesc) {
-        this.newsdesc = newsdesc == null ? null : newsdesc.trim();
-    }
-
     public Date getCreatetime() {
         return createtime;
     }
 
     public void setCreatetime(Date createtime) {
         this.createtime = createtime;
+    }
+
+    public Integer getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(Integer adminId) {
+        this.adminId = adminId;
+    }
+
+    public Integer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Integer userId) {
+        this.userId = userId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 }

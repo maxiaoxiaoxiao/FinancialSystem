@@ -108,6 +108,8 @@ public class MainController {
         }
         //收藏占比
         Proportion proportion = userService.selectCollection(user.getId());
+        //被推荐的商品
+        String message = newsService.selectAllNews(user.getId());
         model.addAttribute("outAndIn", JsonMapper.toJsonString(outAndIn));
         model.addAttribute("proportion",JsonMapper.toJsonString(proportion));
         model.addAttribute("pageTopBarInfo","系统首页");

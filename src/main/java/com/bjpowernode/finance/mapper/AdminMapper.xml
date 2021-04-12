@@ -100,9 +100,9 @@
   </delete>
   <insert id="insert" parameterType="com.bjpowernode.finance.entity.Admin">
     insert into admin (id, username, password,
-      status)
+      status,type)
     values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR},
-      #{status,jdbcType=INTEGER})
+      #{status,jdbcType=INTEGER},1)
   </insert>
   <insert id="insertSelective" parameterType="com.bjpowernode.finance.entity.Admin">
     insert into admin
@@ -145,7 +145,13 @@
     select * from admin where username = #{userName}
   </select>
   <select id="selectAdmin" resultType="com.bjpowernode.finance.entity.Admin">
-    select * from admin
+    select * from admin where type =1
+  </select>
+  <select id="selectById" resultType="com.bjpowernode.finance.entity.Admin">
+    select * from admin where id = #{id}
+  </select>
+  <select id="selectAdminByName" resultType="com.bjpowernode.finance.entity.Admin">
+    select * from admin where username = #{username}
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update admin

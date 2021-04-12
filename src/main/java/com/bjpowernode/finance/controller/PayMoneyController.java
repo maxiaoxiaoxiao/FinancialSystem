@@ -1,6 +1,7 @@
 package com.bjpowernode.finance.controller;
 
 import com.bjpowernode.finance.common.Msg;
+import com.bjpowernode.finance.entity.Admin;
 import com.bjpowernode.finance.entity.FlowOfFunds;
 import com.bjpowernode.finance.entity.PayMoney;
 import com.bjpowernode.finance.entity.UserPayMoney;
@@ -58,6 +59,21 @@ public class PayMoneyController {
     public Msg buyPayMoney(@RequestParam("payMoneyId")Integer payMoneyId,
                            @RequestParam("userId") Integer userId ){
         return userPayMoneyService.insertUserPayMoney(payMoneyId,userId);
+
+    }
+
+    /**
+     * 购买工资理财产品
+     * @param payMoneyId
+     * @return
+     */
+    @PostMapping("/user/buyPayMoneyList")
+    @ResponseBody
+    public Msg buyPayMoneyList(@RequestParam("payMoneyId")Integer payMoneyId,
+                           @RequestParam("userIdList") List<Integer> userIdList,HttpSession session ){
+        Admin admin = (Admin)session.getAttribute("loginAdmin");
+        userPayMoneyService.insertUserPayMoneyList(payMoneyId,userIdList,admin.getId());
+        return Msg.success();
 
     }
 

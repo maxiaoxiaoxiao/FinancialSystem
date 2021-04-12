@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bjpowernode.finance.mapper.NewsMapper">
-  <resultMap id="BaseResultMap" type="com.bjpowernode.finance.entity.News">
-    <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="newsDesc" jdbcType="VARCHAR" property="newsdesc" />
-    <result column="createTime" jdbcType="DATE" property="createtime" />
-  </resultMap>
+
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -68,22 +63,9 @@
   <sql id="Base_Column_List">
     id, title, newsDesc, createTime
   </sql>
-  <select id="selectByExample" parameterType="com.bjpowernode.finance.entity.NewsExample" resultMap="BaseResultMap">
+
+  <select id="selectByPrimaryKey" resultType="com.bjpowernode.finance.entity.News">
     select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from news
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
-    select 
     <include refid="Base_Column_List" />
     from news
     where id = #{id,jdbcType=INTEGER}
@@ -92,16 +74,11 @@
     delete from news
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.bjpowernode.finance.entity.NewsExample">
-    delete from news
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
+
   <insert id="insert" parameterType="com.bjpowernode.finance.entity.News">
-    insert into news (id, title, newsDesc, 
+    insert into news (id, title, newsDesc,
       createTime)
-    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{newsdesc,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{newsdesc,jdbcType=VARCHAR},
       #{createtime,jdbcType=DATE})
   </insert>
   <insert id="insertSelective" parameterType="com.bjpowernode.finance.entity.News">
@@ -135,42 +112,19 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.bjpowernode.finance.entity.NewsExample" resultType="java.lang.Long">
-    select count(*) from news
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
+
+  <select id="selectAllNews" resultType="java.lang.String">
+    SELECT
+	concat('被',a.username,'推荐',n.name,'请去我的收藏查看')
+FROM
+	news n
+	INNER JOIN admin a ON a.id = n.adminId
+WHERE
+	n.userId = #{userId}
+	AND n.`status` = 0
   </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update news
-    <set>
-      <if test="record.id != null">
-        id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.title != null">
-        title = #{record.title,jdbcType=VARCHAR},
-      </if>
-      <if test="record.newsdesc != null">
-        newsDesc = #{record.newsdesc,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createtime != null">
-        createTime = #{record.createtime,jdbcType=DATE},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update news
-    set id = #{record.id,jdbcType=INTEGER},
-      title = #{record.title,jdbcType=VARCHAR},
-      newsDesc = #{record.newsdesc,jdbcType=VARCHAR},
-      createTime = #{record.createtime,jdbcType=DATE}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
+
+
   <update id="updateByPrimaryKeySelective" parameterType="com.bjpowernode.finance.entity.News">
     update news
     <set>

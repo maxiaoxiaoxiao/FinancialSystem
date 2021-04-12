@@ -1,9 +1,11 @@
 package com.bjpowernode.finance.controller;
 
 import com.bjpowernode.finance.common.Msg;
+import com.bjpowernode.finance.entity.Admin;
 import com.bjpowernode.finance.entity.Exam;
 import com.bjpowernode.finance.entity.User;
 import com.bjpowernode.finance.service.UserService;
+import com.bjpowernode.finance.utils.CheckEmptyUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,8 +143,9 @@ public class UserController {
                              @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                              Model model, HttpSession session) {
         // 引入PageHelper插件，在查询之前调用startPage方法，传入页码以及每页大小
+        Admin admin = (Admin)session.getAttribute("loginAdmin");
         PageHelper.startPage(pageNum, pageSize);
-        List<User> list = userService.selectAllUser();
+        List<User> list = userService.selectAllUser(admin);
         list.forEach( s -> {
             s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
         });
@@ -165,14 +168,15 @@ public class UserController {
      */
     @PostMapping("/user/addUser")
     @ResponseBody
-    public Msg addUser(User user){
+    public Msg addUser(User user,HttpSession session,Integer adminId){
+        if (CheckEmptyUtil.isEmpty(adminId)) {
+            Admin admin = (Admin)session.getAttribute("loginAdmin");
+            adminId = admin.getId();
+        }
+
         user.setStatus(0);
         user.setReputation("良好");
-        Integer result = userService.insertUser(user);
-        if (result==1){
-            return Msg.success();
-        }
-        return Msg.fail();
+        return userService.insertAdminUser(adminId,user);
     }
 
     /**
@@ -222,15 +226,15 @@ public class UserController {
     public String toUserReputation(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                              @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                              Model model, HttpSession session) {
-        PageHelper.startPage(pageNum, pageSize);
-        List<User> list = userService.selectAllUser();
-        PageInfo<User> pageInfo = new PageInfo<User>(list, 5);
-        model.addAttribute("userPageInfo",pageInfo);
-        model.addAttribute("userList",list);
-
-        model.addAttribute("activeUrl1", "userInfoActive");
-        model.addAttribute("activeUrl2", "reputationActive");
-        model.addAttribute("pageTopBarInfo", "用户信誉界面");
+//        PageHelper.startPage(pageNum, pageSize);
+//        //List<User> list = userService.selectAllUser(admin.getType());
+//        PageInfo<User> pageInfo = new PageInfo<User>(list, 5);
+//        model.addAttribute("userPageInfo",pageInfo);
+//        model.addAttribute("userList",list);
+//
+//        model.addAttribute("activeUrl1", "userInfoActive");
+//        model.addAttribute("activeUrl2", "reputationActive");
+//        model.addAttribute("pageTopBarInfo", "用户信誉界面");
         return "/admin/userinfo/reputation";
     }
 
@@ -249,4 +253,24 @@ public class UserController {
         msg.setMsg("您的投资意向为" +  s + "风险,谢谢您的参与");
         return msg;
     }
+
+    /**
+     * 查询所有的投资顾问
+     * @return
+     */
+    @PostMapping("/user/selectAllAdmin")
+    @ResponseBody
+    public List<Admin> selectAllAdmin() {
+        return userService.selectAllAdmin();
+    }
+    /**
+     * 查询所有的用户
+     * @return
+     */
+    @PostMapping("/user/selectAllUser")
+    @ResponseBody
+    public List<User> selectAllUser() {
+        return userService.selectUser();
+    }
+
 }

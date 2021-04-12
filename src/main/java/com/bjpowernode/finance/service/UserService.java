@@ -1,5 +1,7 @@
 package com.bjpowernode.finance.service;
 
+import com.bjpowernode.finance.common.Msg;
+import com.bjpowernode.finance.entity.Admin;
 import com.bjpowernode.finance.entity.Exam;
 import com.bjpowernode.finance.entity.Proportion;
 import com.bjpowernode.finance.entity.OutAndIn;
@@ -11,9 +13,7 @@ public interface UserService {
 
     User selectUserByTerms(String username, String password);
 
-    List<User> selectUserByStatusDesc();
-
-    List<User> selectAllUser();
+    List<User> selectAllUser(Admin admin);
 
     Integer updateUser(User user);
 
@@ -43,4 +43,15 @@ public interface UserService {
      * @param exam
      */
     String addRisk(User user, Exam exam);
+
+    /**
+     * 新增用户.
+     * @param adminId
+     * @param user
+     */
+    Msg insertAdminUser(Integer adminId, User user);
+
+    List<Admin> selectAllAdmin();
+
+    List<User> selectUser();
 }
