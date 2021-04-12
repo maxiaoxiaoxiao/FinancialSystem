@@ -2,6 +2,7 @@ package com.bjpowernode.finance.controller;
 
 import com.bjpowernode.finance.common.Msg;
 import com.bjpowernode.finance.entity.Admin;
+import com.bjpowernode.finance.entity.BuyChangeMoney;
 import com.bjpowernode.finance.entity.ChangeMoney;
 import com.bjpowernode.finance.service.ChangeMoneyService;
 import com.bjpowernode.finance.service.FlowOfFundsService;
@@ -14,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -60,16 +62,16 @@ public class ChangeMoneyController {
 
     /**
      * 推荐理财.
-     * @param changeMoneyId
+     * @param
      * @return
      */
     @RequestMapping("/user/buyChangeMoneyList")
     @ResponseBody
-    public Msg buyChangeMoneyList(@RequestParam("changeMoneyId")Integer changeMoneyId,
-                              @RequestParam("content")  String content,
-                              @RequestParam("userIdList") List<Integer> userIdList,HttpSession session ){
+    public Msg buyChangeMoneyList(@RequestBody BuyChangeMoney buyChangeMoney, HttpSession session ){
         Admin admin = (Admin)session.getAttribute("loginAdmin");
-        userChangeMoneyService.insertUserListChangeMoney(changeMoneyId,userIdList,admin.getId(),content);
+        List<Integer> list = new ArrayList<>();
+        list.add(Integer.valueOf(buyChangeMoney.getUserIdList()));
+        userChangeMoneyService.insertUserListChangeMoney(buyChangeMoney.getChangeMoneyId(),list,admin.getId(),buyChangeMoney.getConctent());
         return Msg.success();
 
     }

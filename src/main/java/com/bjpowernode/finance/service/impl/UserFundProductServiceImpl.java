@@ -95,7 +95,7 @@ public class UserFundProductServiceImpl implements UserFundProductService {
                       userFundProductMapper.insertSelective(userFundProduct);
                   }
                   News n = new News();
-                  n.setCreatetime(date);
+                  n.setCreateTime(date);
                   n.setAdminId(adminId);
                   n.setName(fundProduct.getFunddesc());
                   n.setStatus(0);

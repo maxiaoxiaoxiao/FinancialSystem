@@ -96,7 +96,7 @@ public class UserPayMoneyServiceImpl implements UserPayMoneyService {
                 userPayMoneyMapper.insertSelective(userPayMoney);
               }
               News n = new News();
-              n.setCreatetime(date);
+              n.setCreateTime(date);
               n.setAdminId(adminId);
               n.setName(payMoney.getName());
               n.setStatus(0);

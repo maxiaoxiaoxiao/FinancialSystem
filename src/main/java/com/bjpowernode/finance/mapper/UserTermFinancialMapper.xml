@@ -212,6 +212,7 @@
     values
     <foreach collection="news" item="n" index="index" separator=",">
       (
+      null,
       #{n.adminId},
       #{n.userId},
       #{n.createTime},

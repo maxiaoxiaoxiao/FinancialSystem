@@ -41,7 +41,7 @@
                                             <th class="info">序号</th>
                                             <th class="info">用户名</th>
                                             <th class="info">用户状态</th>
-                                            <th class="info">相关操作</th>
+                                            <th class="info do_info">相关操作</th>
                                         </tr>
                                         </thead>
                                         <tbody>
@@ -223,6 +223,26 @@
 <script th:src="@{/lyear/js/main.min.js}"></script>
 <script type="text/javascript">
 
+
+    var role =  [[${session.loginAdmin.type}]];
+    if(1 === role){
+        var addBtn = document.getElementById("add_modal_btn");
+        addBtn.style.display = "none";
+
+        var updateBtn = document.getElementsByClassName("do_info");
+        var i;
+        for (i = 0; i < updateBtn.length; i++) {
+            updateBtn[i].style.display = "none";
+        }
+
+
+        var deleteBtn = document.getElementsByClassName("delete_btn");
+        var i;
+        for (i = 0; i < deleteBtn.length; i++) {
+            deleteBtn[i].style.display = "none";
+        }
+
+    }
 
     //点击新增按钮弹出模态框。
     $("#add_modal_btn").click(function () {

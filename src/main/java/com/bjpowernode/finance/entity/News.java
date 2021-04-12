@@ -9,7 +9,7 @@ public class News {
 
     private Integer userId;
 
-    private Date createtime;
+    private Date createTime;
 
     private String name;
 
@@ -25,12 +25,12 @@ public class News {
         this.id = id;
     }
 
-    public Date getCreatetime() {
-        return createtime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatetime(Date createtime) {
-        this.createtime = createtime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     public Integer getAdminId() {

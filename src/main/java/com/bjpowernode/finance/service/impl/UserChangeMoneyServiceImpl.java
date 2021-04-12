@@ -94,7 +94,7 @@ public class UserChangeMoneyServiceImpl implements UserChangeMoneyService {
                     userChangeMoneyMapper.insertSelective(userChangeMoney);
                 }
               News n = new News();
-              n.setCreatetime(date);
+              n.setCreateTime(date);
               n.setAdminId(adminId);
               n.setName(changeMoney.getName());
               n.setStatus(0);

@@ -168,7 +168,14 @@ public class UserController {
      */
     @PostMapping("/user/addUser")
     @ResponseBody
-    public Msg addUser(User user,HttpSession session,Integer adminId){
+    public Msg addUser(User user,HttpSession session){
+        if(CheckEmptyUtil.isEmpty(user)){
+            Msg msg = new Msg();
+            msg.setCode(200);
+            msg.setMsg("不能传入客户");
+            return msg;
+        }
+        Integer adminId = user.getAdminId();
         if (CheckEmptyUtil.isEmpty(adminId)) {
             Admin admin = (Admin)session.getAttribute("loginAdmin");
             adminId = admin.getId();
@@ -260,8 +267,12 @@ public class UserController {
      */
     @PostMapping("/user/selectAllAdmin")
     @ResponseBody
-    public List<Admin> selectAllAdmin() {
-        return userService.selectAllAdmin();
+    public Msg selectAllAdmin() {
+        List<Admin> admins = userService.selectAllAdmin();
+        Msg msg = new Msg();
+        msg.setCode(100);
+        msg.add("list",admins);
+        return msg;
     }
     /**
      * 查询所有的用户
@@ -269,8 +280,23 @@ public class UserController {
      */
     @PostMapping("/user/selectAllUser")
     @ResponseBody
-    public List<User> selectAllUser() {
-        return userService.selectUser();
+    public Msg selectAllUser( HttpSession session) {
+        Admin admin = (Admin)session.getAttribute("loginAdmin");
+        List<User> list = userService.selectAllUser(admin);
+        if(CheckEmptyUtil.isEmpty(list)){
+            Msg msg = new Msg();
+            msg.setCode(100);
+            msg.setMsg("您没有客户进行推荐");
+            return msg;
+        }
+        Msg msg = new Msg();
+        msg.setCode(100);
+        msg.add("list",list);
+        return msg;
     }
+
+
+
+
 
 }

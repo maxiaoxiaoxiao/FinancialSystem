@@ -432,8 +432,9 @@
 <script th:src="@{/js/md5.js}"></script>
 <script type="text/javascript">
 
+    var ccId = [[${session.loginAdmin.id}]];
+    var ccUsername =  [[${session.loginAdmin.username}]];
      var role =  [[${session.loginAdmin.type}]];
-     console.log(role);
      if(1 === role){
          var updateBtn = document.getElementsByClassName("update_btn");
          var i;
@@ -447,13 +448,11 @@
              deleteBtn[j].style.display = "none";
          }
 
+
+         $("#manager").append("<option value='" +ccId + "'>" + ccUsername  + "</option>");
+     }else {
          //增加投资顾问
          selectAdmin();
-
-
-     }else {
-         var managerDiv = document.getElementById("manager_div");
-         managerDiv[i].style.display = "none";
      }
 
      function selectAdmin(){
@@ -463,10 +462,11 @@
              async: false,
              contentType: "application/json; charset=utf-8",
              success: function (result) {
+                 var resultList =  result.extend.list;
                  if (result.code === 100) {
-                     var managerDiv = document.getElementById('manager_div');
-                     for(var i=0;i<=result.list.length;i++){
-                         managerDiv.append("<option value='" + cinema.cinemaCode + "'>" + shortName + "</option>");
+                     var managerDiv = document.getElementById('manager');
+                     for(var i=0;i<resultList.length;i++){
+                         $("#manager").append("<option value='" + resultList[i].id + "'>" + resultList[i].username  + "</option>");
                      }
                  } else {
                      $.alert('查询展示投资顾问错误！');
@@ -503,6 +503,7 @@
         var realname = $("#realname_add_input").val();
         var phone = $("#phone_add_input").val();
         var email = $("#email_add_input").val();
+        var manager = jQuery("#manager  option:selected").val();
 
         //匹配中文、英文、数字包括下划线(用户名)
         var usernameRegex = /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
@@ -560,14 +561,27 @@
         if(password){
           $("#password_add_input").val($.md5(password));
         }
-        //2、发送ajax请求保存用户
-        $.ajax({
-            url: "/user/addUser",
-            type: "POST",
-            data: $("#userAddModal form").serialize(),
-            success: function (result) {
-                if (result.code === 100) {
 
+        var username = $("#username_add_input").val();
+        var password = $("#password_add_input").val();
+        var realname = $("#realname_add_input").val();
+        var phone = $("#phone_add_input").val();
+        var email = $("#email_add_input").val();
+        var manager = jQuery("#manager  option:selected").val();
+        //2、发送ajax请求保存用户
+            $.ajax({
+                url: "/user/addUser",
+                type: "POST",
+                data : {
+                    "username":username,
+                    "password":password,
+                    "realname":realname,
+                    "phone":phone,
+                    "email":email,
+                    "adminId":manager
+                },
+                success : function(result) {
+                if (result.code === 100) {
                     $("#userAddModal").modal('hide');
                     $.alert('用户新增成功！');
                     setTimeout(function () {

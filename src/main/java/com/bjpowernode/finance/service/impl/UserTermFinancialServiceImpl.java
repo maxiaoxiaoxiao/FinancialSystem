@@ -92,7 +92,7 @@ public class UserTermFinancialServiceImpl implements UserTermFinancialService {
                       userTermFinancialMapper.insertSelective(userTermFinancial);
                   }
                   News n = new News();
-                  n.setCreatetime(date);
+                  n.setCreateTime(date);
                   n.setAdminId(adminId);
                   n.setName(termFinancial.getName());
                   n.setStatus(0);

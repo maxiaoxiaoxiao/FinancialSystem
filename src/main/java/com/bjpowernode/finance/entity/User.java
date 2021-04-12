@@ -23,6 +23,8 @@ public class User {
 
     private String risLevel;
 
+    private Integer adminId;
+
     public Integer getId() {
         return id;
     }
@@ -110,5 +112,13 @@ public class User {
 
     public void setRisLevel(String risLevel) {
         this.risLevel = risLevel;
+    }
+
+    public Integer getAdminId() {
+        return adminId;
+    }
+
+    public void setAdminId(Integer adminId) {
+        this.adminId = adminId;
     }
 }
