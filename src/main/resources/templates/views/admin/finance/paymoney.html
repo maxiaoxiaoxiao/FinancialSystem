@@ -509,6 +509,23 @@
 <script th:src="@{/lyear/js/main.min.js}"></script>
 <script type="text/javascript">
 
+
+    var role =  [[${session.loginAdmin.type}]];
+    console.log(role);
+    if(1 === role){
+        var updateBtn = document.getElementsByClassName("update_btn");
+        var i;
+        for (i = 0; i < updateBtn.length; i++) {
+            updateBtn[i].style.display = "none";
+        }
+
+        var deleteBtn = document.getElementsByClassName("delete_btn");
+        var j;
+        for (j = 0; j < deleteBtn.length; j++) {
+            deleteBtn[j].style.display = "none";
+        }
+    }
+
     //点击新增按钮弹出模态框。
     $("#add_modal_btn").click(function () {
         //清除表单数据（表单完整重置（表单的数据，表单的样式））

@@ -81,12 +81,13 @@ public class MainController {
         // 引入PageHelper插件，在查询之前调用startPage方法，传入页码以及每页大小
         PageHelper.startPage(pageNum, pageSize);
         List<Admin> list = adminService.selectAdmin();
+        List<User> users = userService.selectAllUser();
         // 使用PageInfo包装查询后的结果，并交给页面处理
         // PageInfo封装了详细的分页信息，包括我们查询出来的数据，还可以传入连续显示的页数（5）
         PageInfo<Admin> pageInfo = new PageInfo<Admin>(list, 5);
         model.addAttribute("userPageInfo",pageInfo);
         model.addAttribute("userList",list);
-
+        model.addAttribute("users",users);
         model.addAttribute("pageTopBarInfo","系统首页");
         model.addAttribute("activeUrl","indexActive");
         return "admin/main";

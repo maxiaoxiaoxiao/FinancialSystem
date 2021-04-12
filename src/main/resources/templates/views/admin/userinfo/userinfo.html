@@ -56,12 +56,13 @@
                                             <td th:text="${user.risLevel}"></td>
                                             <td th:text="${user.email}==null?'未填写':${user.email}"></td>
                                             <td>
-                                                <button class="btn btn-primary btn-sm update_btn"
+
+                                                <button id="update_common_btn" class="btn btn-primary btn-sm update_btn"
                                                         th:attr="update-id=${user.id}">
 															<span class="glyphicon glyphicon-pencil"
                                                                   aria-hidden="true"></span> 编辑
                                                 </button>
-                                                <button class="btn btn-danger btn-sm delete_btn"
+                                                <button  id = "delete_common_btn" class="btn btn-danger btn-sm delete_btn"
                                                         th:attr="delete-id=${user.id},delete-name=${user.username}">
 															<span class="glyphicon glyphicon-trash"
                                                                   aria-hidden="true"></span> 删除
@@ -255,6 +256,17 @@
                                             </div>
                                         </div>
 
+                                        <div class="form-group" id="manager_div">
+                                            <label class="col-sm-2 control-label">选择基金经理：</label>
+                                            <div class="col-sm-6">
+                                                <select id="manager" class="form-control" name="type">
+                                                </select>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+
                                     </form>
                                 </div>
                                 <div class="modal-footer">
@@ -268,6 +280,9 @@
                             </div>
                         </div>
                     </div>
+
+
+
 
                     <!-- 查看收藏的模态框 -->
                     <div class="modal fade" id="selectCommonModal" tabindex="-1"
@@ -416,6 +431,56 @@
 <script th:src="@{/lyear/js/main.min.js}"></script>
 <script th:src="@{/js/md5.js}"></script>
 <script type="text/javascript">
+
+     var role =  [[${session.loginAdmin.type}]];
+     console.log(role);
+     if(1 === role){
+         var updateBtn = document.getElementsByClassName("update_btn");
+         var i;
+         for (i = 0; i < updateBtn.length; i++) {
+             updateBtn[i].style.display = "none";
+         }
+
+         var deleteBtn = document.getElementsByClassName("delete_btn");
+         var j;
+         for (j = 0; j < deleteBtn.length; j++) {
+             deleteBtn[j].style.display = "none";
+         }
+
+         //增加投资顾问
+         selectAdmin();
+
+
+     }else {
+         var managerDiv = document.getElementById("manager_div");
+         managerDiv[i].style.display = "none";
+     }
+
+     function selectAdmin(){
+         $.ajax({
+             url: "/user/selectAllAdmin",
+             type: "POST",
+             async: false,
+             contentType: "application/json; charset=utf-8",
+             success: function (result) {
+                 if (result.code === 100) {
+                     var managerDiv = document.getElementById('manager_div');
+                     for(var i=0;i<=result.list.length;i++){
+                         managerDiv.append("<option value='" + cinema.cinemaCode + "'>" + shortName + "</option>");
+                     }
+                 } else {
+                     $.alert('查询展示投资顾问错误！');
+                 }
+             }
+         });
+
+     }
+
+
+
+
+
+
 
     //点击新增按钮弹出模态框。
     $("#user_add_modal_btn").click(function () {
