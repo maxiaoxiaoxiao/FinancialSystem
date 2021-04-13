@@ -433,7 +433,8 @@
 <script type="text/javascript">
 
     var ccId = [[${session.loginAdmin.id}]];
-    var ccUsername =  [[${session.loginAdmin.username}]];
+    // var ccUsername =  [[${session.loginAdmin.username}]];
+    var ccUsername = '[[${session.loginAdmin.username}]]';
      var role =  [[${session.loginAdmin.type}]];
      if(1 === role){
          var updateBtn = document.getElementsByClassName("update_btn");

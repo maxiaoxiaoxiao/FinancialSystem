@@ -111,7 +111,7 @@
       </if>
       <if test="code != null">
         code,
-      </if>
+      </if>toChangeMoney.html
       <if test="funddesc != null">
         fundDesc,
       </if>
@@ -194,16 +194,16 @@
   <select id="selectAllFundProduct"
           resultType="com.bjpowernode.finance.entity.FundProduct">
     select * from fund_product  where 1=1
-    <if test="code != null">
-      and code = #{code}
+    <if test="code != null and code != ''">
+      and code like concat('%',#{code},'%')
     </if>
-    <if test="name != null">
-      and name like concat('%',#{name},'%')
+    <if test="name != null and name != ''">
+      and fundDesc like concat('%',#{name},'%')
     </if>
-    <if test="people != null">
+    <if test="people != null and people != ''">
       and people like concat('%',#{people},'%')
     </if>
-    <if test="company != null">
+    <if test="company != null and company != ''">
       and company like concat('%',#{company},'%')
     </if>
   </select>

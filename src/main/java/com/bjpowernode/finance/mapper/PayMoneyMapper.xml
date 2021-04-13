@@ -167,16 +167,16 @@
   </select>
   <select id="selectAllPayMoney" resultType="com.bjpowernode.finance.entity.PayMoney">
     select * from pay_money  where 1=1
-    <if test="code != null">
+    <if test="code != null and code != ''">
       and code like concat('%',#{code},'%')
     </if>
-    <if test="name != null">
+    <if test="name != null and name != ''">
       and name like concat('%',#{name},'%')
     </if>
-    <if test="people != null">
+    <if test="people != null and people != ''">
       and people like concat('%',#{people},'%')
     </if>
-    <if test="company != null">
+    <if test="company != null and company != ''">
       and company like concat('%',#{company},'%')
     </if>
   </select>
