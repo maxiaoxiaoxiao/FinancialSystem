@@ -122,6 +122,9 @@
       <if test="instruction != null">
         instruction
       </if>
+      <if test="code != null">
+        code
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -150,6 +153,9 @@
       </if>
       <if test="instruction != null">
         #{instruction}
+      </if>
+      <if test="code != null">
+        #{code}
       </if>
     </trim>
   </insert>
