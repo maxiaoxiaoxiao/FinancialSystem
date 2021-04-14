@@ -33,7 +33,7 @@ public interface UserFundProductMapper {
     int updateByPrimaryKey(UserFundProduct record);
 
     /**
-     * 推荐的基金理财.
+     * 推荐的混合类基金.
      *
      * @param userId
      * @return

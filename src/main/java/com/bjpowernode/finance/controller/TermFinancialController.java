@@ -27,7 +27,7 @@ public class TermFinancialController {
     FlowOfFundsService flowOfFundsService;
 
     /**
-     * 跳转到期限理财界面
+     * 跳转到货币基金界面
      *
      * @param model
      * @return
@@ -41,14 +41,14 @@ public class TermFinancialController {
         List<TermFinancial> list = termFinancialService.selectAllTermFinancial(
             code, name, company, people);
         model.addAttribute("termFinancialList", list);
-        model.addAttribute("pageTopBarInfo", "期限理财界面");
+        model.addAttribute("pageTopBarInfo", "货币基金界面");
         model.addAttribute("activeUrl1", "financeActive");
         model.addAttribute("activeUrl2", "termFinancialActive");
         return "/user/finance/termfinancial";
     }
 
     /**
-     * 购买工资理财产品
+     * 购买债券类基金产品
      *
      * @param termFinancialId
      * @param userId
@@ -75,7 +75,7 @@ public class TermFinancialController {
     return Msg.success();
   }
   /**
-   * 跳转到期限理财管理界面（管理员）
+   * 跳转到货币基金管理界面（管理员）
    *
    * @param pageNum
    * @param pageSize
@@ -101,12 +101,12 @@ public class TermFinancialController {
 
     model.addAttribute("activeUrl1", "financeActive");
     model.addAttribute("activeUrl2", "termfinancialActive");
-    model.addAttribute("pageTopBarInfo", "期限理财管理界面");
+    model.addAttribute("pageTopBarInfo", "货币基金管理界面");
     return "/admin/finance/termfinancial";
   }
 
     /**
-     * 新增期限理财产品
+     * 新增货币基金产品
      *
      * @return
      */

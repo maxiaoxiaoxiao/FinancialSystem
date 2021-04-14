@@ -35,7 +35,7 @@ public interface UserTermFinancialMapper {
     int updateByPrimaryKey(UserTermFinancial record);
 
     /**
-     * 推荐的期限理财.
+     * 推荐的货币基金.
      *
      * @param userId
      * @return

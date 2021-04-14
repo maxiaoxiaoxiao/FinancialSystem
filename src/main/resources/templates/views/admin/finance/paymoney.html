@@ -32,7 +32,7 @@
                             <div class="card-header">
 
                                 <div>
-                                    <h4>工资理财管理</h4>
+                                    <h4>债券类基金管理</h4>
                                 </div>
                                 <br>
 
@@ -76,24 +76,24 @@
                                     <table class="table table-hover table-striped">
                                         <thead>
                                         <tr>
-                                            <th class="info">序号</th>
-                                            <th class="info">产品类型</th>
-                                            <th class="info">每月金额设定</th>
-                                            <th class="info">自动转入</th>
-                                            <th class="info">投资期限</th>
+                                            <th class="info">基金代码</th>
+                                            <th class="info">产品名称</th>
+                                            <th class="info">行业</th>
+                                            <th class="info">基金经理</th>
+                                            <th class="info">年化收益率</th>
+                                            <th class="info">简介</th>
                                             <th class="info">风险级别</th>
                                             <th class="info">相关操作</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="finance:${financeList}">
-                                            <td th:text="${(finacnePageInfo.pageNum - 1) * finacnePageInfo.pageSize+financeStat.index+1}"></td>
-                                            <td th:if="${finance.type==1}" th:text="国债"></td>
-                                            <td th:if="${finance.type==2}" th:text="期货"></td>
-                                            <td th:text="${#numbers.formatDecimal(finance.monthmoney,1,2)}"></td>
-                                            <td th:if="${finance.autointo==1}" th:text="是"></td>
-                                            <td th:if="${finance.autointo==2}" th:text="否"></td>
-                                            <td th:text="${finance.investerm}"></td>
+                                            <td th:text="${finance.code}"></td>
+                                            <td th:text="${finance.name}"></td>
+                                            <td th:text="${finance.company}"></td>
+                                            <td th:text="${finance.people}"></td>
+                                            <td th:text="${#numbers.formatDecimal(finance.monthmoney*100,1,3)}+'%'"></td>
+                                            <td th:text="${finance.instruction}"></td>
                                             <td th:text="${finance.risLevel}"></td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm update_btn"
@@ -228,7 +228,7 @@
                                             aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <h4 class="modal-title">查看工资理财评论</h4>
+                                    <h4 class="modal-title">查看债券类基金评论</h4>
                                 </div>
                                 <div class="modal-body">
                                     <div class="table-responsive">
@@ -325,7 +325,7 @@
                                             aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <h4 class="modal-title">新增工资理财评论</h4>
+                                    <h4 class="modal-title">新增债券类基金评论</h4>
                                 </div>
                                 <div class="modal-body">
                                     <!--要提交的表单 -->
@@ -368,7 +368,7 @@
                         </div>
                     </div>
 
-                    <!-- 新增工资理财的模态框 -->
+                    <!-- 新增债券类基金的模态框 -->
                     <div class="modal fade" id="addModal" tabindex="-1"
                          role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
@@ -378,24 +378,17 @@
                                             aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <h4 class="modal-title">新增工资理财产品</h4>
+                                    <h4 class="modal-title">新增债券类基金产品</h4>
                                 </div>
                                 <div class="modal-body">
                                     <!--要提交的表单 -->
                                     <form class="form-horizontal">
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">产品类型：</label>
+                                            <label class="col-sm-2 control-label">基金代码：</label>
                                             <div class="col-sm-6">
-                                                <div class="example-box">
-                                                    <label class="lyear-radio radio-inline">
-                                                        <input type="radio" name="type"
-                                                               value="1" checked="checked"><span>国债</span>
-                                                    </label>
-                                                    <label class="lyear-radio radio-inline">
-                                                        <input type="radio" name="type" id="type_add_input"
-                                                               value="2"> <span>期货</span>
-                                                    </label>
-                                                </div>
+                                                <input type="text" class="form-control"
+                                                       id="code_add_input" name="code"
+                                                       placeholder="请输入基金代码：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -403,11 +396,47 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">每月金额设定(元)：</label>
+                                            <label class="col-sm-2 control-label">产品名称：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="name_add_input" name="name"
+                                                       placeholder="请输入产品名称：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">行业：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="company_add_input" name="company"
+                                                       placeholder="请输入行业：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">基金经理：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="people_add_input" name="people"
+                                                       placeholder="请输入基金经理：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">年化收益率：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
                                                        id="monthmoney_add_input" name="monthmoney"
-                                                       placeholder="请输入每月转入的金额：">
+                                                       placeholder="请输入七日年化收益率：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -415,30 +444,11 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">自动转入：</label>
-                                            <div class="col-sm-6">
-                                                <div class="example-box">
-                                                    <label class="lyear-radio radio-inline">
-                                                        <input type="radio" name="autointo"
-                                                               value="1" checked="checked"><span>是</span>
-                                                    </label>
-                                                    <label class="lyear-radio radio-inline">
-                                                        <input type="radio" name="autointo"
-                                                               value="2"> <span>否</span>
-                                                    </label>
-                                                </div>
-                                                <span class="help-block"></span>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">投资期限：</label>
+                                            <label class="col-sm-2 control-label">简介：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
-                                                       id="investerm_add_input" name="investerm"
-                                                       placeholder="请输入投资期限：">
+                                                       id="instruction_add_input" name="instruction"
+                                                       placeholder="请输入产品名称：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -492,24 +502,17 @@
                                             aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <h4 class="modal-title">修改零钱理财产品信息</h4>
+                                    <h4 class="modal-title">修改股票类基金产品信息</h4>
                                 </div>
                                 <div class="modal-body">
                                     <!--要提交的表单 -->
                                     <form class="form-horizontal">
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">产品类型：</label>
+                                            <label class="col-sm-2 control-label">基金代码：</label>
                                             <div class="col-sm-6">
-                                                <div class="example-box">
-                                                    <label class="lyear-radio radio-inline">
-                                                        <input type="radio" name="type"
-                                                               value="1" checked="checked"><span>国债</span>
-                                                    </label>
-                                                    <label class="lyear-radio radio-inline">
-                                                        <input type="radio" name="type"
-                                                               value="2"> <span>期货</span>
-                                                    </label>
-                                                </div>
+                                                <input type="text" class="form-control"
+                                                       id="code_update_input" name="code"
+                                                       placeholder="请输入基金代码：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -517,11 +520,47 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">每月金额设定(元)：</label>
+                                            <label class="col-sm-2 control-label">产品名称：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="name_update_input" name="name"
+                                                       placeholder="请输入产品名称：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">行业：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="company_update_input" name="company"
+                                                       placeholder="请输入行业：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">基金经理：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="people_update_input" name="people"
+                                                       placeholder="请输入基金经理：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">年化收益率：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
                                                        id="monthmoney_update_input" name="monthmoney"
-                                                       placeholder="请输入每月转入的金额：">
+                                                       placeholder="请输入七日年化收益率：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -529,30 +568,11 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">自动转入：</label>
-                                            <div class="col-sm-6">
-                                                <div class="example-box">
-                                                    <label class="lyear-radio radio-inline">
-                                                        <input type="radio" name="autointo"
-                                                               value="1" checked="checked"><span>是</span>
-                                                    </label>
-                                                    <label class="lyear-radio radio-inline">
-                                                        <input type="radio" name="autointo"
-                                                               value="2"> <span>否</span>
-                                                    </label>
-                                                </div>
-                                                <span class="help-block"></span>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">投资期限：</label>
+                                            <label class="col-sm-2 control-label">简介：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
-                                                       id="investerm_update_input" name="investerm"
-                                                       placeholder="请输入投资期限：">
+                                                       id="instruction_update_input" name="instruction"
+                                                       placeholder="请输入产品名称：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -813,33 +833,6 @@
         //清空表单样式
         clean_form("#addModal form");
 
-        var monthmoney = $("#monthmoney_add_input").val();
-        var investerm = $("#investerm_add_input").val();
-
-        //匹配有1~2位小数的正实数
-        var monthmoneyRegex = /^[0-9]+(.[0-9]{1,2})?$/;
-        if (monthmoney.length === 0) {
-            show_validate_msg("#monthmoney_add_input",
-                "error", "每月转入金额为空");
-            return false;
-        } else if (monthmoneyRegex.test(monthmoney) === false) {
-            show_validate_msg("#monthmoney_add_input",
-                "error", "每月转入金额不合法（有1~2位小数的正实数）");
-            return false;
-        }
-
-        //匹配中文、英文、数字包括下划线
-        var investermRegex = /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
-        if (investerm.length === 0) {
-            show_validate_msg("#investerm_add_input",
-                "error", "投资期限为空");
-            return false;
-        } else if (investermRegex.test(investerm) === false) {
-            show_validate_msg("#investerm_add_input",
-                "error", "投资期限不合法");
-            return false;
-        }
-
         //2、发送ajax请求保存产品
         $.ajax({
             url: "/admin/addPayMoney",
@@ -849,14 +842,14 @@
                 if (result.code === 100) {
 
                     $("#addModal").modal('hide');
-                    $.alert('工资理财产品添加成功！');
+                    $.alert('债券类基金产品添加成功！');
                     setTimeout(function () {
                         var pageNum = [[${finacnePageInfo.pages}]];
                         var pageSize = [[${finacnePageInfo.pageSize}]];
                         location.href = "/admin/finance/toPayMoney.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
-                    $.alert('工资理财产品添加失败！');
+                    $.alert('债券类基金产品添加失败！');
                 }
             }
         });
@@ -935,12 +928,14 @@
                 //显示数据之前先清除一下校验样式，如果有的话
                 reset_form("#updateModal form");
 
-                $("#updateModal input[name=type]").val(
-                    [ payMoney.type ]);
+                $("#code_update_input").val(payMoney.code);
+                $("#name_update_input").val(payMoney.name);
+                $("#company_update_input").val(payMoney.company);
+                $("#people_update_input").val(payMoney.people);
                 $("#monthmoney_update_input").val(payMoney.monthmoney);
-                $("#updateModal input[name=autointo]").val(
-                    [ payMoney.autointo ]);
-                $("#investerm_update_input").val(payMoney.investerm);
+                $("#instruction_update_input").val(payMoney.instruction);
+                $("#updateModal input[name=risLevel]").val(
+                    [ payMoney.risLevel ]);
             }
         });
     }
@@ -950,32 +945,6 @@
         //清空表单样式
         clean_form("#updateModal form");
 
-        var monthmoney = $("#monthmoney_update_input").val();
-        var investerm = $("#investerm_update_input").val();
-
-        //匹配有1~2位小数的正实数
-        var monthmoneyRegex = /^[0-9]+(.[0-9]{1,2})?$/;
-        if (monthmoney.length === 0) {
-            show_validate_msg("#monthmoney_update_input",
-                "error", "每月转入金额为空");
-            return false;
-        } else if (monthmoneyRegex.test(monthmoney) === false) {
-            show_validate_msg("#monthmoney_update_input",
-                "error", "每月转入金额不合法（有1~2位小数的正实数）");
-            return false;
-        }
-
-        //匹配中文、英文、数字包括下划线
-        var investermRegex = /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
-        if (investerm.length === 0) {
-            show_validate_msg("#investerm_update_input",
-                "error", "投资期限为空");
-            return false;
-        } else if (investermRegex.test(investerm) === false) {
-            show_validate_msg("#investerm_update_input",
-                "error", "投资期限不合法");
-            return false;
-        }
 
         //2、发送ajax请求保存更新的理财产品数据
         $.ajax({
@@ -985,14 +954,14 @@
             success: function (result) {
                 if (result.code === 100) {
                     $("#updateModal").modal('hide');
-                    $.alert('工资理财产品信息修改成功！');
+                    $.alert('债券类基金产品信息修改成功！');
                     setTimeout(function () {
                         var pageNum = [[${finacnePageInfo.pageNum}]];
                         var pageSize = [[${finacnePageInfo.pageSize}]];
                         location.href = "/admin/finance/toPayMoney.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
-                    $.alert('工资理财产品信息修改失败！');
+                    $.alert('债券类基金产品信息修改失败！');
                 }
             }
         });
@@ -1011,7 +980,7 @@
         }
         $.alert({
             title: '提示：',
-            content: "确定删除该 <strong>" + name + "</strong> 工资理财产品吗？",
+            content: "确定删除该 <strong>" + name + "</strong> 债券类基金产品吗？",
             buttons: {
                 confirm: {
                     text: '确认',
@@ -1022,14 +991,14 @@
                             type: "DELETE",
                             success: function (result) {
                                 if (result.code === 100) {
-                                    $.alert('删除该工资理财产品成功！');
+                                    $.alert('删除该债券类基金产品成功！');
                                     setTimeout(function () {
                                         var pageNum = [[${finacnePageInfo.pageNum}]];
                                         var pageSize = [[${finacnePageInfo.pageSize}]];
                                         location.href = "/admin/finance/toPayMoney.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
                                     }, 1000);
                                 } else {
-                                    $.alert('删除该工资理财产品失败!');
+                                    $.alert('删除该债券类基金产品失败!');
                                 }
                             }
                         });

@@ -17,7 +17,7 @@ public interface UserChangeMoneyService {
     UserChangeMoney selectUserChangeMoneyById(Integer id, Integer userId);
 
   /**
-   * 查询推荐的零钱理财.
+   * 查询推荐的股票类基金
    *
    * @param userId
    * @return

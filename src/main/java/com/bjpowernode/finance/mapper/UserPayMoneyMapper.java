@@ -34,7 +34,7 @@ public interface UserPayMoneyMapper {
     int updateByPrimaryKey(UserPayMoney record);
 
     /**
-     * 推荐的工资理财.
+     * 推荐的债券类基金.
      * @param userId
      * @return
      */

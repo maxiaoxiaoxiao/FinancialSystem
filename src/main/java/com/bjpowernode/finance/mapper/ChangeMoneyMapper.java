@@ -29,7 +29,7 @@ public interface ChangeMoneyMapper {
     int updateByPrimaryKey(ChangeMoney record);
 
   /**
-   * 查询所有的零钱理财.
+   * 查询所有的股票类基金
    *
    * @return
    * @param code

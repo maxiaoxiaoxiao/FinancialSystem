@@ -110,13 +110,13 @@ public class CommentController {
     @ResponseBody
     @RequestMapping(value = "searchFavorites")
     public Msg searchFavorites(@RequestBody User user) {
-      //零钱理财
+      //股票类基金
       List<ChangeMoney> changeMonies = userChangeMoneyService.selectUserChangeMoneyByUserId(user.getId());
-      //工资理财
+      //债券类基金
       List<PayMoney> payMonies = userPayMoneyService.selectUserPayMoneyByUserId(user.getId());
-      //期限理财
+      //货币基金
       List<TermFinancial> termFinancials = userTermFinancialService.selectUserTermFinancialByUserId(user.getId());
-      //基金理财
+      //混合类基金
       List<FundProduct> fundProducts = userFundProductService.selectUserFundProductByUserId(user.getId());
 
         List<UseFavorites> cc = new ArrayList<>();
@@ -125,7 +125,7 @@ public class CommentController {
             for (ChangeMoney  c : changeMonies) {
                 UseFavorites dto = new UseFavorites();
                 dto.setIndex(String.valueOf(index++));
-                dto.setType("零钱理财");
+                dto.setType("股票类基金");
                 //TDDO 加入名称
                 dto.setProductName(c.getName());
               dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel())? "高":("2".equalsIgnoreCase(dto.getRisLevel())?"中":"低"));
@@ -136,7 +136,7 @@ public class CommentController {
             for (PayMoney  c : payMonies) {
                 UseFavorites dto = new UseFavorites();
                 dto.setIndex(String.valueOf(index++));
-                dto.setType("工资理财");
+                dto.setType("债券类基金");
                 //TDDO 加入名称
                String type = c.getType() == 1 ? "国债":"期货";
                 dto.setProductName(type + "  " + c.getInvesterm());
@@ -150,7 +150,7 @@ public class CommentController {
             for (TermFinancial  c : termFinancials) {
                 UseFavorites dto = new UseFavorites();
                 dto.setIndex(String.valueOf(index++));
-                dto.setType("期限理财");
+                dto.setType("货币基金");
                 //TDDO加入名称
                 dto.setProductName(c.getName());
               dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel())? "高":("2".equalsIgnoreCase(dto.getRisLevel())?"中":"低"));
@@ -163,7 +163,7 @@ public class CommentController {
             for (FundProduct  c : fundProducts) {
                 UseFavorites dto = new UseFavorites();
                 dto.setIndex(String.valueOf(index++));
-                dto.setType("基金理财");
+                dto.setType("混合类基金");
                 //TDDO加入名称
                 dto.setProductName(c.getFunddesc());
               dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel())? "高":("2".equalsIgnoreCase(dto.getRisLevel())?"中":"低"));

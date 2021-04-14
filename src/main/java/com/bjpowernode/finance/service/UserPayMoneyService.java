@@ -18,7 +18,7 @@ public interface UserPayMoneyService {
     UserPayMoney selectUserPayMoneyById(Integer id,Integer userId);
 
   /**
-   * 推荐的工资理财.
+   * 推荐的债券类基金.
    * @param userId
    * @return
    */

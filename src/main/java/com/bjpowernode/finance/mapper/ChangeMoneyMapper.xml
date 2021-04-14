@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, annualIncome, peiIncome, invesTerm, invesMoney
+    id, name, annualIncome, peiIncome, invesTerm, invesMoney, risLevel, company, people, instruction, code
   </sql>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -120,16 +120,16 @@
         risLevel,
       </if>
       <if test="company != null">
-        company
+        company,
       </if>
       <if test="people != null">
-        people
+        people,
       </if>
       <if test="instruction != null">
-        instruction
+        instruction,
       </if>
       <if test="code != null">
-        code
+        code,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -155,16 +155,16 @@
         #{risLevel,jdbcType=DECIMAL},
       </if>
       <if test="company != null">
-        #{company}
+        #{company},
       </if>
       <if test="people != null">
-        #{people}
+        #{people},
       </if>
       <if test="instruction != null">
-        #{instruction}
+        #{instruction},
       </if>
       <if test="code != null">
-        #{code}
+        #{code},
       </if>
     </trim>
   </insert>

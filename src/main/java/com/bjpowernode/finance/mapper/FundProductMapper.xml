@@ -134,13 +134,13 @@
         risLevel,
       </if>
       <if test="company != null">
-        company
+        company,
       </if>
       <if test="people != null">
-        people
+        people,
       </if>
       <if test="instruction != null">
-        instruction
+        instruction,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -175,13 +175,13 @@
         #{risLevel,jdbcType=INTEGER},
       </if>
       <if test="company != null">
-        #{company}
+        #{company},
       </if>
       <if test="people != null">
-        #{people}
+        #{people},
       </if>
       <if test="instruction != null">
-        #{instruction}
+        #{instruction},
       </if>
     </trim>
   </insert>

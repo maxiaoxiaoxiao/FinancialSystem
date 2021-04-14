@@ -29,7 +29,7 @@ public interface PayMoneyMapper {
     int updateByPrimaryKey(PayMoney record);
 
   /**
-   * 查询你所有的工资理财.
+   * 查询你所有的债券类基金.
    *
    * @return
    * @param code

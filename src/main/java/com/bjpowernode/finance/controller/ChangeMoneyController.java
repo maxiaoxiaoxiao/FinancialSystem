@@ -28,7 +28,7 @@ public class ChangeMoneyController {
     FlowOfFundsService flowOfFundsService;
 
     /**
-     * 跳转到零钱理财界面（用户）
+     * 跳转到股票类基金界面（用户）
      * @param model
      * @return
      */
@@ -40,14 +40,14 @@ public class ChangeMoneyController {
                                 @RequestParam(value = "people",required = false) String people){
         List<ChangeMoney> list = changeMoneyService.selectAllChangeMoney(code, name, company, people);
         model.addAttribute("changeMoneyList",list);
-        model.addAttribute("pageTopBarInfo","零钱理财界面");
+        model.addAttribute("pageTopBarInfo","股票类基金界面");
         model.addAttribute("activeUrl1","financeActive");
         model.addAttribute("activeUrl2","changeMoneyActive");
         return "/user/finance/changemoney";
     }
 
     /**
-     * 买入工资理财产品
+     * 买入债券类基金
      * @param changeMoneyId
      * @param userId
      * @return
@@ -77,7 +77,7 @@ public class ChangeMoneyController {
     }
 
     /**
-     * 跳转到零钱理财管理界面（管理员）
+     * 跳转到股票类基金管理界面（管理员）
      * @param pageNum
      * @param pageSize
      * @param model
@@ -100,12 +100,12 @@ public class ChangeMoneyController {
 
         model.addAttribute("activeUrl1", "financeActive");
         model.addAttribute("activeUrl2", "changemoneyActive");
-        model.addAttribute("pageTopBarInfo", "零钱理财管理界面");
+        model.addAttribute("pageTopBarInfo", "股票类基金管理界面");
         return "/admin/finance/changemoney";
     }
 
     /**
-     * 新增零钱理财产品
+     * 新增股票类基金产品
      * @param changeMoney
      * @return
      */

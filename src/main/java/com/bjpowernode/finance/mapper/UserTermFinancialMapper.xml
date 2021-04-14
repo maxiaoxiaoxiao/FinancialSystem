@@ -32,7 +32,7 @@
       <result column="status" jdbcType="INTEGER" property="status" />
       <result column="reputation" jdbcType="VARCHAR" property="reputation" />
     </association>
-    <!-- 指定联合查询期限理财产品字段的封装 -->
+    <!-- 指定联合查询货币基金产品字段的封装 -->
     <association property="termFinancial"
                  javaType="com.bjpowernode.finance.entity.TermFinancial">
       <id column="id" jdbcType="INTEGER" property="id" />

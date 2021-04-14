@@ -31,7 +31,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div>
-                                    <h4>期限理财管理</h4>
+                                    <h4>货币基金管理</h4>
                                 </div>
                                 <br>
                                 <div class="col-sm-2">
@@ -75,25 +75,24 @@
                                     <table class="table table-hover table-striped">
                                         <thead>
                                         <tr>
-                                            <th class="info">序号</th>
+                                            <th class="info">基金代码</th>
                                             <th class="info">产品名称</th>
-                                            <th class="info">起投金额</th>
-                                            <th class="info">收益方式</th>
-                                            <th class="info">七日年化收益率</th>
-                                            <th class="info">投资期限</th>
+                                            <th class="info">行业</th>
+                                            <th class="info">基金经理</th>
+                                            <th class="info">年化收益率</th>
+                                            <th class="info">简介</th>
                                             <th class="info">风险级别</th>
                                             <th class="info">相关操作</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="finance:${financeList}">
-                                            <td th:text="${(finacnePageInfo.pageNum - 1) * finacnePageInfo.pageSize+financeStat.index+1}"></td>
+                                            <td th:text="${finance.code}"></td>
                                             <td th:text="${finance.name}"></td>
-                                            <td th:text="${#numbers.formatDecimal(finance.leastmoney,1,2)}+'元'"></td>
-                                            <td th:if="${finance.profit==1}" th:text="收益型"></td>
-                                            <td th:if="${finance.profit==2}" th:text="净值型"></td>
-                                            <td th:text="${#numbers.formatDecimal(finance.annualincome*100,1,3)}+'%'"></td>
-                                            <td th:text="${finance.investerm}"></td>
+                                            <td th:text="${finance.company}"></td>
+                                            <td th:text="${finance.people}"></td>
+                                            <td th:text="${#numbers.formatDecimal(finance.leastmoney*100,1,3)}+'%'"></td>
+                                            <td th:text="${finance.instruction}"></td>
                                             <td th:if="${finance.risLevel==null}" th:text="空"></td>
                                             <td th:if="${finance.risLevel==1}" th:text="高"></td>
                                             <td th:if="${finance.risLevel==2}" th:text="中"></td>
@@ -229,7 +228,7 @@
                                             aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <h4 class="modal-title">查看期限理财评论</h4>
+                                    <h4 class="modal-title">查看货币基金评论</h4>
                                 </div>
                                 <div class="modal-body">
                                     <div class="table-responsive">
@@ -326,7 +325,7 @@
                                             aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <h4 class="modal-title">新增期限理财评论</h4>
+                                    <h4 class="modal-title">新增货币基金评论</h4>
                                 </div>
                                 <div class="modal-body">
                                     <!--要提交的表单 -->
@@ -380,17 +379,29 @@
                                             aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <h4 class="modal-title">新增期限理财产品</h4>
+                                    <h4 class="modal-title">新增货币基金产品</h4>
                                 </div>
                                 <div class="modal-body">
                                     <!--要提交的表单 -->
                                     <form class="form-horizontal">
                                         <div class="form-group">
+                                            <label class="col-sm-2 control-label">基金代码：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="code_add_input" name="code"
+                                                       placeholder="请输入基金代码：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <label class="col-sm-2 control-label">产品名称：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
                                                        id="name_add_input" name="name"
-                                                       placeholder="请输入期限理财产品名称：">
+                                                       placeholder="请输入产品名称：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -398,41 +409,34 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">起投金额（元）：</label>
+                                            <label class="col-sm-2 control-label">行业：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="company_add_input" name="company"
+                                                       placeholder="请输入行业：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">基金经理：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="people_add_input" name="people"
+                                                       placeholder="请输入基金经理：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">年化收益率：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
                                                        id="leastmoney_add_input" name="leastmoney"
-                                                       placeholder="请输入起投金额：">
-                                                <span class="help-block"></span>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">收益方式：</label>
-                                            <div class="col-sm-6">
-                                                <div class="example-box">
-                                                    <label class="lyear-radio radio-inline">
-                                                        <input type="radio" name="profit"
-                                                               value="1" checked="checked"><span>收益型</span>
-                                                    </label>
-                                                    <label class="lyear-radio radio-inline">
-                                                        <input type="radio" name="profit"
-                                                               value="2"> <span>净值型</span>
-                                                    </label>
-                                                </div>
-                                                <span class="help-block"></span>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">七日年化收益率：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="annualincome_add_input" name="annualincome"
                                                        placeholder="请输入七日年化收益率：">
                                                 <span class="help-block"></span>
                                             </div>
@@ -441,11 +445,11 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">投资期限：</label>
+                                            <label class="col-sm-2 control-label">简介：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
-                                                       id="investerm_add_input" name="investerm"
-                                                       placeholder="请输入投资期限：">
+                                                       id="instruction_add_input" name="instruction"
+                                                       placeholder="请输入产品名称：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -499,17 +503,29 @@
                                             aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <h4 class="modal-title">修改期限理财产品信息</h4>
+                                    <h4 class="modal-title">修改货币基金产品信息</h4>
                                 </div>
                                 <div class="modal-body">
                                     <!--要提交的表单 -->
                                     <form class="form-horizontal">
                                         <div class="form-group">
+                                            <label class="col-sm-2 control-label">基金代码：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="code_update_input" name="code"
+                                                       placeholder="请输入基金代码：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
                                             <label class="col-sm-2 control-label">产品名称：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
                                                        id="name_update_input" name="name"
-                                                       placeholder="请输入期限理财产品名称：">
+                                                       placeholder="请输入产品名称：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -517,41 +533,34 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">起投金额（元）：</label>
+                                            <label class="col-sm-2 control-label">行业：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="company_update_input" name="company"
+                                                       placeholder="请输入行业：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">基金经理：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="people_update_input" name="people"
+                                                       placeholder="请输入基金经理：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">年化收益率：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
                                                        id="leastmoney_update_input" name="leastmoney"
-                                                       placeholder="请输入起投金额：">
-                                                <span class="help-block"></span>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">收益方式：</label>
-                                            <div class="col-sm-6">
-                                                <div class="example-box">
-                                                    <label class="lyear-radio radio-inline">
-                                                        <input type="radio" name="profit"
-                                                               value="1" checked="checked"><span>收益型</span>
-                                                    </label>
-                                                    <label class="lyear-radio radio-inline">
-                                                        <input type="radio" name="profit"
-                                                               value="2"> <span>净值型</span>
-                                                    </label>
-                                                </div>
-                                                <span class="help-block"></span>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">七日年化收益率：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="annualincome_update_input" name="annualincome"
                                                        placeholder="请输入七日年化收益率：">
                                                 <span class="help-block"></span>
                                             </div>
@@ -560,11 +569,11 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">投资期限：</label>
+                                            <label class="col-sm-2 control-label">简介：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
-                                                       id="investerm_update_input" name="investerm"
-                                                       placeholder="请输入投资期限：">
+                                                       id="instruction_update_input" name="instruction"
+                                                       placeholder="请输入产品名称：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -843,41 +852,6 @@
             return false;
         }
 
-        //匹配有1~2位小数的正实数
-        var leastmoneyRegex = /^[0-9]+(.[0-9]{1,2})?$/;
-        if (leastmoney.length === 0) {
-            show_validate_msg("#leastmoney_add_input",
-                "error", "起投金额为空");
-            return false;
-        } else if (leastmoneyRegex.test(leastmoney) === false) {
-            show_validate_msg("#leastmoney_add_input",
-                "error", "起投金额不合法（有1~2位小数的正实数）");
-            return false;
-        }
-
-        //匹配正数、负数、和小数
-        var annualincomeRegex = /^(\-|\+)?\d+(\.\d+)?$/;
-        if (annualincome.length === 0) {
-            show_validate_msg("#annualincome_add_input",
-                "error", "七日年化收益率为空");
-            return false;
-        } else if (annualincomeRegex.test(annualincome) === false) {
-            show_validate_msg("#annualincome_add_input",
-                "error", "七日年化收益率不合法（正数、负数、和小数）");
-            return false;
-        }
-
-        //匹配中文、英文、数字包括下划线
-        var investermRegex = /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
-        if (investerm.length === 0) {
-            show_validate_msg("#investerm_add_input",
-                "error", "投资期限为空");
-            return false;
-        } else if (investermRegex.test(investerm) === false) {
-            show_validate_msg("#investerm_add_input",
-                "error", "投资期限不合法");
-            return false;
-        }
 
         //2、发送ajax请求保存产品
         $.ajax({
@@ -887,14 +861,14 @@
             success: function (result) {
                 if (result.code === 100) {
                     $("#addModal").modal('hide');
-                    $.alert('期限理财产品添加成功！');
+                    $.alert('货币基金产品添加成功！');
                     setTimeout(function () {
                         var pageNum = [[${finacnePageInfo.pages}]];
                         var pageSize = [[${finacnePageInfo.pageSize}]];
                         location.href = "/admin/finance/toTermFinancial.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
-                    $.alert('期限理财产品添加失败！');
+                    $.alert('货币基金产品添加失败！');
                 }
             }
         });
@@ -972,12 +946,14 @@
                 //显示数据之前先清除一下校验样式，如果有的话
                 reset_form("#updateModal form");
 
+                $("#code_update_input").val(termFinancial.code);
                 $("#name_update_input").val(termFinancial.name);
-                $("#updateModal input[name=profit]").val(
-                    [ termFinancial.profit ]);
+                $("#company_update_input").val(termFinancial.company);
+                $("#people_update_input").val(termFinancial.people);
                 $("#leastmoney_update_input").val(termFinancial.leastmoney);
-                $("#annualincome_update_input").val(termFinancial.annualincome);
-                $("#investerm_update_input").val(termFinancial.investerm);
+                $("#instruction_update_input").val(termFinancial.instruction);
+                $("#updateModal input[name=risLevel]").val(
+                    [ termFinancial.risLevel ]);
             }
         });
     }
@@ -1048,14 +1024,14 @@
             success: function (result) {
                 if (result.code === 100) {
                     $("#updateModal").modal('hide');
-                    $.alert('期限理财产品信息修改成功！');
+                    $.alert('货币基金产品信息修改成功！');
                     setTimeout(function () {
                         var pageNum = [[${finacnePageInfo.pageNum}]];
                         var pageSize = [[${finacnePageInfo.pageSize}]];
                         location.href = "/admin/finance/toTermFinancial.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
-                    $.alert('期限理财产品信息修改失败！');
+                    $.alert('货币基金产品信息修改失败！');
                 }
             }
         });
@@ -1068,7 +1044,7 @@
         var name = $(this).attr("delete-name");
         $.alert({
             title: '提示：',
-            content: "确定删除工资理财产品 <strong>" + name + "</strong> 吗？",
+            content: "确定删除债券类基金产品 <strong>" + name + "</strong> 吗？",
             buttons: {
                 confirm: {
                     text: '确认',
@@ -1079,14 +1055,14 @@
                             type: "DELETE",
                             success: function (result) {
                                 if (result.code === 100) {
-                                    $.alert('删除该期限理财产品成功！');
+                                    $.alert('删除该货币基金产品成功！');
                                     setTimeout(function () {
                                         var pageNum = [[${finacnePageInfo.pageNum}]];
                                         var pageSize = [[${finacnePageInfo.pageSize}]];
                                         location.href = "/admin/finance/toTermFinancial.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
                                     }, 1000);
                                 } else {
-                                    $.alert('删除该期限理财产品失败!');
+                                    $.alert('删除该货币基金产品失败!');
                                 }
                             }
                         });

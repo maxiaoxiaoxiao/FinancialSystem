@@ -32,13 +32,13 @@
                 ><a href="javascript:void(0)"><i class="mdi mdi-skype-business"></i>理财产品管理</a>
                     <ul class="nav nav-subnav">
                         <li shiro:hasPermission="admin:changeMoney" th:class="${activeUrl2=='changemoneyActive'?'active':''}"><a
-                                th:href="@{/admin/finance/toChangeMoney.html}">零钱理财</a></li>
+                                th:href="@{/admin/finance/toChangeMoney.html}">股票类基金</a></li>
                         <li shiro:hasPermission="admin:payMoney" th:class="${activeUrl2=='paymoneyActive'?'active':''}"><a
-                                th:href="@{/admin/finance/toPayMoney.html}">工资理财</a></li>
+                                th:href="@{/admin/finance/toPayMoney.html}">债券类基金</a></li>
                         <li shiro:hasPermission="admin:termFinancial" th:class="${activeUrl2=='termfinancialActive'?'active':''}"><a
-                                th:href="@{/admin/finance/toTermFinancial.html}">期限理财</a></li>
+                                th:href="@{/admin/finance/toTermFinancial.html}">货币基金</a></li>
                         <li shiro:hasPermission="admin:fundProduct" th:class="${activeUrl2=='fundproductActive'?'active':''}"><a
-                                th:href="@{/admin/finance/toFundProduct.html}">基金理财</a></li>
+                                th:href="@{/admin/finance/toFundProduct.html}">混合类基金</a></li>
                     </ul>
                 </li>
                 <li shiro:hasPermission="admin:permission" class="nav-item nav-item-has-subnav"

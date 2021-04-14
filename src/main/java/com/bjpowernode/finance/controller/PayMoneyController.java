@@ -27,7 +27,7 @@ public class PayMoneyController {
     FlowOfFundsService flowOfFundsService;
 
     /**
-     * 跳转到工资理财界面
+     * 跳转到债券类基金界面
      * @param model
      * @return
      */
@@ -42,14 +42,14 @@ public class PayMoneyController {
             s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
         });
         model.addAttribute("payMoneyList",list);
-        model.addAttribute("pageTopBarInfo","工资理财界面");
+        model.addAttribute("pageTopBarInfo","债券类基金界面");
         model.addAttribute("activeUrl1","financeActive");
         model.addAttribute("activeUrl2","payMoneyActive");
         return "/user/finance/paymoney";
     }
 
     /**
-     * 购买工资理财产品
+     * 购买债券类基金产品
      * @param payMoneyId
      * @param userId
      * @return
@@ -63,7 +63,7 @@ public class PayMoneyController {
     }
 
   /**
-   * 购买工资理财产品
+   * 购买债券类基金产品
    *
    * @param payMoneyId
    * @return
@@ -81,7 +81,7 @@ public class PayMoneyController {
     }
 
   /**
-   * 跳转到工资理财管理界面（管理员）
+   * 跳转到债券类基金管理界面（管理员）
    *
    * @param pageNum
    * @param pageSize
@@ -110,12 +110,12 @@ public class PayMoneyController {
 
         model.addAttribute("activeUrl1", "financeActive");
         model.addAttribute("activeUrl2", "paymoneyActive");
-        model.addAttribute("pageTopBarInfo", "工资理财管理界面");
+        model.addAttribute("pageTopBarInfo", "债券类基金管理界面");
         return "/admin/finance/paymoney";
     }
 
     /**
-     * 新增工资理财产品
+     * 新增债券类基金产品
      * @param payMoney
      * @return
      */

@@ -33,7 +33,7 @@ public class BankCardController {
         List<Bankcard> list = bankCardService.selectBankCardByUserId(loginUser.getId());
         model.addAttribute("bankCardList", list);
 
-        model.addAttribute("pageTopBarInfo", "银行卡管理界面");
+        model.addAttribute("pageTopBarInfo", "理财顾问推荐界面");
         model.addAttribute("activeUrl1", "personalActive");
         model.addAttribute("activeUrl2", "bankCardActive");
         return "/user/personal/bankcard";
@@ -124,7 +124,7 @@ public class BankCardController {
         model.addAttribute("bankcardPageInfo",pageInfo);
         model.addAttribute("bankcardList",list);
 
-        model.addAttribute("pageTopBarInfo", "银行卡管理界面");
+        model.addAttribute("pageTopBarInfo", "理财顾问推荐界面");
         model.addAttribute("activeUrl1", "userInfoActive");
         model.addAttribute("activeUrl2", "bankcardActive");
         return "/admin/userinfo/bankcard";

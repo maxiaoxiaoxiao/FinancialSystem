@@ -27,7 +27,7 @@ public class FundProductController {
     FlowOfFundsService flowOfFundsService;
 
   /**
-   * 跳转到基金理财界面
+   * 跳转到混合类基金界面
    *
    *
    * @param code
@@ -46,14 +46,14 @@ public class FundProductController {
             s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
         });
         model.addAttribute("fundProductList",list);
-        model.addAttribute("pageTopBarInfo","基金理财界面");
+        model.addAttribute("pageTopBarInfo","混合类基金界面");
         model.addAttribute("activeUrl1","financeActive");
         model.addAttribute("activeUrl2","fundProductActive");
         return "/user/finance/fundproduct";
     }
 
     /**
-     * 购买基金理财产品
+     * 购买混合类基金产品
      * @param fundProductId
      * @param userId
      * @return
@@ -77,7 +77,7 @@ public class FundProductController {
         return Msg.success();
     }
   /**
-   * 跳转到基金理财管理界面（管理员）
+   * 跳转到混合类基金管理界面（管理员）
    *
    * @param pageNum
    * @param pageSize
@@ -106,12 +106,12 @@ public class FundProductController {
 
         model.addAttribute("activeUrl1", "financeActive");
         model.addAttribute("activeUrl2", "fundproductActive");
-        model.addAttribute("pageTopBarInfo", "基金理财管理界面");
+        model.addAttribute("pageTopBarInfo", "混合类基金管理界面");
         return "/admin/finance/fundproduct";
     }
 
     /**
-     * 新增基金理财产品
+     * 新增混合类基金产品
      *
      * @return
      */

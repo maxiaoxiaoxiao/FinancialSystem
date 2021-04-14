@@ -25,13 +25,13 @@
                         个人理财</a>
                     <ul class="nav nav-subnav">
                         <li shiro:hasPermission="user:changeMoney" th:class="${activeUrl2=='changeMoneyActive'?'active':''}"><a
-                                th:href="@{/user/finance/toChangeMoney.html}">零钱理财</a></li>
+                                th:href="@{/user/finance/toChangeMoney.html}">股票类基金</a></li>
                         <li shiro:hasPermission="user:payMoney" th:class="${activeUrl2=='payMoneyActive'?'active':''}"><a
-                                th:href="@{/user/finance/toPayMoney.html}">工资理财</a></li>
+                                th:href="@{/user/finance/toPayMoney.html}">债券类基金</a></li>
                         <li shiro:hasPermission="user:termFinancial" th:class="${activeUrl2=='termFinancialActive'?'active':''}"><a
-                                th:href="@{/user/finance/toTermFinancial.html}">期限理财</a></li>
+                                th:href="@{/user/finance/toTermFinancial.html}">货币基金</a></li>
                         <li shiro:hasPermission="user:fundProduct" th:class="${activeUrl2=='fundProductActive'?'active':''}"><a
-                                th:href="@{/user/finance/toFundProduct.html}">基金理财</a></li>
+                                th:href="@{/user/finance/toFundProduct.html}">混合类基金</a></li>
                         <li shiro:hasPermission="user:bank" th:class="${activeUrl2=='bankActive'?'active':''}"><a
                                 th:href="@{/user/finance/toBank.html}">理财推荐</a></li>
                     </ul>
@@ -42,8 +42,6 @@
                     <ul class="nav nav-subnav">
                         <li shiro:hasPermission="user:record" th:class="${activeUrl2=='recordActive'?'active':''}"><a
                                 th:href="@{/user/tools/toRecord.html}">收支记录</a></li>
-                        <li shiro:hasPermission="user:loan" th:class="${activeUrl2=='applyLoanActive'?'active':''}"><a
-                                th:href="@{/user/tools/toApplyLoan.html}">安全网贷</a></li>
                     </ul>
                 </li>
                 <li class="nav-item nav-item-has-subnav"
@@ -53,7 +51,7 @@
                         <li th:class="${activeUrl2=='myFinanceActive'?'active':''}"><a
                                 th:href="@{/user/personal/toMyFinance.html}">我的理财</a></li>
                         <li th:class="${activeUrl2=='myLoanActive'?'active':''}"><a th:href="@{/user/personal/toMyLoan.html}">调查问卷</a></li>
-                        <li th:class="${activeUrl2=='bankCardActive'?'active':''}"><a th:href="@{/user/personal/toBankCard.html}">银行卡管理</a></li>
+                        <li th:class="${activeUrl2=='bankCardActive'?'active':''}"><a th:href="@{/user/personal/toBankCard.html}">理财顾问推荐</a></li>
                         <li th:class="${activeUrl2=='securityActive'?'active':''}"><a th:href="@{/user/personal/toSecurity.html}">账户安全</a></li>
                     </ul>
                 </li>

@@ -17,7 +17,7 @@ public interface UserTermFinancialService {
     UserTermFinancial selectUserTermFinancialById(Integer id, Integer userId);
 
     /**
-     * 推荐的期限理财.
+     * 推荐的货币基金.
      * @param userId
      * @return
      */

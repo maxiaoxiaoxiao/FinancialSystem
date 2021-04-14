@@ -33,14 +33,14 @@
 
                             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
 
-                                <!--零钱理财 -->
+                                <!--股票类基金 -->
                                 <div class="panel panel-primary">
                                     <div class="panel-heading" role="tab" id="headingOne">
                                         <h4 class="panel-title">
                                             <a role="button" data-toggle="collapse" data-parent="#accordion"
                                                href="#collapseOne"
                                                aria-expanded="true" aria-controls="collapseOne">
-                                                零钱理财
+                                                股票类基金
                                             </a>
                                         </h4>
                                     </div>
@@ -88,19 +88,19 @@
 
                                         </div>
                                         <div th:if="${userChangeMoneyList.isEmpty()}" class="panel-body">
-                                            <h4>很抱歉！暂时还没有查询到您的零钱理财信息</h4>
+                                            <h4>很抱歉！暂时还没有查询到您的股票类基金信息</h4>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!--工资理财 -->
+                                <!--债券类基金 -->
                                 <div class="panel panel-primary">
                                     <div class="panel-heading" role="tab" id="headingTwo">
                                         <h4 class="panel-title">
                                             <a class="collapsed" role="button" data-toggle="collapse"
                                                data-parent="#accordion"
                                                href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                                工资理财
+                                                债券类基金
                                             </a>
                                         </h4>
                                     </div>
@@ -143,20 +143,20 @@
                                             </table>
                                         </div>
                                         <div th:if="${userPayMoneyList.isEmpty()}" class="panel-body">
-                                            <h4>很抱歉！暂时还没有查询到您的工资理财信息</h4>
+                                            <h4>很抱歉！暂时还没有查询到您的债券类基金信息</h4>
                                         </div>
 
                                     </div>
                                 </div>
 
-                                <!--期限理财 -->
+                                <!--货币基金 -->
                                 <div class="panel panel-primary">
                                     <div class="panel-heading" role="tab" id="headingThree">
                                         <h4 class="panel-title">
                                             <a class="collapsed" role="button" data-toggle="collapse"
                                                data-parent="#accordion"
                                                href="#collapseThree" aria-expanded="false" aria-controls="collapseTwo">
-                                                期限理财
+                                                货币基金
                                             </a>
                                         </h4>
                                     </div>
@@ -204,19 +204,19 @@
 
                                         </div>
                                         <div th:if="${userTermFinancialList.isEmpty()}" class="panel-body">
-                                            <h4>很抱歉！暂时还没有查询到您的期限理财信息</h4>
+                                            <h4>很抱歉！暂时还没有查询到您的货币基金信息</h4>
                                         </div>
                                     </div>
                                 </div>
 
-                                <!--基金理财 -->
+                                <!--混合类基金 -->
                                 <div class="panel panel-primary">
                                     <div class="panel-heading" role="tab" id="headingFour">
                                         <h4 class="panel-title">
                                             <a class="collapsed" role="button" data-toggle="collapse"
                                                data-parent="#accordion"
                                                href="#collapseFour" aria-expanded="false" aria-controls="collapseTwo">
-                                                基金理财
+                                                混合类基金
                                             </a>
                                         </h4>
                                     </div>
@@ -268,7 +268,7 @@
 
                                         </div>
                                         <div th:if="${userFundProductList.isEmpty()}" class="panel-body">
-                                            <h4>很抱歉！暂时还没有查询到推荐基金理财信息</h4>
+                                            <h4>很抱歉！暂时还没有查询到推荐混合类基金信息</h4>
                                         </div>
                                     </div>
                                 </div>

@@ -29,7 +29,7 @@ public interface FundProductMapper {
     int updateByPrimaryKey(FundProduct record);
 
   /**
-   * 查询基金理财.
+   * 查询混合类基金.
    *
    * @return
    * @param code

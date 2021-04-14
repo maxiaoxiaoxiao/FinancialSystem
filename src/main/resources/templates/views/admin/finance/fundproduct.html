@@ -31,7 +31,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <div>
-                                <h4>基金理财管理</h4>
+                                <h4>混合类基金管理</h4>
                                 </div>
                                 <br>
 
@@ -69,39 +69,29 @@
                                 </button>
 
                             </div>
-
-
-
                             <div class="card-body">
                                 <div class="table-responsive">
                                     <table class="table table-hover table-striped">
                                         <thead>
                                         <tr>
-                                            <th class="info">序号</th>
                                             <th class="info">基金代码</th>
-                                            <th class="info">基金简称</th>
-                                            <th class="info">基金类型</th>
-                                            <th class="info">日增长率</th>
-                                            <th class="info">月增长率</th>
-                                            <th class="info">年增长率</th>
-                                            <th class="info">起投金额</th>
-                                            <th class="info">投资期限</th>
+                                            <th class="info">产品名称</th>
+                                            <th class="info">行业</th>
+                                            <th class="info">基金经理</th>
+                                            <th class="info">年化收益率</th>
+                                            <th class="info">简介</th>
                                             <th class="info">风险级别</th>
                                             <th class="info">相关操作</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="finance:${financeList}">
-                                            <td th:text="${(finacnePageInfo.pageNum - 1) * finacnePageInfo.pageSize+financeStat.index+1}"></td>
                                             <td th:text="${finance.code}"></td>
                                             <td th:text="${finance.funddesc}"></td>
-                                            <td th:if="${finance.type==1}" th:text="股票型基金"></td><td th:if="${finance.type==2}" th:text="债券型基金"></td>
-                                            <td th:if="${finance.type==3}" th:text="货币型基金"></td><td th:if="${finance.type==4}" th:text="混合型基金"></td>
-                                            <td th:text="${#numbers.formatDecimal(finance.dailygrowth*100,1,2)}+'%'"></td>
-                                            <td th:text="${#numbers.formatDecimal(finance.monthlygrowth*100,1,2)}+'%'"></td>
-                                            <td th:text="${#numbers.formatDecimal(finance.annualgrowth*100,1,2)}+'%'"></td>
-                                            <td th:text="${#numbers.formatDecimal(finance.leastmoney,1,2)}+'元'"></td>
-                                            <td th:text="${finance.investerm}"></td>
+                                            <td th:text="${finance.company}"></td>
+                                            <td th:text="${finance.people}"></td>
+                                            <td th:text="${#numbers.formatDecimal(finance.annualgrowth*100,1,3)}+'%'"></td>
+                                            <td th:text="${finance.instruction}"></td>
                                             <td th:text="${finance.risLevel}"></td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm update_btn"
@@ -234,7 +224,7 @@
                                             aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <h4 class="modal-title">查看工资理财评论</h4>
+                                    <h4 class="modal-title">查看债券类基金评论</h4>
                                 </div>
                                 <div class="modal-body">
                                     <div class="table-responsive">
@@ -331,7 +321,7 @@
                                             aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <h4 class="modal-title">新增工资理财评论</h4>
+                                    <h4 class="modal-title">新增债券类基金评论</h4>
                                 </div>
                                 <div class="modal-body">
                                     <!--要提交的表单 -->
@@ -384,7 +374,7 @@
                                             aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <h4 class="modal-title">新增期限理财产品</h4>
+                                    <h4 class="modal-title">新增货币基金产品</h4>
                                 </div>
                                 <div class="modal-body">
                                     <!--要提交的表单 -->
@@ -402,11 +392,59 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">基金简称：</label>
+                                            <label class="col-sm-2 control-label">产品名称：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
                                                        id="funddesc_add_input" name="funddesc"
-                                                       placeholder="请输入基金简称：">
+                                                       placeholder="请输入产品名称：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">行业：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="company_add_input" name="company"
+                                                       placeholder="请输入行业：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">基金经理：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="people_add_input" name="people"
+                                                       placeholder="请输入基金经理：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">年化收益率：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="annualgrowth_add_input" name="annualgrowth"
+                                                       placeholder="请输入七日年化收益率：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">简介：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="instruction_add_input" name="instruction"
+                                                       placeholder="请输入产品名称：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -414,80 +452,6 @@
                                             </div>
                                         </div>
 
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">基金类型：</label>
-                                            <div class="col-sm-6">
-                                                <select class="form-control" name="type">
-                                                    <option value="1"  selected>股票型</option>
-                                                    <option value="2" >债券型</option>
-                                                    <option value="3" >货币型</option>
-                                                    <option value="4" >混合型</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">日增长率：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="dailygrowth_add_input" name="dailygrowth"
-                                                       placeholder="请输入日增长率：">
-                                                <span class="help-block"></span>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">月增长率：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="monthlygrowth_add_input" name="monthlygrowth"
-                                                       placeholder="请输入月增长率：">
-                                                <span class="help-block"></span>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">年增长率：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="annualgrowth_add_input" name="annualgrowth"
-                                                       placeholder="请输入年增长率：">
-                                                <span class="help-block"></span>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">起投金额：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="leastmoney_add_input" name="leastmoney"
-                                                       placeholder="请输入起投金额：">
-                                                <span class="help-block"></span>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">投资期限：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="investerm_add_input" name="investerm"
-                                                       placeholder="请输入投资期限：">
-                                                <span class="help-block"></span>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
                                         <div class="form-group">
                                             <label class="col-sm-2 control-label">风险级别：</label>
                                             <div class="col-sm-6">
@@ -534,7 +498,7 @@
                                             aria-label="Close">
                                         <span aria-hidden="true">&times;</span>
                                     </button>
-                                    <h4 class="modal-title">修改基金理财产品信息</h4>
+                                    <h4 class="modal-title">修改混合类基金产品信息</h4>
                                 </div>
                                 <div class="modal-body">
                                     <!--要提交的表单 -->
@@ -552,11 +516,11 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">基金简称：</label>
+                                            <label class="col-sm-2 control-label">产品名称：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
                                                        id="funddesc_update_input" name="funddesc"
-                                                       placeholder="请输入基金简称：">
+                                                       placeholder="请输入产品名称：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -564,25 +528,11 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">基金类型：</label>
-                                            <div class="col-sm-6">
-                                                <select id="type_update_input" class="form-control" name="type">
-                                                    <option value="1"  selected>股票型</option>
-                                                    <option value="2" >债券型</option>
-                                                    <option value="3" >货币型</option>
-                                                    <option value="4" >混合型</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">日增长率：</label>
+                                            <label class="col-sm-2 control-label">行业：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
-                                                       id="dailygrowth_update_input" name="dailygrowth"
-                                                       placeholder="请输入日增长率：">
+                                                       id="company_update_input" name="company"
+                                                       placeholder="请输入行业：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -590,11 +540,11 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">月增长率：</label>
+                                            <label class="col-sm-2 control-label">基金经理：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
-                                                       id="monthlygrowth_update_input" name="monthlygrowth"
-                                                       placeholder="请输入月增长率：">
+                                                       id="people_update_input" name="people"
+                                                       placeholder="请输入基金经理：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -602,11 +552,11 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">年增长率：</label>
+                                            <label class="col-sm-2 control-label">年化收益率：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
                                                        id="annualgrowth_update_input" name="annualgrowth"
-                                                       placeholder="请输入年增长率：">
+                                                       placeholder="请输入七日年化收益率：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -614,23 +564,11 @@
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <label class="col-sm-2 control-label">起投金额：</label>
+                                            <label class="col-sm-2 control-label">简介：</label>
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
-                                                       id="leastmoney_update_input" name="leastmoney"
-                                                       placeholder="请输入起投金额：">
-                                                <span class="help-block"></span>
-                                            </div>
-                                            <div class="col-sm-1">
-                                                <em style="color: red">*</em>
-                                            </div>
-                                        </div>
-                                        <div class="form-group">
-                                            <label class="col-sm-2 control-label">投资期限：</label>
-                                            <div class="col-sm-6">
-                                                <input type="text" class="form-control"
-                                                       id="investerm_update_input" name="investerm"
-                                                       placeholder="请输入投资期限：">
+                                                       id="instruction_update_input" name="instruction"
+                                                       placeholder="请输入产品名称：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -894,11 +832,7 @@
 
         var code = $("#code_add_input").val();
         var funddesc = $("#funddesc_add_input").val();
-        var dailygrowth = $("#dailygrowth_add_input").val();
-        var monthlygrowth = $("#monthlygrowth_add_input").val();
         var annualgrowth = $("#annualgrowth_add_input").val();
-        var leastmoney = $("#leastmoney_add_input").val();
-        var investerm = $("#investerm_add_input").val();
 
         //匹配 m-n位的数字
         var codeRegex = /^\d{6,8}$/;
@@ -925,28 +859,6 @@
         }
 
         //匹配正数、负数、和小数
-        var dailygrowthRegex = /^(\-|\+)?\d+(\.\d+)?$/;
-        if (dailygrowth.length === 0) {
-            show_validate_msg("#dailygrowth_add_input",
-                "error", "日增长率为空");
-            return false;
-        } else if (dailygrowthRegex.test(dailygrowth) === false) {
-            show_validate_msg("#dailygrowth_add_input",
-                "error", "日增长率不合法（正数、负数、和小数）");
-            return false;
-        }
-        //匹配正数、负数、和小数
-        var monthlygrowthRegex = /^(\-|\+)?\d+(\.\d+)?$/;
-        if (monthlygrowth.length === 0) {
-            show_validate_msg("#monthlygrowth_add_input",
-                "error", "月增长率为空");
-            return false;
-        } else if (monthlygrowthRegex.test(monthlygrowth) === false) {
-            show_validate_msg("#monthlygrowth_add_input",
-                "error", "月增长率不合法（正数、负数、和小数）");
-            return false;
-        }
-        //匹配正数、负数、和小数
         var annualgrowthRegex = /^(\-|\+)?\d+(\.\d+)?$/;
         if (annualgrowth.length === 0) {
             show_validate_msg("#annualgrowth_add_input",
@@ -958,29 +870,7 @@
             return false;
         }
 
-        //匹配有1~2位小数的正实数
-        var leastmoneyRegex = /^[0-9]+(.[0-9]{1,2})?$/;
-        if (leastmoney.length === 0) {
-            show_validate_msg("#leastmoney_add_input",
-                "error", "起投金额为空");
-            return false;
-        } else if (leastmoneyRegex.test(leastmoney) === false) {
-            show_validate_msg("#leastmoney_add_input",
-                "error", "起投金额不合法（有1~2位小数的正实数）");
-            return false;
-        }
 
-        //匹配中文、英文、数字包括下划线
-        var investermRegex = /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
-        if (investerm.length === 0) {
-            show_validate_msg("#investerm_add_input",
-                "error", "投资期限为空");
-            return false;
-        } else if (investermRegex.test(investerm) === false) {
-            show_validate_msg("#investerm_add_input",
-                "error", "投资期限不合法");
-            return false;
-        }
 
         //2、发送ajax请求保存产品
         $.ajax({
@@ -990,14 +880,14 @@
             success: function (result) {
                 if (result.code === 100) {
                     $("#addModal").modal('hide');
-                    $.alert('基金理财产品添加成功！');
+                    $.alert('混合类基金产品添加成功！');
                     setTimeout(function () {
                         var pageNum = [[${finacnePageInfo.pages}]];
                         var pageSize = [[${finacnePageInfo.pageSize}]];
                         location.href = "/admin/finance/toFundProduct.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
-                    $.alert('基金理财产品添加失败！');
+                    $.alert('混合类基金产品添加失败！');
                 }
             }
         });
@@ -1077,13 +967,12 @@
 
                 $("#code_update_input").val(fundProduct.code);
                 $("#funddesc_update_input").val(fundProduct.funddesc);
-                $("#type_update_input").val([ fundProduct.type ]);
+                $("#company_update_input").val(fundProduct.company);
+                $("#people_update_input").val(fundProduct.people);
                 $("#annualgrowth_update_input").val(fundProduct.annualgrowth);
-                $("#dailygrowth_update_input").val(fundProduct.dailygrowth);
-                $("#monthlygrowth_update_input").val(fundProduct.monthlygrowth);
-                $("#leastmoney_update_input").val(fundProduct.leastmoney);
-                $("#investerm_update_input").val(fundProduct.investerm);
-
+                $("#instruction_update_input").val(fundProduct.instruction);
+                $("#updateModal input[name=risLevel]").val(
+                    [ fundProduct.risLevel ]);
             }
         });
     }
@@ -1095,11 +984,8 @@
 
         var code = $("#code_update_input").val();
         var funddesc = $("#funddesc_update_input").val();
-        var dailygrowth = $("#dailygrowth_update_input").val();
-        var monthlygrowth = $("#monthlygrowth_update_input").val();
         var annualgrowth = $("#annualgrowth_update_input").val();
         var leastmoney = $("#leastmoney_update_input").val();
-        var investerm = $("#investerm_update_input").val();
 
         //匹配 m-n位的数字
         var codeRegex = /^\d{6,8}$/;
@@ -1126,28 +1012,6 @@
         }
 
         //匹配正数、负数、和小数
-        var dailygrowthRegex = /^(\-|\+)?\d+(\.\d+)?$/;
-        if (dailygrowth.length === 0) {
-            show_validate_msg("#dailygrowth_update_input",
-                "error", "日增长率为空");
-            return false;
-        } else if (dailygrowthRegex.test(dailygrowth) === false) {
-            show_validate_msg("#dailygrowth_update_input",
-                "error", "日增长率不合法（正数、负数、和小数）");
-            return false;
-        }
-        //匹配正数、负数、和小数
-        var monthlygrowthRegex = /^(\-|\+)?\d+(\.\d+)?$/;
-        if (monthlygrowth.length === 0) {
-            show_validate_msg("#monthlygrowth_update_input",
-                "error", "月增长率为空");
-            return false;
-        } else if (monthlygrowthRegex.test(monthlygrowth) === false) {
-            show_validate_msg("#monthlygrowth_update_input",
-                "error", "月增长率不合法（正数、负数、和小数）");
-            return false;
-        }
-        //匹配正数、负数、和小数
         var annualgrowthRegex = /^(\-|\+)?\d+(\.\d+)?$/;
         if (annualgrowth.length === 0) {
             show_validate_msg("#annualgrowth_update_input",
@@ -1159,30 +1023,6 @@
             return false;
         }
 
-        //匹配有1~2位小数的正实数
-        var leastmoneyRegex = /^[0-9]+(.[0-9]{1,2})?$/;
-        if (leastmoney.length === 0) {
-            show_validate_msg("#leastmoney_update_input",
-                "error", "起投金额为空");
-            return false;
-        } else if (leastmoneyRegex.test(leastmoney) === false) {
-            show_validate_msg("#leastmoney_update_input",
-                "error", "起投金额不合法（有1~2位小数的正实数）");
-            return false;
-        }
-
-        //匹配中文、英文、数字包括下划线
-        var investermRegex = /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
-        if (investerm.length === 0) {
-            show_validate_msg("#investerm_update_input",
-                "error", "投资期限为空");
-            return false;
-        } else if (investermRegex.test(investerm) === false) {
-            show_validate_msg("#investerm_update_input",
-                "error", "投资期限不合法");
-            return false;
-        }
-
         //2、发送ajax请求保存更新的理财产品数据
         $.ajax({
             url: "/admin/updateFundProduct/" + $(this).attr("update-id"),
@@ -1191,14 +1031,14 @@
             success: function (result) {
                 if (result.code === 100) {
                     $("#updateModal").modal('hide');
-                    $.alert('基金理财产品信息修改成功！');
+                    $.alert('混合类基金产品信息修改成功！');
                     setTimeout(function () {
                         var pageNum = [[${finacnePageInfo.pageNum}]];
                         var pageSize = [[${finacnePageInfo.pageSize}]];
                         location.href = "/admin/finance/toFundProduct.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
-                    $.alert('基金理财产品信息修改失败！');
+                    $.alert('混合类基金产品信息修改失败！');
                 }
             }
         });
@@ -1211,7 +1051,7 @@
         var name = $(this).attr("delete-name");
         $.alert({
             title: '提示：',
-            content: "确定删除基金理财产品 <strong>" + name + "</strong> 吗？",
+            content: "确定删除混合类基金产品 <strong>" + name + "</strong> 吗？",
             buttons: {
                 confirm: {
                     text: '确认',
@@ -1222,14 +1062,14 @@
                             type: "DELETE",
                             success: function (result) {
                                 if (result.code === 100) {
-                                    $.alert('删除该基金理财产品成功！');
+                                    $.alert('删除该混合类基金产品成功！');
                                     setTimeout(function () {
                                         var pageNum = [[${finacnePageInfo.pageNum}]];
                                         var pageSize = [[${finacnePageInfo.pageSize}]];
                                         location.href = "/admin/finance/toFundProduct.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
                                     }, 1000);
                                 } else {
-                                    $.alert('删除该基金理财产品失败!');
+                                    $.alert('删除该混合类基金产品失败!');
                                 }
                             }
                         });

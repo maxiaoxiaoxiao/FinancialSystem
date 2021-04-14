@@ -29,7 +29,7 @@ public interface TermFinancialMapper {
     int updateByPrimaryKey(TermFinancial record);
 
   /**
-   * 查询期限理财.
+   * 查询货币基金.
    *
    * @return
    * @param code
