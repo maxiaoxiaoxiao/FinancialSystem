@@ -4,10 +4,19 @@ package com.bjpowernode.finance.entity;
  * @since 2021/4/8 20:40
  */
 public class OutAndIn {
-  private Integer outMoney = 0;
+  private Integer outMoney;
 
-  private Integer inMoney = 0;
+  private Integer inMoney;
+  private Integer vest;
 
+
+  public Integer getVest() {
+    return vest;
+  }
+
+  public void setVest(Integer vest) {
+    this.vest = vest;
+  }
 
   public Integer getOutMoney() {
     return outMoney;

@@ -125,6 +125,9 @@
       <if test="code != null">
         code,
       </if>
+      <if test="name != null">
+        name,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -156,6 +159,9 @@
       </if>
       <if test="code != null">
         #{code},
+      </if>
+      <if test="name != null">
+        #{name},
       </if>
     </trim>
   </insert>

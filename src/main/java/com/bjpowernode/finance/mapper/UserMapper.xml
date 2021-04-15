@@ -271,7 +271,8 @@
   <select id="selectByUser" resultType="com.bjpowernode.finance.entity.OutAndIn">
    SELECT
 	sum( IF ( type = 1, flowMoney, 0 ) ) as outMoney,
-	sum( IF ( type = 2, flowMoney, 0 ) ) as inMoney
+	sum( IF ( type = 2, flowMoney, 0 ) ) as inMoney,
+	sum( IF ( type = 3, flowMoney, 0 ) ) as vest
 FROM
 	flow_of_funds
 WHERE
