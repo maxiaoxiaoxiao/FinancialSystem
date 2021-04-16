@@ -71,7 +71,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, type, code, fundDesc, dailyGrowth, monthlyGrowth, annualGrowth, leastMoney, invesTerm
+    id, type, code, fundDesc, dailyGrowth, monthlyGrowth, annualGrowth, leastMoney, invesTerm, company, people, instruction, risLevel
   </sql>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">

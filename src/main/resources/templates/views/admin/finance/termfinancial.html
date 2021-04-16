@@ -980,42 +980,6 @@
             return false;
         }
 
-        //匹配有1~2位小数的正实数
-        var leastmoneyRegex = /^[0-9]+(.[0-9]{1,2})?$/;
-        if (leastmoney.length === 0) {
-            show_validate_msg("#leastmoney_update_input",
-                "error", "起投金额为空");
-            return false;
-        } else if (leastmoneyRegex.test(leastmoney) === false) {
-            show_validate_msg("#leastmoney_update_input",
-                "error", "起投金额不合法（有1~2位小数的正实数）");
-            return false;
-        }
-
-        //匹配正数、负数、和小数
-        var annualincomeRegex = /^(\-|\+)?\d+(\.\d+)?$/;
-        if (annualincome.length === 0) {
-            show_validate_msg("#annualincome_update_input",
-                "error", "七日年化收益率为空");
-            return false;
-        } else if (annualincomeRegex.test(annualincome) === false) {
-            show_validate_msg("#annualincome_update_input",
-                "error", "七日年化收益率不合法（正数、负数、和小数）");
-            return false;
-        }
-
-        //匹配中文、英文、数字包括下划线
-        var investermRegex = /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
-        if (investerm.length === 0) {
-            show_validate_msg("#investerm_update_input",
-                "error", "投资期限为空");
-            return false;
-        } else if (investermRegex.test(investerm) === false) {
-            show_validate_msg("#investerm_update_input",
-                "error", "投资期限不合法");
-            return false;
-        }
-
         //2、发送ajax请求保存更新的理财产品数据
         $.ajax({
             url: "/admin/updateTermFinancial/" + $(this).attr("update-id"),

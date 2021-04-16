@@ -74,24 +74,24 @@
                                     <table class="table table-hover table-striped">
                                         <thead>
                                         <tr>
-                                            <th class="info">序号</th>
+                                            <th class="info">基金代码</th>
                                             <th class="info">产品名称</th>
-                                            <th class="info">七日年化收益率</th>
-                                            <th class="info">每万元收益</th>
-                                            <th class="info">投资期限</th>
-                                            <th class="info">起投金额</th>
+                                            <th class="info">行业</th>
+                                            <th class="info">基金经理</th>
+                                            <th class="info">年化收益率</th>
+                                            <th class="info">简介</th>
                                             <th class="info">风险级别</th>
                                             <th class="info">相关操作</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="cm:${changeMoneyList}">
-                                            <td th:text="${cmStat.index+1}"></td>
+                                            <td th:text="${cm.code}"></td>
                                             <td th:text="${cm.name}"></td>
+                                            <td th:text="${cm.company}"></td>
+                                            <td th:text="${cm.people}"></td>
                                             <td th:text="${#numbers.formatDecimal(cm.annualincome*100,1,3)}+'%'"></td>
-                                            <td th:text="${#numbers.formatDecimal(cm.peiincome,1,2)}+'元'"></td>
-                                            <td th:text="${cm.investerm}"></td>
-                                            <td th:text="${cm.invesmoney}+'元'"></td>
+                                            <td th:text="${cm.instruction}"></td>
                                             <td th:if="${cm.risLevel==null}" th:text="空"></td>
                                             <td th:if="${cm.risLevel==1}" th:text="高"></td>
                                             <td th:if="${cm.risLevel==2}" th:text="中"></td>
@@ -231,11 +231,7 @@
         var name = $("#select_name_input").val();
         var company = $("#select_company_input").val();
         var manager = $("#select_manager_input").val();
-        var pageNum = [[${finacnePageInfo.pages}]];
-        var pageSize = [[${finacnePageInfo.pageSize}]];
-        location.href = "/user/finance/toChangeMoney.html?pageNum=" + pageNum
-            + "&pageSize=" + pageSize
-            + "&code=" + code
+        location.href = "/user/finance/toChangeMoney.html?code=" + code
             + "&name=" + name
             + "&company=" + company
             + "&people=" + manager;

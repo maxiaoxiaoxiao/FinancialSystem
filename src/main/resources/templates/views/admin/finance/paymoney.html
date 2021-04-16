@@ -102,7 +102,7 @@
                                                                   aria-hidden="true"></span> 编辑
                                                 </button>
                                                 <button class="btn btn-danger btn-sm delete_btn"
-                                                        th:attr="delete-id=${finance.id},delete-name=${finance.type}">
+                                                        th:attr="delete-id=${finance.id},delete-name=${finance.name}">
 															<span class="glyphicon glyphicon-trash"
                                                                   aria-hidden="true"></span> 删除
                                                 </button>
@@ -572,7 +572,7 @@
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
                                                        id="instruction_update_input" name="instruction"
-                                                       placeholder="请输入产品名称：">
+                                                       placeholder="请输入简介：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -924,6 +924,7 @@
             type: "GET",
             success: function (result) {
                 var payMoney = result.extend.payMoney;
+                console.log(payMoney);
 
                 //显示数据之前先清除一下校验样式，如果有的话
                 reset_form("#updateModal form");
@@ -971,13 +972,7 @@
     $(document).on("click", ".delete_btn", function () {
         //1、弹出是否确认删除对话框
         var id = $(this).attr("delete-id");
-        var type = $(this).attr("delete-name");
-        var name;
-        if (type==1){
-            name="国债";
-        }else if(type==2){
-            name="期货";
-        }
+        var name = $(this).attr("delete-name");
         $.alert({
             title: '提示：',
             content: "确定删除该 <strong>" + name + "</strong> 债券类基金产品吗？",

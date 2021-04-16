@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, name, invesTerm, leastMoney, profit, annualIncome
+    id, name, invesTerm, leastMoney, profit, annualIncome, risLevel, company, people, instruction, code
   </sql>
 
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
@@ -245,6 +245,21 @@
       </if>
       <if test="annualincome != null">
         annualIncome = #{annualincome,jdbcType=DECIMAL},
+      </if>
+      <if test="risLevel != null">
+        risLevel = #{risLevel,jdbcType=DECIMAL},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=DECIMAL},
+      </if>
+      <if test="people != null">
+        people = #{people,jdbcType=DECIMAL},
+      </if>
+      <if test="instruction != null">
+        instruction = #{instruction,jdbcType=DECIMAL},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=DECIMAL},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}

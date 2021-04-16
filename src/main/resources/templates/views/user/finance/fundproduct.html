@@ -74,31 +74,24 @@
                                     <table class="table table-hover table-striped">
                                         <thead>
                                         <tr>
-                                            <th class="info">序号</th>
                                             <th class="info">基金代码</th>
-                                            <th class="info">基金简称</th>
-                                            <th class="info">基金类型</th>
-                                            <th class="info">日增长率</th>
-                                            <th class="info">月增长率</th>
-                                            <th class="info">年增长率</th>
-                                            <th class="info">起投金额</th>
-                                            <th class="info">投资期限</th>
+                                            <th class="info">产品名称</th>
+                                            <th class="info">行业</th>
+                                            <th class="info">基金经理</th>
+                                            <th class="info">年化收益率</th>
+                                            <th class="info">简介</th>
                                             <th class="info">风险级别</th>
                                             <th class="info">相关操作</th>
                                         </tr>
                                         </thead>
                                         <tbody>
                                         <tr th:each="fp:${fundProductList}">
-                                            <td th:text="${fpStat.index+1}"></td>
                                             <td th:text="${fp.code}"></td>
                                             <td th:text="${fp.funddesc}"></td>
-                                            <td th:if="${fp.type==1}" th:text="股票型基金"></td><td th:if="${fp.type==2}" th:text="债券型基金"></td>
-                                            <td th:if="${fp.type==3}" th:text="货币型基金"></td><td th:if="${fp.type==4}" th:text="混合型基金"></td>
-                                            <td th:text="${#numbers.formatDecimal(fp.dailygrowth*100,1,2)}+'%'"></td>
-                                            <td th:text="${#numbers.formatDecimal(fp.monthlygrowth*100,1,2)}+'%'"></td>
-                                            <td th:text="${#numbers.formatDecimal(fp.annualgrowth*100,1,2)}+'%'"></td>
-                                            <td th:text="${#numbers.formatDecimal(fp.leastmoney,1,2)}+'元'"></td>
-                                            <td th:text="${fp.investerm}"></td>
+                                            <td th:text="${fp.company}"></td>
+                                            <td th:text="${fp.people}"></td>
+                                            <td th:text="${#numbers.formatDecimal(fp.annualgrowth*100,1,3)}+'%'"></td>
+                                            <td th:text="${fp.instruction}"></td>
                                             <td th:text="${fp.risLevel}"></td>
                                             <td>
                                                 <button class="btn btn-primary btn-sm buy_btn"
@@ -199,11 +192,7 @@
         var name = $("#select_name_input").val();
         var company = $("#select_company_input").val();
         var manager = $("#select_manager_input").val();
-        var pageNum = [[${finacnePageInfo.pages}]];
-        var pageSize = [[${finacnePageInfo.pageSize}]];
-        location.href = "/user/finance/toFundProduct.html?pageNum=" + pageNum
-            + "&pageSize=" + pageSize
-            + "&code=" + code
+        location.href = "/user/finance/toFundProduct.html?code=" + code
             + "&name=" + name
             + "&company=" + company
             + "&people=" + manager;

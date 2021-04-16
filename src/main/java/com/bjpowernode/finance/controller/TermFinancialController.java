@@ -58,7 +58,6 @@ public class TermFinancialController {
     @ResponseBody
     public Msg buyTermFinancial(@RequestParam("termFinancialId") Integer termFinancialId,
                                 @RequestParam("userId") Integer userId,@RequestParam("content")  String content) {
-
         return userTermFinancialService.insertUserTermFinancial(termFinancialId,userId);
     }
 

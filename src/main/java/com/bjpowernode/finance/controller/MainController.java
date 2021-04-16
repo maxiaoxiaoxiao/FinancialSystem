@@ -105,6 +105,9 @@ public class MainController {
         OutAndIn outAndIn = userService.selectByUser(user.getId());
         if(CheckEmptyUtil.isEmpty(outAndIn)){
             outAndIn = new OutAndIn();
+            outAndIn.setInMoney(0);
+            outAndIn.setOutMoney(0);
+            outAndIn.setVest(0);
         }
         //收藏占比
         Proportion proportion = userService.selectCollection(user.getId());

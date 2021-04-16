@@ -35,7 +35,7 @@ public class LoanController {
     @RequestMapping("/user/tools/toApplyLoan.html")
     public String toApplyLoan(Model model) {
 
-        model.addAttribute("pageTopBarInfo", "调查问卷页面");
+        model.addAttribute("pageTopBarInfo", "风险评测页面");
         model.addAttribute("activeUrl1", "toolsActive");
         model.addAttribute("activeUrl2", "applyLoanActive");
         return "/user/tools/applyloan";
@@ -59,7 +59,7 @@ public class LoanController {
         model.addAttribute("myLoansPageInfo", pageInfo);
         model.addAttribute("loansList", list);
 
-        model.addAttribute("pageTopBarInfo", "调查问卷界面");
+        model.addAttribute("pageTopBarInfo", "风险评测界面");
         model.addAttribute("activeUrl1", "personalActive");
         model.addAttribute("activeUrl2", "myLoanActive");
         return "/user/personal/myloan";

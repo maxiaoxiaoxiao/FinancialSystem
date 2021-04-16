@@ -85,6 +85,7 @@
 
 
     var outAndIn  = JSON.parse($("#outAndInInput").val());
+    console.log(outAndIn);
     var proportion = JSON.parse($("#proportionInput").val());
 
     console.log(outAndIn);
@@ -110,7 +111,8 @@
                 radius: '50%',
                 data: [
                     {value: outAndIn.outMoney, name: '收入'},
-                    {value: outAndIn.inMoney, name: '支出'}
+                    {value: outAndIn.inMoney, name: '支出'},
+                    {value: outAndIn.vest, name: '投资'}
                 ],
                 emphasis: {
                     itemStyle: {
