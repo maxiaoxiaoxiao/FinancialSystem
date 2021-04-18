@@ -5,6 +5,7 @@ import com.bjpowernode.finance.entity.OutAndIn;
 import com.bjpowernode.finance.entity.User;
 import com.bjpowernode.finance.entity.UserExample;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
@@ -37,9 +38,10 @@ public interface UserMapper {
     /**
      * 查询支出和收入.
      * @param userId
+     * @param flag
      * @return
      */
-    OutAndIn selectByUser(@Param("userId") Integer userId);
+    OutAndIn selectByUser(@Param("userId") Integer userId, @Param("flag") Integer flag);
 
     Integer selectChangeMoney(@Param("userId") Integer userId);
 

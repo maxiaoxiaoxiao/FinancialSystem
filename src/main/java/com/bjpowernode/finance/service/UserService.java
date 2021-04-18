@@ -7,6 +7,7 @@ import com.bjpowernode.finance.entity.Proportion;
 import com.bjpowernode.finance.entity.OutAndIn;
 import com.bjpowernode.finance.entity.User;
 
+import java.util.Date;
 import java.util.List;
 
 public interface UserService {
@@ -26,9 +27,10 @@ public interface UserService {
     /**
      * 收支情况
      * @param userId
+     * @param flag
      * @return
      */
-    OutAndIn selectByUser(Integer userId);
+    OutAndIn selectByUser(Integer userId, Integer flag);
 
     /**
      * 收藏数量.

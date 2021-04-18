@@ -41,7 +41,6 @@ public class UserChangeMoneyServiceImpl implements UserChangeMoneyService {
       ucm.setChangeid(changeMoneyId);
       ucm.setStarttime(new Date());
       ucm.setAveryield(cm.getAnnualincome());
-      ucm.setProfit(cm.getAnnualincome().multiply(cm.getInvesmoney()));
       ucm.setStatus(1);
       userChangeMoneyMapper.insertSelective(ucm);
       msg.setMsg("收藏成功");

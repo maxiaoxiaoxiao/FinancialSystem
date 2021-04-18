@@ -277,6 +277,10 @@ FROM
 	flow_of_funds
 WHERE
 	userId = #{userId}
+    <if test="flag == 0">
+      and DATE_FORMAT(createTime,'%Y-%m-%d') =
+      DATE_FORMAT(SYSDATE(),'%Y-%m-%d')
+    </if>
   </select>
   <select id="selectChangeMoney" resultType="java.lang.Integer">
     select count(id) from user_change_money where userId = #{userId}

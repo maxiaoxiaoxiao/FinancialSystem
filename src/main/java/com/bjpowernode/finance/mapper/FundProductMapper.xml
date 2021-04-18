@@ -284,6 +284,15 @@
       <if test="investerm != null">
         invesTerm = #{investerm,jdbcType=VARCHAR},
       </if>
+      <if test="company != null">
+        company = #{company},
+      </if>
+      <if test="people != null">
+        people = #{people},
+      </if>
+      <if test="instruction != null">
+        instruction = #{instruction}
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>

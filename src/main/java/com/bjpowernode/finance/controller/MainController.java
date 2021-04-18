@@ -12,6 +12,7 @@ import com.bjpowernode.finance.utils.CheckEmptyUtil;
 import com.bjpowernode.finance.utils.JsonMapper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -102,18 +103,21 @@ public class MainController {
     public String toUserIndex(Model model,HttpSession session){
         User user = (User)session.getAttribute("loginUser");
         //收入支出
-        OutAndIn outAndIn = userService.selectByUser(user.getId());
+        OutAndIn outAndIn = userService.selectByUser(user.getId(),1);
         if(CheckEmptyUtil.isEmpty(outAndIn)){
             outAndIn = new OutAndIn();
             outAndIn.setInMoney(0);
             outAndIn.setOutMoney(0);
             outAndIn.setVest(0);
         }
+        //今日收入支出
+        OutAndIn today = userService.selectByUser(user.getId(),0);
         //收藏占比
         Proportion proportion = userService.selectCollection(user.getId());
         //被推荐的商品
         String message = newsService.selectAllNews(user.getId());
         model.addAttribute("outAndIn", JsonMapper.toJsonString(outAndIn));
+        model.addAttribute("today", JsonMapper.toJsonString(today));
         model.addAttribute("proportion",JsonMapper.toJsonString(proportion));
         model.addAttribute("pageTopBarInfo","系统首页");
         model.addAttribute("message",message);

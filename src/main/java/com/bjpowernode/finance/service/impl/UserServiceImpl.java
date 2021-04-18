@@ -18,6 +18,9 @@ import com.bjpowernode.finance.mapper.AdminMapper;
 import com.bjpowernode.finance.mapper.UserMapper;
 import com.bjpowernode.finance.service.UserService;
 import com.bjpowernode.finance.utils.CheckEmptyUtil;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -89,8 +92,8 @@ public class UserServiceImpl implements UserService {
     }
 
   @Override
-  public OutAndIn selectByUser(Integer userId) {
-    return userMapper.selectByUser(userId);
+  public OutAndIn selectByUser(Integer userId, Integer flag) {
+    return userMapper.selectByUser(userId,flag);
   }
 
     @Override

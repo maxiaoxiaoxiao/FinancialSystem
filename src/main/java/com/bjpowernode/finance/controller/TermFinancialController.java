@@ -57,7 +57,7 @@ public class TermFinancialController {
     @PostMapping("/user/buyTermFinancial")
     @ResponseBody
     public Msg buyTermFinancial(@RequestParam("termFinancialId") Integer termFinancialId,
-                                @RequestParam("userId") Integer userId,@RequestParam("content")  String content) {
+                                @RequestParam("userId") Integer userId) {
         return userTermFinancialService.insertUserTermFinancial(termFinancialId,userId);
     }
 
