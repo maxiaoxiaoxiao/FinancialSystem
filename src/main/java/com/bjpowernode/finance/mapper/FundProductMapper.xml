@@ -291,7 +291,10 @@
         people = #{people},
       </if>
       <if test="instruction != null">
-        instruction = #{instruction}
+        instruction = #{instruction},
+      </if>
+      <if test="risLevel != null">
+        risLevel = #{risLevel},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}

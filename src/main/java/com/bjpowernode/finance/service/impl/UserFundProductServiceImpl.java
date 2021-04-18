@@ -41,7 +41,6 @@ public class UserFundProductServiceImpl implements UserFundProductService {
             ufp.setStarttime(new Date());
             FundProduct fp = fundProductMapper.selectByPrimaryKey(fundProductId);
             ufp.setAveryield(fp.getMonthlygrowth());
-            ufp.setProfit(fp.getLeastmoney().multiply(fp.getMonthlygrowth()));
             ufp.setStatus(1);
             userFundProductMapper.insertSelective(ufp);
             msg.setMsg("收藏成功");

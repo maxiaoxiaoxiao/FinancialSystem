@@ -63,7 +63,7 @@ public class AdminServiceImpl implements AdminService {
     }
     adminMapper.insert(admin);
     msg.setCode(100);
-    msg.setMsg("新建管理员成功");
+    msg.setMsg("新建投资顾问成功");
     return msg;
   }
 

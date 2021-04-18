@@ -1,0 +1,8 @@
+
+.easymessager{position:fixed; bottom:20px; right:20px; width:240px; padding:20px 40px 20px 20px; border-radius:4px 4px 4px 4px; background-color:#555; border:1px solid #000; font-size:12px; z-index:100000; box-shadow:0 0 10px #333; -moz-box-shadow:0 0 10px #333; -webkit-box-shadow:0 0 10px #333;}
+.easymessager-closer{position:absolute; top:5px; right:10px; font-family:'Arial'; color:#fff; cursor:pointer;}
+.easymessager-message{display:inline-block; *display:inline; zoom:1; line-height:150%; color:#fff;}
+
+.easymessager.warning{background-color:#ffee33; border:1px solid #f60;}
+.easymessager.warning .easymessager-closer{color:#f60;}
+.easymessager.warning .easymessager-message{color:#444;}

@@ -30,7 +30,7 @@
                 <div class="col-sm-12">
                     <div class="card">
                         <div class="card-header bg-primary">
-                            <h4 th:text="收支记录"></h4>
+                            <h4 th:text="总收支记录"></h4>
                             <ul class="card-actions">
                             </ul>
                         </div>
@@ -44,6 +44,9 @@
 
                 <input id="outAndInInput" th:value="${outAndIn}" hidden ></input>
                 <input id="proportionInput" th:value="${proportion}" hidden></input>
+                <input id="today" th:value="${today}" hidden></input>
+                <input id="message" th:value="${message}" hidden></input>
+
 
                 <div class="row">
                     <div class="col-sm-12">
@@ -55,6 +58,22 @@
                             </div>
                             <div class="card-body">
                                 <div id="second" style="width: 600px;height:400px;" class="margin-left: auto; margin-right: auto;"></div>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="card">
+                            <div class="card-header bg-primary">
+                                <h4 th:text="今日收支占比"></h4>
+                                <ul class="card-actions">
+                                </ul>
+                            </div>
+                            <div class="card-body">
+                                <div id="third" style="width: 600px;height:400px;" class="margin-left: auto; margin-right: auto;"></div>
                                 </p>
                             </div>
                         </div>
@@ -77,6 +96,8 @@
 <script th:src="@{/lyear/jconfirm/jquery-confirm.min.js}"></script>
 <!--自定义js脚本-->
 <script th:src="@{/lyear/js/main.min.js}"></script>
+<script th:src="@{/js/TGTool.js}"></script>
+<link rel="stylesheet" href="TGTool.css">
 <script type="text/javascript">
 
     var chartDom = document.getElementById('main');
@@ -85,15 +106,14 @@
 
 
     var outAndIn  = JSON.parse($("#outAndInInput").val());
-    console.log(outAndIn);
     var proportion = JSON.parse($("#proportionInput").val());
+    var today = JSON.parse($("#today").val());
+    var message = JSON.parse($("#message").val());
 
-    console.log(outAndIn);
-    console.log(proportion);
 
     option = {
         title: {
-            text: '收入支出',
+            text: '总收入支出',
             subtext: '',
             left: 'center'
         },
@@ -126,6 +146,7 @@
     };
 
     option && myChart.setOption(option);
+
 
 
     var chart2 = document.getElementById('second');
@@ -170,12 +191,57 @@
     option2 && myChart2.setOption(option2);
 
 
+    var chart3 = document.getElementById('third');
+    var myChart3 = echarts.init(chart3);
+    var option3;
+
+    option3 = {
+        title: {
+            text: '今日收支占比',
+            subtext: '',
+            left: 'center'
+        },
+        tooltip: {
+            trigger: 'item'
+        },
+        legend: {
+            orient: 'vertical',
+            left: 'left',
+        },
+        series: [
+            {
+                name: '访问来源',
+                type: 'pie',
+                radius: '50%',
+                data: [
+                    {value: today.outMoney, name: '收入'},
+                    {value: today.inMoney, name: '支出'},
+                    {value: today.vest, name: '投资'}
+                ],
+                emphasis: {
+                    itemStyle: {
+                        shadowBlur: 10,
+                        shadowOffsetX: 0,
+                        shadowColor: 'rgba(0, 0, 0, 0.5)'
+                    }
+                }
+            }
+        ]
+    };
+
+    option3 && myChart3.setOption(option3);
+
+
     function getQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         var r = window.location.search.substr(1).match(reg);
         if (r != null) return unescape(r[2]);
         return null;
     }
+
+
+    var tg = TGTool();
+    tg.info(message);
 
 </script>
 </body>

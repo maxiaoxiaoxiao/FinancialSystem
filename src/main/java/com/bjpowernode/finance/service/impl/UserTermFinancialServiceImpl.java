@@ -38,7 +38,6 @@ public class UserTermFinancialServiceImpl implements UserTermFinancialService {
             utf.setStarttime(new Date());
             TermFinancial tf = termFinancialMapper.selectByPrimaryKey(termFinancialId);
             utf.setAveryield(tf.getAnnualincome());
-            utf.setProfit(tf.getAnnualincome().multiply(tf.getLeastmoney()));
             utf.setStatus(1);
             userTermFinancialMapper.insertSelective(utf);
             msg.setMsg("收藏成功");

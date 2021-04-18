@@ -249,6 +249,18 @@
       <if test="risLevel != null">
         risLevel = #{risLevel,jdbcType=INTEGER},
       </if>
+      <if test="company != null">
+        company = #{company,jdbcType=INTEGER},
+      </if>
+      <if test="people != null">
+        people = #{people,jdbcType=INTEGER},
+      </if>
+      <if test="instruction != null">
+        instruction = #{instruction,jdbcType=INTEGER},
+      </if>
+      <if test="code != null">
+        code = #{code,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>

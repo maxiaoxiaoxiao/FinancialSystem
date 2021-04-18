@@ -1,9 +1,12 @@
 package com.bjpowernode.finance.controller;
 
 import com.bjpowernode.finance.common.Msg;
+import com.bjpowernode.finance.entity.Admin;
 import com.bjpowernode.finance.entity.Bankcard;
 import com.bjpowernode.finance.entity.User;
+import com.bjpowernode.finance.service.AdminService;
 import com.bjpowernode.finance.service.BankCardService;
+import com.bjpowernode.finance.service.UserService;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +22,10 @@ public class BankCardController {
 
     @Autowired
     BankCardService bankCardService;
+    @Autowired
+    private AdminService adminService;
+    @Autowired
+    private UserService userService;
 
     /**
      * 跳转到银行卡管理界面（用户）
@@ -29,13 +36,17 @@ public class BankCardController {
      */
     @GetMapping("/user/personal/toBankCard.html")
     public String toBankCard(Model model, HttpSession session) {
-        User loginUser = (User) session.getAttribute("loginUser");
-        List<Bankcard> list = bankCardService.selectBankCardByUserId(loginUser.getId());
-        model.addAttribute("bankCardList", list);
-
-        model.addAttribute("pageTopBarInfo", "理财顾问推荐界面");
-        model.addAttribute("activeUrl1", "personalActive");
-        model.addAttribute("activeUrl2", "bankCardActive");
+        // 引入PageHelper插件，在查询之前调用startPage方法，传入页码以及每页大小
+        List<Admin> list = adminService.selectAdmin();
+        List<User> users = userService.selectUser();
+        // 使用PageInfo包装查询后的结果，并交给页面处理
+        // PageInfo封装了详细的分页信息，包括我们查询出来的数据，还可以传入连续显示的页数（5）
+        PageInfo<Admin> pageInfo = new PageInfo<Admin>(list, 5);
+        model.addAttribute("userPageInfo",pageInfo);
+        model.addAttribute("userList",list);
+        model.addAttribute("users",users);
+        model.addAttribute("pageTopBarInfo","系统首页");
+        model.addAttribute("activeUrl","indexActive");
         return "/user/personal/bankcard";
     }
 

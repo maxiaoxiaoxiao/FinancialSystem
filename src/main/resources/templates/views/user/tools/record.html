@@ -53,6 +53,7 @@
                                             <td th:text="${fof.flowmoney}"></td>
                                             <td th:if="${fof.type==1}" th:text="收入"></td>
                                             <td th:if="${fof.type==2}" th:text="支出"></td>
+                                            <td th:if="${fof.type==3}" th:text="投资"></td>
                                             <td th:text="${fof.source}"></td>
                                             <td th:text="${#dates.format(fof.createtime, 'yyyy-MM-dd')}"></td>
                                             <td th:text="${fof.funddesc}"></td>

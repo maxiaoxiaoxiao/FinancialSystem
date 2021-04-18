@@ -99,6 +99,11 @@
 															<span class="glyphicon glyphicon-usd"
                                                                   aria-hidden="true"></span> 收藏
                                                 </button>
+                                                <button class="btn btn-primary btn-sm add_btn" id="add_common_btn"
+                                                        th:attr="add-id=${fp.id}">
+															<span class="glyphicon glyphicon-edit"
+                                                                  aria-hidden="true"></span> 新增评论
+                                                </button>
                                                 <button id="select_common_btn" class="btn btn-primary btn-sm select_btn"
                                                         th:attr="select-id=${fp.id}">
 															<span class="glyphicon glyphicon-trash"
@@ -156,6 +161,58 @@
                     </div>
 
 
+                    <div class="modal fade" id="addCommonModal" tabindex="-1"
+                         role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title">新增债券类基金评论</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <!--要提交的表单 -->
+                                    <form class="form-horizontal">
+                                        <div class="form-group" hidden>
+                                            <label class="col-sm-2 control-label">id：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="relaId" name="relaId"
+                                                       placeholder="id：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="col-sm-2 control-label">评论：</label>
+                                            <div class="col-sm-6">
+                                                <input type="text" class="form-control"
+                                                       id="common_add_input" name="content"
+                                                       placeholder="请输入评论：">
+                                                <span class="help-block"></span>
+                                            </div>
+                                            <div class="col-sm-1">
+                                                <em style="color: red">*</em>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default"
+                                            data-dismiss="modal">关闭
+                                    </button>
+                                    <button type="button" class="btn btn-primary"
+                                            id="save_common_btn">保存
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </main>
@@ -186,6 +243,21 @@
         });
     });
 
+
+
+    //点击新增评论弹出模态框。
+    $(document).on("click", ".add_btn", function () {
+        //清除表单数据（表单完整重置（表单的数据，表单的样式））
+        var id = $(this).attr("add-id");  //产品id
+        reset_form("#addCommonModal form");
+        //手动赋值
+        $("#relaId").val(id);
+        //弹出模态框
+        $("#addCommonModal").modal({
+            //点击增加框背景不删除增加框
+            backdrop: "static"
+        });
+    });
 
     $("#select_view_btn").click(function () {
         var code = $("#select_id_input").val();
@@ -234,6 +306,36 @@
     }
 
 
+    //点击保存，保存新增评论。
+    $("#save_common_btn").click(function () {
+        //清空表单样式
+        clean_form("#addModal form");
+        var common = $("#common_add_input").val();
+        var id  = $("#relaId").val();
+        //2、发送ajax请求保存产品
+        $.ajax({
+            data:JSON.stringify( {
+                "type": 1,
+                "relaId": id,
+                "content": common
+            }),
+            url: "/comment/addComment",
+            type: "POST",
+            contentType: "application/json; charset=utf-8",
+            success: function (result) {
+                if (result.code === 100) {
+                    $("#addCommonModal").modal('hide');
+                    $.alert(result.msg);
+                    setTimeout(function () {
+                        location.href = "/user/finance/toFundProduct.html";
+                    }, 1000);
+                } else {
+                    $.alert(result.msg);
+                }
+            }
+        });
+    });
+
 
     $(document).on("click",".buy_btn",function () {
         var fundProductId = $(this).attr("buyBtnId");
@@ -275,6 +377,35 @@
             }
         });
     })
+
+    //清空表单样式及内容
+    function reset_form(ele) {
+        $(ele)[0].reset();
+        //清空表单样式
+        $(ele).find("*").removeClass("has-error has-success");
+        $(ele).find(".help-block").text("");
+    }
+
+    //清空表单样式
+    function clean_form(ele) {
+        //清空表单样式
+        $(ele).find("*").removeClass("has-error has-success");
+        $(ele).find(".help-block").text("");
+    }
+
+    //显示校验结果的提示信息
+    function show_validate_msg(ele, status, msg) {
+        //清除当前元素的校验状态
+        $(ele).parent().removeClass("has-success has-error");
+        $(ele).next("span").text("");
+        if ("success" === status) {
+            $(ele).parent().addClass("has-success");
+            $(ele).next("span").text(msg);
+        } else if ("error" === status) {
+            $(ele).parent().addClass("has-error");
+            $(ele).next("span").text(msg);
+        }
+    }
 
 </script>
 </body>

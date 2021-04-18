@@ -69,8 +69,13 @@
                                                 </button>
                                                 <button id="select_common_btn" class="btn btn-primary btn-sm select_btn"
                                                         th:attr="select-id=${user.id}">
-															<span class="glyphicon glyphicon-trash"
+															<span class="glyphicon glyphicon-book"
                                                                   aria-hidden="true"></span> 理财查看
+                                                </button>
+                                                <button id="audit_common_btn" class="btn btn-primary btn-sm audit_btn"
+                                                        th:attr="audit-id=${user.id},audit-name=${user.username}">
+															<span class="glyphicon glyphicon-heart"
+                                                                  aria-hidden="true"></span> 选择
                                                 </button>
                                             </td>
                                         </tr>
@@ -449,11 +454,15 @@
              deleteBtn[j].style.display = "none";
          }
 
-
          $("#manager").append("<option value='" +ccId + "'>" + ccUsername  + "</option>");
      }else {
          //增加投资顾问
          selectAdmin();
+         var auditBtn = document.getElementsByClassName("audit_btn");
+         var j;
+         for (j = 0; j < auditBtn.length; j++) {
+             auditBtn[j].style.display = "none";
+         }
      }
 
      function selectAdmin(){
@@ -569,6 +578,7 @@
         var phone = $("#phone_add_input").val();
         var email = $("#email_add_input").val();
         var manager = jQuery("#manager  option:selected").val();
+        var risLevel =   $('input[name="risLevel"]:checked').val();
         //2、发送ajax请求保存用户
             $.ajax({
                 url: "/user/addUser",
@@ -579,7 +589,8 @@
                     "realname":realname,
                     "phone":phone,
                     "email":email,
-                    "adminId":manager
+                    "adminId":manager,
+                    "risLevel":risLevel
                 },
                 success : function(result) {
                 if (result.code === 100) {
@@ -671,6 +682,8 @@
                 $("#realname_update_input").val(user.realname);
                 $("#phone_update_input").val(user.phone);
                 $("#email_update_input").val(user.email);
+                $("#userUpdateModal input[name=risLevel]").val(
+                    [ user.risLevel ]);
             }
         });
     }
@@ -774,6 +787,49 @@
         });
 
     });
+
+
+    $(document).on("click",".delete-btn",function () {
+        var userId = $(this).attr("audit-id");
+        var adminId = [[${session.loginAdmin.id}]];;
+        //alert(userId);
+        var name = $(this).attr("audit-name");
+        $.alert({
+            title: '提示：',
+            content: "确定选择 <strong>"+name+"</strong> 作为您的客户吗？",
+            buttons: {
+                confirm: {
+                    text: '确认',
+                    btnClass: 'btn-primary',
+                    action: function(){
+                        $.ajax({
+                            //TODO 新增投资顾问和客户关联的接口
+                            url : "/user/buyChangeMoney",
+                            type : "POST",
+                            data : {
+                                "adminId":adminId,
+                                "userId":userId
+                            },
+                            success : function(result) {
+                                if (result.code===100){
+                                    $.alert(result.msg);
+                                }else {
+                                    $.alert(result.msg);
+                                }
+                            }
+                        });
+
+                    }
+                },
+                cancel: {
+                    text: '取消',
+                    action: function () {
+                        $.alert('已取消!');
+                    }
+                }
+            }
+        });
+    })
 
     //清空表单样式及内容
     function reset_form(ele) {

@@ -112,15 +112,23 @@ public class MainController {
         }
         //今日收入支出
         OutAndIn today = userService.selectByUser(user.getId(),0);
+        if(CheckEmptyUtil.isEmpty(today)){
+            today = new OutAndIn();
+            today.setInMoney(0);
+            today.setOutMoney(0);
+            today.setVest(0);
+        }
         //收藏占比
         Proportion proportion = userService.selectCollection(user.getId());
         //被推荐的商品
         String message = newsService.selectAllNews(user.getId());
+        String match = "\\pP|\\pS";
+        message.replaceAll(match,"");
         model.addAttribute("outAndIn", JsonMapper.toJsonString(outAndIn));
         model.addAttribute("today", JsonMapper.toJsonString(today));
         model.addAttribute("proportion",JsonMapper.toJsonString(proportion));
         model.addAttribute("pageTopBarInfo","系统首页");
-        model.addAttribute("message",message);
+        model.addAttribute("message",JsonMapper.toJsonString(message));
         model.addAttribute("activeUrl","indexActive");
         return "user/main";
     }

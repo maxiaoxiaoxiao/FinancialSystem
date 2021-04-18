@@ -76,8 +76,8 @@
                                                     <td th:if="${ucm.risLevel==2}" th:text="中"></td>
                                                     <td th:if="${ucm.risLevel==3}" th:text="低"></td>
                                                     <td>
-                                                        <button class="btn btn-danger btn-sm ucm_btn"
-                                                                th:attr="ucmBtnId=${ucm.id},ucmBtnName=${ucm.name}">
+                                                        <button class="btn btn-primary btn-sm buy_btn"
+                                                                th:attr="buyBtnId=${ucm.id},buyBtnName=${ucm.name}">
 															<span class="glyphicon glyphicon-remove"
                                                                   aria-hidden="true"></span> 收藏
                                                         </button>
@@ -88,7 +88,7 @@
 
                                         </div>
                                         <div th:if="${userChangeMoneyList.isEmpty()}" class="panel-body">
-                                            <h4>很抱歉！暂时还没有查询到您的股票类基金信息</h4>
+                                            <h4>很抱歉！暂时还没有查询到推荐的股票类基金信息</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -132,8 +132,8 @@
                                                     <td th:text="${upm.instruction}"></td>
                                                     <td th:text="${upm.risLevel}"></td>
                                                     <td>
-                                                        <button class="btn btn-danger btn-sm upm_btn"
-                                                                th:attr="upmBtnId=${upm.id},upmBtnName=${upm.type}">
+                                                        <button class="btn btn-primary btn-sm buy_btn1"
+                                                                th:attr="buyBtnId1=${upm.id},buyBtnName1=${upm.type}">
 															<span class="glyphicon glyphicon-remove"
                                                                   aria-hidden="true"></span> 收藏
                                                         </button>
@@ -143,7 +143,7 @@
                                             </table>
                                         </div>
                                         <div th:if="${userPayMoneyList.isEmpty()}" class="panel-body">
-                                            <h4>很抱歉！暂时还没有查询到您的债券类基金信息</h4>
+                                            <h4>很抱歉！暂时还没有查询到推荐的债券类基金信息</h4>
                                         </div>
 
                                     </div>
@@ -192,8 +192,8 @@
                                                     <td th:if="${utf.risLevel==2}" th:text="中"></td>
                                                     <td th:if="${utf.risLevel==3}" th:text="低"></td>
                                                     <td>
-                                                        <button class="btn btn-danger btn-sm utf_btn"
-                                                                th:attr="utfBtnId=${utf.id},utfBtnName=${utf.name}">
+                                                        <button class="btn btn-primary btn-sm buy_btn2"
+                                                                th:attr="buyBtnId2=${utf.id},buyBtnName2=${utf.name}">
 															<span class="glyphicon glyphicon-remove"
                                                                   aria-hidden="true"></span> 收藏
                                                         </button>
@@ -204,7 +204,7 @@
 
                                         </div>
                                         <div th:if="${userTermFinancialList.isEmpty()}" class="panel-body">
-                                            <h4>很抱歉！暂时还没有查询到您的货币基金信息</h4>
+                                            <h4>很抱歉！暂时还没有查询到推荐的货币基金信息</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -249,8 +249,8 @@
                                                     <td th:text="${ufp.instruction}"></td>
                                                     <td th:text="${ufp.risLevel}"></td>
                                                     <td>
-                                                        <button class="btn btn-danger btn-sm ufp_btn"
-                                                                th:attr="ufpBtnId=${ufp.id},ufpBtnName=${ufp.funddesc}">
+                                                        <button class="btn btn-primary btn-sm buy_btn3"
+                                                                th:attr="buyBtnId3=${ufp.id},buyBtnName3=${ufp.funddesc}">
 															<span class="glyphicon glyphicon-remove"
                                                                   aria-hidden="true"></span> 收藏
                                                         </button>
@@ -261,7 +261,7 @@
 
                                         </div>
                                         <div th:if="${userFundProductList.isEmpty()}" class="panel-body">
-                                            <h4>很抱歉！暂时还没有查询到推荐混合类基金信息</h4>
+                                            <h4>很抱歉！暂时还没有查询到推荐的混合类基金信息</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -282,9 +282,138 @@
 <script th:src="@{/bootstrap/js/bootstrap.js}"></script>
 <!--滚动条插件-->
 <script th:src="@{/lyear/js/perfect-scrollbar.min.js}"></script>
+<!--弹出框js-->
+<script th:src="@{/lyear/jconfirm/jquery-confirm.min.js}"></script>
 <!--自定义js脚本-->
 <script th:src="@{/lyear/js/main.min.js}"></script>
+<link rel="stylesheet" type="text/css" th:href="@{/lyear/css/jquery.easymessager.css}" />
+<script type="text/javascript" th:src="@{/js/jquery.easymessager.js}"></script>
 <script type="text/javascript">
+
+
+    var default_options = {
+        'timeout' : 10,	// 自动关闭消息的秒数
+        'classMessager' : 'easymessager',	// 消息的样式
+        'classCloser' : 'easymessager-closer',	// 消息关闭按钮的样式
+        'classMessage' : 'easymessager-message'	// 消息内容的样式
+    };
+
+    $(document).on("click",".buy_btn",function () {
+        var changeMoneyId = $(this).attr("buyBtnId");
+        var userId = [[${session.loginUser.id}]];
+        var name = $(this).attr("buyBtnName");
+        $.ajax({
+            url : "/user/buyChangeMoney",
+            type : "POST",
+            data : {
+                "changeMoneyId":changeMoneyId,
+                "userId":userId
+            },
+            success : function(result) {
+                if (result.code===100){
+                    $.easymessager(result.msg,default_options);
+                }else {
+                    $.easymessager(result.msg,default_options);
+                }
+            }
+        });
+    })
+
+    $(document).on("click",".buy_btn1",function () {
+        var payMoneyId = $(this).attr("buyBtnId1");
+        var userId = [[${session.loginUser.id}]];
+        var name = $(this).attr("buyBtnName1");
+        $.ajax({
+            url : "/user/buyPayMoney",
+            type : "POST",
+            data : {
+                "payMoneyId":payMoneyId,
+                "userId":userId
+            },
+            success : function(result) {
+                if (result.code===100){
+                    $.easymessager(result.msg,default_options);
+                }else {
+                    $.easymessager(result.msg,default_options);
+                }
+            }
+        });
+    })
+
+
+
+    $(document).on("click",".buy_btn2",function () {
+        var termFinancialId = $(this).attr("buyBtnId2");
+        var userId = [[${session.loginUser.id}]];
+        var name = $(this).attr("buyBtnName2");
+        $.ajax({
+            url : "/user/buyTermFinancial",
+            type : "POST",
+            data : {
+                "termFinancialId":termFinancialId,
+                "userId":userId
+            },
+            success : function(result) {
+                if (result.code===100){
+                    $.easymessager(result.msg,default_options);
+                }else {
+                    $.easymessager(result.msg,default_options);
+                }
+            }
+        });
+    })
+
+
+
+    $(document).on("click",".buy_btn3",function () {
+        var fundProductId = $(this).attr("buyBtnId3");
+        var userId = [[${session.loginUser.id}]];
+        var name = $(this).attr("buyBtnName3");
+        $.ajax({
+            url : "/user/buyFundProduct",
+            type : "POST",
+            data : {
+                "fundProductId":fundProductId,
+                "userId":userId
+            },
+            success : function(result) {
+                if (result.code===100){
+                    $.easymessager(result.msg,default_options);
+                }else {
+                    $.easymessager(result.msg,default_options);
+                }
+            }
+        });
+    })
+
+    //清空表单样式及内容
+    function reset_form(ele) {
+        $(ele)[0].reset();
+        //清空表单样式
+        $(ele).find("*").removeClass("has-error has-success");
+        $(ele).find(".help-block").text("");
+    }
+
+    //清空表单样式
+    function clean_form(ele) {
+        //清空表单样式
+        $(ele).find("*").removeClass("has-error has-success");
+        $(ele).find(".help-block").text("");
+    }
+
+    //显示校验结果的提示信息
+    function show_validate_msg(ele, status, msg) {
+        //清除当前元素的校验状态
+        $(ele).parent().removeClass("has-success has-error");
+        $(ele).next("span").text("");
+        if ("success" === status) {
+            $(ele).parent().addClass("has-success");
+            $(ele).next("span").text(msg);
+        } else if ("error" === status) {
+            $(ele).parent().addClass("has-error");
+            $(ele).next("span").text(msg);
+        }
+    }
 
 </script>
 </body>

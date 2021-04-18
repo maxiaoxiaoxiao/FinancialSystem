@@ -61,10 +61,6 @@ public class CommentController {
         msg.setMsg("评论内容不能为空");
         return msg;
       }
-      if (CheckEmptyUtil.isEmpty(comment.getAdminId())) {
-        Admin admin = (Admin) session.getAttribute("loginAdmin");
-        comment.setAdminId(admin.getId());
-      }
       commentService.addComment(comment);
       msg.setCode(100);
       msg.setMsg("新增评论成功");
