@@ -309,6 +309,10 @@ FROM
   <select id="selectAdminUser" resultType="com.bjpowernode.finance.entity.AdminUserRela">
     select r.* ,a.username from admin_user_rela r inner join admin a on a.id = r.adminId where userId = #{userId} and adminId = #{adminId}
   </select>
+  <select id="selectAdminUserById"
+          resultType="com.bjpowernode.finance.entity.AdminUserRela">
+    select * from admin_user_rela where userId = #{id}
+  </select>
   <update id="updateByExampleSelective" parameterType="map">
     update user
     <set>
@@ -414,5 +418,8 @@ FROM
     </if>
     </trim>
        WHERE `id` = #{user.id}
+  </update>
+  <update id="updateAdminUser">
+    update admin_user_rela set adminId = #{user.adminId},create_time = now() where userId = #{user.id}
   </update>
 </mapper>

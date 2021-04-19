@@ -56,4 +56,6 @@ public interface UserService {
     List<Admin> selectAllAdmin();
 
     List<User> selectUser();
+
+    Msg updateAdminUser(User user);
 }

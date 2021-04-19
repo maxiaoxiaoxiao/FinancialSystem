@@ -172,7 +172,7 @@ public class UserController {
         if(CheckEmptyUtil.isEmpty(user)){
             Msg msg = new Msg();
             msg.setCode(200);
-            msg.setMsg("不能传入客户");
+            msg.setMsg("没有传入客户");
             return msg;
         }
         Integer adminId = user.getAdminId();
@@ -186,6 +186,22 @@ public class UserController {
         return userService.insertAdminUser(adminId,user);
     }
 
+    /**
+     * 添加用户（管理员）
+     * @param user
+     * @return
+     */
+    @PostMapping("/user/updateAdminUser")
+    @ResponseBody
+    public Msg updateAdminUser(User user){
+        if(CheckEmptyUtil.isEmpty(user)){
+            Msg msg = new Msg();
+            msg.setCode(200);
+            msg.setMsg("没有传入客户");
+            return msg;
+        }
+        return userService.updateAdminUser(user);
+    }
     /**
      * 更新用户信息时回显用户信息（管理员）
      * @param id

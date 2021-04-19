@@ -62,4 +62,8 @@ public interface UserMapper {
     AdminUserRela selectAdminUser(@Param("adminId") Integer adminId, @Param("userId") Integer userId);
 
     void deleteAdminser(@Param("id") Integer id);
+
+    void updateAdminUser(@Param("user") User user);
+
+    AdminUserRela selectAdminUserById(@Param("id") Integer id);
 }

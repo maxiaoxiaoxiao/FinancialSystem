@@ -103,11 +103,11 @@
                     action: function(){
                         $.ajax({
                             //TODO 新增投资顾问和客户关联的接口
-                            url : "/user/buyChangeMoney",
+                            url : "/user/updateAdminUser",
                             type : "POST",
                             data : {
                                 "adminId":adminId,
-                                "userId":userId
+                                "id":userId
                             },
                             success : function(result) {
                                 if (result.code===100){
