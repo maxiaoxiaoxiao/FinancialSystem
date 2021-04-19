@@ -6,6 +6,7 @@ import com.bjpowernode.finance.entity.PayMoney;
 import com.bjpowernode.finance.service.FlowOfFundsService;
 import com.bjpowernode.finance.service.PayMoneyService;
 import com.bjpowernode.finance.service.UserPayMoneyService;
+import com.bjpowernode.finance.utils.CheckEmptyUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -122,6 +123,41 @@ public class PayMoneyController {
     @PostMapping("/admin/addPayMoney")
     @ResponseBody
     public Msg addPayMoney(PayMoney payMoney){
+      Msg msg = new Msg();
+      msg.setCode(200);
+      if (CheckEmptyUtil.isEmpty(payMoney)) {
+        msg.setMsg("内容不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(payMoney.getCode())) {
+        msg.setMsg("基金代码不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(payMoney.getName())) {
+        msg.setMsg("基金名称不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(payMoney.getCompany())) {
+        msg.setMsg("基金公司不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(payMoney.getPeople())) {
+        msg.setMsg("基金经理不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(payMoney.getMonthmoney())) {
+        msg.setMsg("基金收益率不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(payMoney.getInstruction())) {
+        msg.setMsg("基金简介不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isNotEmpty(payMoney.getInstruction())
+          && payMoney.getInstruction().length() >= 20) {
+        msg.setMsg("基金简介不能超过20个字");
+        return msg;
+      }
         Integer result = payMoneyService.insertPayMoney(payMoney);
         if (result==1){
             return Msg.success();
@@ -150,6 +186,41 @@ public class PayMoneyController {
     @PutMapping("/admin/updatePayMoney/{id}")
     @ResponseBody
     public Msg updatePayMoney(@PathVariable("id") Integer id,PayMoney payMoney){
+      Msg msg = new Msg();
+      msg.setCode(200);
+      if (CheckEmptyUtil.isEmpty(payMoney)) {
+        msg.setMsg("内容不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(payMoney.getCode())) {
+        msg.setMsg("基金代码不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(payMoney.getName())) {
+        msg.setMsg("基金名称不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(payMoney.getCompany())) {
+        msg.setMsg("基金公司不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(payMoney.getPeople())) {
+        msg.setMsg("基金经理不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(payMoney.getMonthmoney())) {
+        msg.setMsg("基金收益率不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(payMoney.getInstruction())) {
+        msg.setMsg("基金简介不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isNotEmpty(payMoney.getInstruction())
+          && payMoney.getInstruction().length() >= 20) {
+        msg.setMsg("基金简介不能超过20个字");
+        return msg;
+      }
         payMoney.setId(id);
         Integer result = payMoneyService.updatePayMoney(payMoney);
         if (result==1){

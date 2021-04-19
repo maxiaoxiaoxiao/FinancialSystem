@@ -24,6 +24,7 @@ public class NewsServiceImpl implements NewsService {
            }
            msg = msg + "请去我的收藏查看";
         }
+        newsMapper.updateNews(userId);
         return msg;
     }
 }

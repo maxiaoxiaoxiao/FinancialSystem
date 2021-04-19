@@ -6,6 +6,7 @@ import com.bjpowernode.finance.entity.TermFinancial;
 import com.bjpowernode.finance.service.FlowOfFundsService;
 import com.bjpowernode.finance.service.TermFinancialService;
 import com.bjpowernode.finance.service.UserTermFinancialService;
+import com.bjpowernode.finance.utils.CheckEmptyUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -112,6 +113,42 @@ public class TermFinancialController {
     @PostMapping("/admin/addTermFinancial")
     @ResponseBody
     public Msg addTermFinancial(TermFinancial termFinancial){
+
+      Msg msg = new Msg();
+      msg.setCode(200);
+      if (CheckEmptyUtil.isEmpty(termFinancial)) {
+        msg.setMsg("内容不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(termFinancial.getCode())) {
+        msg.setMsg("基金代码不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(termFinancial.getName())) {
+        msg.setMsg("基金名称不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(termFinancial.getCompany())) {
+        msg.setMsg("基金公司不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(termFinancial.getPeople())) {
+        msg.setMsg("基金经理不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(termFinancial.getLeastmoney())) {
+        msg.setMsg("基金收益率不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(termFinancial.getInstruction())) {
+        msg.setMsg("基金简介不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isNotEmpty(termFinancial.getInstruction())
+          && termFinancial.getInstruction().length() >= 20) {
+        msg.setMsg("基金简介不能超过20个字");
+        return msg;
+      }
         Integer result = termFinancialService.insertTermFinancial(termFinancial);
         if (result==1){
             return Msg.success();
@@ -140,6 +177,41 @@ public class TermFinancialController {
     @PutMapping("/admin/updateTermFinancial/{id}")
     @ResponseBody
     public Msg updateTermFinancial(@PathVariable("id") Integer id,TermFinancial termFinancial){
+      Msg msg = new Msg();
+      msg.setCode(200);
+      if (CheckEmptyUtil.isEmpty(termFinancial)) {
+        msg.setMsg("内容不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(termFinancial.getCode())) {
+        msg.setMsg("基金代码不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(termFinancial.getName())) {
+        msg.setMsg("基金名称不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(termFinancial.getCompany())) {
+        msg.setMsg("基金公司不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(termFinancial.getPeople())) {
+        msg.setMsg("基金经理不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(termFinancial.getLeastmoney())) {
+        msg.setMsg("基金收益率不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(termFinancial.getInstruction())) {
+        msg.setMsg("基金简介不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isNotEmpty(termFinancial.getInstruction())
+          && termFinancial.getInstruction().length() >= 20) {
+        msg.setMsg("基金简介不能超过20个字");
+        return msg;
+      }
         termFinancial.setId(id);
         Integer result = termFinancialService.updateTermFinancial(termFinancial);
         if (result==1){

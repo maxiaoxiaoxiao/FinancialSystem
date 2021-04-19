@@ -7,6 +7,7 @@ import com.bjpowernode.finance.entity.ChangeMoney;
 import com.bjpowernode.finance.service.ChangeMoneyService;
 import com.bjpowernode.finance.service.FlowOfFundsService;
 import com.bjpowernode.finance.service.UserChangeMoneyService;
+import com.bjpowernode.finance.utils.CheckEmptyUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,20 +105,52 @@ public class ChangeMoneyController {
         return "/admin/finance/changemoney";
     }
 
-    /**
-     * 新增股票类基金产品
-     * @param changeMoney
-     * @return
-     */
-    @PostMapping("/admin/addChangeMoney")
-    @ResponseBody
-    public Msg addChangeMoney(ChangeMoney changeMoney){
-        Integer result = changeMoneyService.insertChangeMoney(changeMoney);
-        if (result==1){
-            return Msg.success();
-        }
-        return Msg.fail();
+  /**
+   * 新增股票类基金产品
+   *
+   * @param changeMoney
+   * @return
+   */
+  @PostMapping("/admin/addChangeMoney")
+  @ResponseBody
+  public Msg addChangeMoney(ChangeMoney changeMoney) {
+    Msg msg = new Msg();
+    msg.setCode(200);
+    if (CheckEmptyUtil.isEmpty(changeMoney)) {
+      msg.setMsg("内容不能为空");
+      return msg;
     }
+    if (CheckEmptyUtil.isEmpty(changeMoney.getCode())) {
+      msg.setMsg("基金代码不能为空");
+      return msg;
+    }
+    if (CheckEmptyUtil.isEmpty(changeMoney.getName())) {
+      msg.setMsg("基金名称不能为空");
+      return msg;
+    }
+    if (CheckEmptyUtil.isEmpty(changeMoney.getCompany())) {
+      msg.setMsg("基金公司不能为空");
+      return msg;
+    }
+    if (CheckEmptyUtil.isEmpty(changeMoney.getPeople())) {
+      msg.setMsg("基金经理不能为空");
+      return msg;
+    }
+    if (CheckEmptyUtil.isEmpty(changeMoney.getInstruction())) {
+      msg.setMsg("基金简介不能为空");
+      return msg;
+    }
+    if (CheckEmptyUtil.isNotEmpty(changeMoney.getInstruction())
+        && changeMoney.getInstruction().length() >= 20) {
+      msg.setMsg("基金简介不能超过20个字");
+      return msg;
+    }
+    Integer result = changeMoneyService.insertChangeMoney(changeMoney);
+    if (result == 1) {
+      return Msg.success();
+    }
+    return Msg.fail();
+  }
 
     /**
      * 更新时回显信息
@@ -140,6 +173,37 @@ public class ChangeMoneyController {
     @PutMapping("/admin/updateChangeMoney/{id}")
     @ResponseBody
     public Msg updateChangeMoney(@PathVariable("id") Integer id,ChangeMoney changeMoney){
+      Msg msg = new Msg();
+      msg.setCode(200);
+      if (CheckEmptyUtil.isEmpty(changeMoney)) {
+        msg.setMsg("内容不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(changeMoney.getCode())) {
+        msg.setMsg("基金代码不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(changeMoney.getName())) {
+        msg.setMsg("基金名称不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(changeMoney.getCompany())) {
+        msg.setMsg("基金公司不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(changeMoney.getPeople())) {
+        msg.setMsg("基金经理不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(changeMoney.getInstruction())) {
+        msg.setMsg("基金简介不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isNotEmpty(changeMoney.getInstruction())
+          && changeMoney.getInstruction().length() >= 20) {
+        msg.setMsg("基金简介不能超过20个字");
+        return msg;
+      }
         changeMoney.setId(id);
         Integer result = changeMoneyService.updateChangeMoney(changeMoney);
         if (result==1){

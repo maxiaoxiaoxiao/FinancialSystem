@@ -449,7 +449,7 @@
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
                                                        id="instruction_add_input" name="instruction"
-                                                       placeholder="请输入产品名称：">
+                                                       placeholder="请输入产品简介：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -573,7 +573,7 @@
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
                                                        id="instruction_update_input" name="instruction"
-                                                       placeholder="请输入产品名称：">
+                                                       placeholder="请输入产品简介：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -704,7 +704,7 @@
         }
         editor.create();
         //初始化显示内容
-        editor.txt.html("<h1>欢迎编辑，请输入文字...</h1>");
+        editor.txt.html("<h1>推荐理由</h1>");
 
 
         var id = $(this).attr("add-id");  //产品id
@@ -868,7 +868,7 @@
                         location.href = "/admin/finance/toTermFinancial.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
-                    $.alert('货币基金产品添加失败！');
+                  $.alert(result.msg);
                 }
             }
         });
@@ -995,7 +995,7 @@
                         location.href = "/admin/finance/toTermFinancial.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
-                    $.alert('货币基金产品信息修改失败！');
+                  $.alert(result.msg);
                 }
             }
         });

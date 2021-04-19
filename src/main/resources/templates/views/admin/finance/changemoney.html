@@ -452,7 +452,7 @@
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
                                                        id="instruction_add_input" name="instruction"
-                                                       placeholder="请输入产品名称：">
+                                                       placeholder="请输入产品简介：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -576,7 +576,7 @@
                                             <div class="col-sm-6">
                                                 <input type="text" class="form-control"
                                                        id="instruction_update_input" name="instruction"
-                                                       placeholder="请输入产品名称：">
+                                                       placeholder="请输入产品简介：">
                                                 <span class="help-block"></span>
                                             </div>
                                             <div class="col-sm-1">
@@ -885,7 +885,7 @@
                         location.href = "/admin/finance/toChangeMoney.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
-                    $.alert('股票类基金产品新增失败！');
+                    $.alert(result.msg);
                 }
             }
         });
@@ -1040,7 +1040,7 @@
                         location.href = "/admin/finance/toChangeMoney.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
-                    $.alert('股票类基金信息修改失败！');
+                  $.alert(result.msg);
                 }
             }
         });

@@ -301,25 +301,6 @@
         var obj = $('input[name="type"]:checked').val();
         console.log(obj);
 
-        //匹配有1~2位小数的正实数
-        var monthmoneyRegex = /^[0-9]+(.[0-9]{1,2})?$/;
-        if (monthmoney.length === 0) {
-            show_validate_msg("#monthmoney_add_input",
-                "error", "金额为空");
-            return false;
-        } else if (monthmoneyRegex.test(monthmoney) === false) {
-            show_validate_msg("#monthmoney_add_input",
-                "error", "金额不合法（有1~2位小数的正实数）");
-            return false;
-        }
-
-        if (funddesc.length === 0) {
-            show_validate_msg("#investerm_add_input",
-                "error", "详情");
-            return false;
-        }
-
-
         //2、发送ajax请求保存产品
         $.ajax({
             data:JSON.stringify( {
@@ -341,7 +322,7 @@
                         location.href = "/user/tools/toRecord.html?pageNum=" + pageNum + "&pageSize=" + pageSize;
                     }, 1000);
                 } else {
-                    $.alert('收支记录添加失败！');
+                    $.alert(result.msg);
                 }
             }
         });

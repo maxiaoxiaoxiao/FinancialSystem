@@ -6,6 +6,7 @@ import com.bjpowernode.finance.entity.FundProduct;
 import com.bjpowernode.finance.service.FlowOfFundsService;
 import com.bjpowernode.finance.service.FundProductService;
 import com.bjpowernode.finance.service.UserFundProductService;
+import com.bjpowernode.finance.utils.CheckEmptyUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -118,6 +119,41 @@ public class FundProductController {
     @PostMapping("/admin/addFundProduct")
     @ResponseBody
     public Msg addFundProduct(FundProduct fundProduct){
+      Msg msg = new Msg();
+      msg.setCode(200);
+      if (CheckEmptyUtil.isEmpty(fundProduct)) {
+        msg.setMsg("内容不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(fundProduct.getCode())) {
+        msg.setMsg("基金代码不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(fundProduct.getFunddesc())) {
+        msg.setMsg("基金名称不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(fundProduct.getCompany())) {
+        msg.setMsg("基金公司不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(fundProduct.getPeople())) {
+        msg.setMsg("基金经理不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(fundProduct.getAnnualgrowth())) {
+        msg.setMsg("基金收益率不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(fundProduct.getInstruction())) {
+        msg.setMsg("基金简介不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isNotEmpty(fundProduct.getInstruction())
+          && fundProduct.getInstruction().length() >= 20) {
+        msg.setMsg("基金简介不能超过20个字");
+        return msg;
+      }
         Integer result = fundProductService.insertFundProduct(fundProduct);
         if (result==1){
             return Msg.success();
@@ -147,6 +183,41 @@ public class FundProductController {
     @PutMapping("/admin/updateFundProduct/{id}")
     @ResponseBody
     public Msg updateFundProduct(@PathVariable("id") Integer id,FundProduct fundProduct){
+      Msg msg = new Msg();
+      msg.setCode(200);
+      if (CheckEmptyUtil.isEmpty(fundProduct)) {
+        msg.setMsg("内容不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(fundProduct.getCode())) {
+        msg.setMsg("基金代码不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(fundProduct.getFunddesc())) {
+        msg.setMsg("基金名称不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(fundProduct.getCompany())) {
+        msg.setMsg("基金公司不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(fundProduct.getPeople())) {
+        msg.setMsg("基金经理不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(fundProduct.getAnnualgrowth())) {
+        msg.setMsg("基金收益率不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isEmpty(fundProduct.getInstruction())) {
+        msg.setMsg("基金简介不能为空");
+        return msg;
+      }
+      if (CheckEmptyUtil.isNotEmpty(fundProduct.getInstruction())
+          && fundProduct.getInstruction().length() >= 20) {
+        msg.setMsg("基金简介不能超过20个字");
+        return msg;
+      }
         fundProduct.setId(id);
         Integer result = fundProductService.updateFundProduct(fundProduct);
         if (result==1){

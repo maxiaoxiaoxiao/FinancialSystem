@@ -22,4 +22,6 @@ public interface NewsMapper {
     int updateByPrimaryKey(News record);
 
     List<String> selectAllNews(@Param("userId") Integer userId);
+
+    void updateNews(@Param("userId") Integer userId);
 }

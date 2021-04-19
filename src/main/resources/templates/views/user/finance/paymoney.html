@@ -119,7 +119,7 @@
 
                             <div th:if="${payMoneyList.isEmpty()}" class="card-body">
                                 <div class="table-responsive">
-                                    <h4>很抱歉！暂时还没有债券类基金向您推荐</h4>
+                                    <h4>没有查询到理财</h4>
                                 </div>
                             </div>
                         </div>
@@ -342,15 +342,9 @@
         var userId = [[${session.loginUser.id}]];
         //alert(userId);
         var type = $(this).attr("buyBtnName");
-        var name;
-        if (type==1){
-            name="国债"
-        }else{
-            name="期货";
-        }
         $.alert({
             title: '提示：',
-            content: "确定收藏该 <strong>"+name+"</strong> 吗？",
+            content: "确定收藏该理财吗？",
             buttons: {
                 confirm: {
                     text: '确认',

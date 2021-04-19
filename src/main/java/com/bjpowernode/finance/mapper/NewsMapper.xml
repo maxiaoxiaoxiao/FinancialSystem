@@ -147,4 +147,7 @@ WHERE
       createTime = #{createtime,jdbcType=DATE}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <update id="updateNews">
+    update news set status = 1 where userId = #{userId}
+  </update>
 </mapper>
