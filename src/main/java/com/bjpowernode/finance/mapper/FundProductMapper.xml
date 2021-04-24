@@ -95,7 +95,7 @@
       fundDesc, dailyGrowth, monthlyGrowth,
       annualGrowth, leastMoney, invesTerm,risLevel
       )
-    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{code,jdbcType=INTEGER},
+    values (#{id,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{code,jdbcType=VARCHAR},
       #{funddesc,jdbcType=VARCHAR}, #{dailygrowth,jdbcType=DECIMAL}, #{monthlygrowth,jdbcType=DECIMAL},
       #{annualgrowth,jdbcType=DECIMAL}, #{leastmoney,jdbcType=DECIMAL}, #{investerm,jdbcType=VARCHAR},#{risLevel,jdbcType=INTEGER}
       )
@@ -151,7 +151,7 @@
         #{type,jdbcType=INTEGER},
       </if>
       <if test="code != null">
-        #{code,jdbcType=INTEGER},
+        #{code,jdbcType=VARCHAR},
       </if>
       <if test="funddesc != null">
         #{funddesc,jdbcType=VARCHAR},
@@ -264,7 +264,7 @@
         type = #{type,jdbcType=INTEGER},
       </if>
       <if test="code != null">
-        code = #{code,jdbcType=INTEGER},
+        code = #{code,jdbcType=VARCHAR},
       </if>
       <if test="funddesc != null">
         fundDesc = #{funddesc,jdbcType=VARCHAR},
@@ -302,7 +302,7 @@
   <update id="updateByPrimaryKey" parameterType="com.bjpowernode.finance.entity.FundProduct">
     update fund_product
     set type = #{type,jdbcType=INTEGER},
-      code = #{code,jdbcType=INTEGER},
+      code = #{code,jdbcType=VARCHAR},
       fundDesc = #{funddesc,jdbcType=VARCHAR},
       dailyGrowth = #{dailygrowth,jdbcType=DECIMAL},
       monthlyGrowth = #{monthlygrowth,jdbcType=DECIMAL},

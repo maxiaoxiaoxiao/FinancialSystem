@@ -2,6 +2,7 @@ package com.bjpowernode.finance.controller;
 
 import com.bjpowernode.finance.common.Msg;
 import com.bjpowernode.finance.entity.Admin;
+import com.bjpowernode.finance.entity.BugPayMoeny;
 import com.bjpowernode.finance.entity.PayMoney;
 import com.bjpowernode.finance.service.FlowOfFundsService;
 import com.bjpowernode.finance.service.PayMoneyService;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -71,13 +73,11 @@ public class PayMoneyController {
    */
   @PostMapping("/user/buyPayMoneyList")
   @ResponseBody
-  public Msg buyPayMoneyList(
-      @RequestParam("payMoneyId") Integer payMoneyId,
-      @RequestParam("userIdList") List<Integer> userIdList,
-      HttpSession session,
-      @RequestParam("content") String content) {
+  public Msg buyPayMoneyList(@RequestBody BugPayMoeny bugPayMoeny, HttpSession session) {
     Admin admin = (Admin) session.getAttribute("loginAdmin");
-    userPayMoneyService.insertUserPayMoneyList(payMoneyId, userIdList, admin.getId(),content);
+      List<Integer> list = new ArrayList<>();
+      list.add(Integer.valueOf(bugPayMoeny.getUserIdList()));
+    userPayMoneyService.insertUserPayMoneyList(bugPayMoeny.getPayMoneyId(), list, admin.getId(),bugPayMoeny.getConctent());
     return Msg.success();
     }
 

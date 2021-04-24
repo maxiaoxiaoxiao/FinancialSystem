@@ -2,6 +2,7 @@ package com.bjpowernode.finance.controller;
 
 import com.bjpowernode.finance.common.Msg;
 import com.bjpowernode.finance.entity.Admin;
+import com.bjpowernode.finance.entity.BugTermFinancial;
 import com.bjpowernode.finance.entity.TermFinancial;
 import com.bjpowernode.finance.service.FlowOfFundsService;
 import com.bjpowernode.finance.service.TermFinancialService;
@@ -15,6 +16,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -64,14 +66,13 @@ public class TermFinancialController {
 
   @PostMapping("/user/buyTermFinancialList")
   @ResponseBody
-  public Msg buyTermFinancialList(
-      @RequestParam("termFinancialId") Integer termFinancialId,
-      @RequestParam("content") String content,
-      @RequestParam("userIdList") List<Integer> userIdList,
-      HttpSession session) {
+  public Msg buyTermFinancialList( @RequestBody BugTermFinancial bugTermFinancial, HttpSession session) {
+
     Admin admin = (Admin) session.getAttribute("loginAdmin");
+      List<Integer> list = new ArrayList<>();
+      list.add(Integer.valueOf(bugTermFinancial.getUserIdList()));
     userTermFinancialService.buyTermFinancialList(
-        termFinancialId, userIdList, admin.getId(), content);
+            bugTermFinancial.getTermFinancialId(), list, admin.getId(), bugTermFinancial.getConctent());
     return Msg.success();
   }
   /**

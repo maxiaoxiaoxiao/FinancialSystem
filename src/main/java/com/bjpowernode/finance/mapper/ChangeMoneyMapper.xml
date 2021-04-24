@@ -259,7 +259,7 @@
         instruction = #{instruction,jdbcType=INTEGER},
       </if>
       <if test="code != null">
-        code = #{code,jdbcType=INTEGER},
+        code = #{code,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}

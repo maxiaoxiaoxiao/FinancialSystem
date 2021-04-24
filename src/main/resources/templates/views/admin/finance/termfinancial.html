@@ -755,15 +755,14 @@
         var id  = $("#recommendId").val();
         //客户id
         var userId = jQuery("#userList  option:selected").val();
-        var array=new Array[userId];
         //2、发送ajax请求保存产品
         $.ajax({
             data:JSON.stringify( {
-                "payMoneyId": id,
-                "userIdList": array,
+                "termFinancialId": id,
+                "userIdList": userId,
                 "content": common
             }),
-            url: "/user/buyPayMoney",
+            url: "/user/buyTermFinancialList",
             type: "POST",
             contentType: "application/json; charset=utf-8",
             success: function (result) {
@@ -840,17 +839,6 @@
         var annualincome = $("#annualincome_add_input").val();
         var investerm = $("#investerm_add_input").val();
 
-        //匹配中文、英文、数字包括下划线(理财产品名称)
-        var nameRegex = /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
-        if (name.length === 0) {
-            show_validate_msg("#name_add_input",
-                "error", "产品名称为空");
-            return false;
-        } else if (nameRegex.test(name) === false) {
-            show_validate_msg("#name_add_input",
-                "error", "产品名称不合法（产品名称只能由中文、数字、英文和下划线组成）");
-            return false;
-        }
 
 
         //2、发送ajax请求保存产品
@@ -968,17 +956,6 @@
         var annualincome = $("#annualincome_update_input").val();
         var investerm = $("#investerm_update_input").val();
 
-        //匹配中文、英文、数字包括下划线(理财产品名称)
-        var nameRegex = /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
-        if (name.length === 0) {
-            show_validate_msg("#name_update_input",
-                "error", "产品名称为空");
-            return false;
-        } else if (nameRegex.test(name) === false) {
-            show_validate_msg("#name_update_input",
-                "error", "产品名称不合法（产品名称只能由中文、数字、英文和下划线组成）");
-            return false;
-        }
 
         //2、发送ajax请求保存更新的理财产品数据
         $.ajax({

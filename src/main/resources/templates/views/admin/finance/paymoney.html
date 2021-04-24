@@ -768,15 +768,14 @@
         var id  = $("#recommendId").val();
         //客户id
         var userId = jQuery("#userList  option:selected").val();
-        var array=new Array[userId];
         //2、发送ajax请求保存产品
         $.ajax({
             data:JSON.stringify( {
                 "payMoneyId": id,
-                "userIdList": array,
+                "userIdList": userId,
                 "conctent": common
             }),
-            url: "/user/buyPayMoney",
+            url: "/user/buyPayMoneyList",
             type: "POST",
             contentType: "application/json; charset=utf-8",
             success: function (result) {
@@ -975,7 +974,7 @@
         var name = $(this).attr("delete-name");
         $.alert({
             title: '提示：',
-            content: "确定删除该 <strong>" + name + "</strong> 债券类基金产品吗？",
+            content: "确定删除该 <strong>" + name + "</strong> 股票类基金产品吗？",
             buttons: {
                 confirm: {
                     text: '确认',
