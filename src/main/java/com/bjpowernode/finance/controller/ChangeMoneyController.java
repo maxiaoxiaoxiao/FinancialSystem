@@ -125,11 +125,11 @@ public class ChangeMoneyController {
       return msg;
     }
     if (CheckEmptyUtil.isEmpty(changeMoney.getName())) {
-      msg.setMsg("基金名称不能为空");
+      msg.setMsg("产品名称不能为空");
       return msg;
     }
     if (CheckEmptyUtil.isEmpty(changeMoney.getCompany())) {
-      msg.setMsg("基金公司不能为空");
+      msg.setMsg("行业不能为空");
       return msg;
     }
     if (CheckEmptyUtil.isEmpty(changeMoney.getPeople())) {

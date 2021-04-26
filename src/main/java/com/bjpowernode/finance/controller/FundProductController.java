@@ -121,6 +121,34 @@ public class FundProductController {
     public Msg addFundProduct(FundProduct fundProduct){
       Msg msg = new Msg();
       msg.setCode(200);
+        if (CheckEmptyUtil.isEmpty(fundProduct)) {
+            msg.setMsg("内容不能为空");
+            return msg;
+        }
+        if (CheckEmptyUtil.isEmpty(fundProduct.getCode())) {
+            msg.setMsg("基金代码不能为空");
+            return msg;
+        }
+        if (CheckEmptyUtil.isEmpty(fundProduct.getFunddesc())) {
+            msg.setMsg("产品名称不能为空");
+            return msg;
+        }
+        if (CheckEmptyUtil.isEmpty(fundProduct.getCompany())) {
+            msg.setMsg("行业不能为空");
+            return msg;
+        }
+        if (CheckEmptyUtil.isEmpty(fundProduct.getPeople())) {
+            msg.setMsg("基金经理不能为空");
+            return msg;
+        }
+        if (CheckEmptyUtil.isEmpty(fundProduct.getAnnualgrowth())) {
+            msg.setMsg("年化收益率不能为空");
+            return msg;
+        }
+        if (CheckEmptyUtil.isEmpty(fundProduct.getInstruction())) {
+            msg.setMsg("基金简介不能为空");
+            return msg;
+        }
       if (CheckEmptyUtil.isNotEmpty(fundProduct.getInstruction())
           && fundProduct.getInstruction().length() >= 20) {
         msg.setMsg("基金简介不能超过20个字");

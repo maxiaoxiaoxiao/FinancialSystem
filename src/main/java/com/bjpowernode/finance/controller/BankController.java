@@ -58,12 +58,18 @@ public class BankController {
         model.addAttribute("userChangeMoneyList", userChangeMoneyList);
 
         List<PayMoney> userPayMoneyList = userPayMoneyService.selectUserPayMoneyByUser(userId);
+        userPayMoneyList.forEach( s -> {
+            s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
+        });
         model.addAttribute("userPayMoneyList", userPayMoneyList);
 
         List<TermFinancial> userTermFinancialList = userTermFinancialService.selectUserTermFinancialByUser(userId);
         model.addAttribute("userTermFinancialList", userTermFinancialList);
 
         List<FundProduct> userFundProductList = userFundProductService.selectUserFundProductByUser(userId);
+        userFundProductList.forEach( s -> {
+            s.setRisLevel("1".equalsIgnoreCase(s.getRisLevel())? "高":("2".equalsIgnoreCase(s.getRisLevel())?"中":"低"));
+        });
         model.addAttribute("userFundProductList", userFundProductList);
         model.addAttribute("pageTopBarInfo","理财推荐界面");
         model.addAttribute("activeUrl1","financeActive");

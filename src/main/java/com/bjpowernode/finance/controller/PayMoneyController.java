@@ -134,11 +134,11 @@ public class PayMoneyController {
         return msg;
       }
       if (CheckEmptyUtil.isEmpty(payMoney.getName())) {
-        msg.setMsg("基金名称不能为空");
+        msg.setMsg("产品名称不能为空");
         return msg;
       }
       if (CheckEmptyUtil.isEmpty(payMoney.getCompany())) {
-        msg.setMsg("基金公司不能为空");
+        msg.setMsg("行业不能为空");
         return msg;
       }
       if (CheckEmptyUtil.isEmpty(payMoney.getPeople())) {
@@ -146,7 +146,7 @@ public class PayMoneyController {
         return msg;
       }
       if (CheckEmptyUtil.isEmpty(payMoney.getMonthmoney())) {
-        msg.setMsg("基金收益率不能为空");
+        msg.setMsg("年化收益率不能为空");
         return msg;
       }
       if (CheckEmptyUtil.isEmpty(payMoney.getInstruction())) {

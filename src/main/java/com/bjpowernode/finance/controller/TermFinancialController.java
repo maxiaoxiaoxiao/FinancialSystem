@@ -126,11 +126,11 @@ public class TermFinancialController {
         return msg;
       }
       if (CheckEmptyUtil.isEmpty(termFinancial.getName())) {
-        msg.setMsg("基金名称不能为空");
+        msg.setMsg("产品名称不能为空");
         return msg;
       }
       if (CheckEmptyUtil.isEmpty(termFinancial.getCompany())) {
-        msg.setMsg("基金公司不能为空");
+        msg.setMsg("行业不能为空");
         return msg;
       }
       if (CheckEmptyUtil.isEmpty(termFinancial.getPeople())) {
@@ -138,7 +138,7 @@ public class TermFinancialController {
         return msg;
       }
       if (CheckEmptyUtil.isEmpty(termFinancial.getLeastmoney())) {
-        msg.setMsg("基金收益率不能为空");
+        msg.setMsg("年化收益率不能为空");
         return msg;
       }
       if (CheckEmptyUtil.isEmpty(termFinancial.getInstruction())) {
