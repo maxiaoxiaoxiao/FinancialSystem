@@ -10,6 +10,7 @@ import com.bjpowernode.finance.service.UserPayMoneyService;
 import com.bjpowernode.finance.utils.CheckEmptyUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 public class PayMoneyController {
@@ -158,6 +161,18 @@ public class PayMoneyController {
         msg.setMsg("基金简介不能超过20个字");
         return msg;
       }
+      //名称和编码不能重复
+        List<PayMoney> payMonies = payMoneyService.selectAllPayMoney(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY);
+        Set<String> codeSet = payMonies.stream().map(PayMoney::getCode).collect(Collectors.toSet());
+        Set<String> nameSet = payMonies.stream().map(PayMoney::getName).collect(Collectors.toSet());
+        if(codeSet.contains(payMoney.getCode())){
+            msg.setMsg("基金代码不可以重复");
+            return msg;
+        }
+        if(nameSet.contains(payMoney.getName())){
+            msg.setMsg("基金名称不可以重复");
+            return msg;
+        }
         Integer result = payMoneyService.insertPayMoney(payMoney);
         if (result==1){
             return Msg.success();

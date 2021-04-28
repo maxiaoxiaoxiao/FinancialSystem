@@ -832,6 +832,35 @@
         //清空表单样式
         clean_form("#addModal form");
 
+
+        var code = $("#code_add_input").val();
+        var name = $("#name_add_input").val();
+
+
+        //匹配 m-n位的数字
+        var codeRegex = /^\d{6,8}$/;
+        if (code.length === 0) {
+            show_validate_msg("#code_add_input",
+                "error", "基金代码为空");
+            return false;
+        } else if (codeRegex.test(code) === false) {
+            show_validate_msg("#code_add_input",
+                "error", "基金代码不合法（6-8位数字）");
+            return false;
+        }
+
+        var nameRegex = /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
+        if (name.length === 0) {
+            show_validate_msg("#name_add_input",
+                "error", "产品名称为空");
+            return false;
+        } else if (nameRegex.test(name) === false) {
+            show_validate_msg("#name_add_input",
+                "error", "产品名称不合法（产品名称只能由中文、数字、英文和下划线组成）");
+            return false;
+        }
+
+
         //2、发送ajax请求保存产品
         $.ajax({
             url: "/admin/addPayMoney",
@@ -944,7 +973,6 @@
     $("#update_btn").click(function () {
         //清空表单样式
         clean_form("#updateModal form");
-
 
         //2、发送ajax请求保存更新的理财产品数据
         $.ajax({

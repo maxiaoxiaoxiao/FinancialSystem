@@ -3,6 +3,7 @@ package com.bjpowernode.finance.controller;
 import com.bjpowernode.finance.common.Msg;
 import com.bjpowernode.finance.entity.Admin;
 import com.bjpowernode.finance.entity.BugTermFinancial;
+import com.bjpowernode.finance.entity.PayMoney;
 import com.bjpowernode.finance.entity.TermFinancial;
 import com.bjpowernode.finance.service.FlowOfFundsService;
 import com.bjpowernode.finance.service.TermFinancialService;
@@ -10,6 +11,7 @@ import com.bjpowernode.finance.service.UserTermFinancialService;
 import com.bjpowernode.finance.utils.CheckEmptyUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 public class TermFinancialController {
@@ -150,6 +154,17 @@ public class TermFinancialController {
         msg.setMsg("基金简介不能超过20个字");
         return msg;
       }
+        List<TermFinancial> termFinancials = termFinancialService.selectAllTermFinancial(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY);
+        Set<String> codeSet = termFinancials.stream().map(TermFinancial::getCode).collect(Collectors.toSet());
+        Set<String> nameSet = termFinancials.stream().map(TermFinancial::getName).collect(Collectors.toSet());
+        if(codeSet.contains(termFinancial.getCode())){
+            msg.setMsg("基金代码不可以重复");
+            return msg;
+        }
+        if(nameSet.contains(termFinancial.getName())){
+            msg.setMsg("基金名称不可以重复");
+            return msg;
+        }
         Integer result = termFinancialService.insertTermFinancial(termFinancial);
         if (result==1){
             return Msg.success();
@@ -213,6 +228,7 @@ public class TermFinancialController {
         msg.setMsg("基金简介不能超过20个字");
         return msg;
       }
+
         termFinancial.setId(id);
         Integer result = termFinancialService.updateTermFinancial(termFinancial);
         if (result==1){

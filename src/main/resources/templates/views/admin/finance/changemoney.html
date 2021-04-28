@@ -845,6 +845,19 @@
         var annualincome = $("#annualincome_add_input").val();
         var instruction = $("#instruction_add_input").val();
         //匹配中文、英文、数字包括下划线(理财产品名称)
+
+        //匹配 m-n位的数字
+        var codeRegex = /^\d{6,8}$/;
+        if (code.length === 0) {
+            show_validate_msg("#code_add_input",
+                "error", "基金代码为空");
+            return false;
+        } else if (codeRegex.test(code) === false) {
+            show_validate_msg("#code_add_input",
+                "error", "基金代码不合法（6-8位数字）");
+            return false;
+        }
+
         var nameRegex = /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
         if (name.length === 0) {
             show_validate_msg("#name_add_input",
@@ -991,6 +1004,7 @@
         //清空表单样式
         clean_form("#updateModal form");
 
+        var code = $("#code_update_input").val();
         var name = $("#name_update_input").val();
         var annualincome = $("#annualincome_update_input").val();
         var peiincome = $("#peiincome_update_input").val();

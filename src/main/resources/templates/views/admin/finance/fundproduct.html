@@ -833,6 +833,43 @@
         var funddesc = $("#funddesc_add_input").val();
         var annualgrowth = $("#annualgrowth_add_input").val();
 
+        //匹配 m-n位的数字
+        var codeRegex = /^\d{6,8}$/;
+        if (code.length === 0) {
+            show_validate_msg("#code_add_input",
+                "error", "基金代码为空");
+            return false;
+        } else if (codeRegex.test(code) === false) {
+            show_validate_msg("#code_add_input",
+                "error", "基金代码不合法（6-8位数字）");
+            return false;
+        }
+
+        //匹配中文、英文、数字包括下划线
+        var funddescRegex = /^[\u4E00-\u9FA5A-Za-z0-9_]+$/;
+        if (funddesc.length === 0) {
+            show_validate_msg("#funddesc_add_input",
+                "error", "基金名称为空");
+            return false;
+        } else if (funddescRegex.test(funddesc) === false) {
+            show_validate_msg("#funddesc_add_input",
+                "error", "基金简介不合法");
+            return false;
+        }
+
+        //匹配正数、负数、和小数
+        var annualgrowthRegex = /^(\-|\+)?\d+(\.\d+)?$/;
+        if (annualgrowth.length === 0) {
+            show_validate_msg("#annualgrowth_add_input",
+                "error", "年增长率为空");
+            return false;
+        } else if (annualgrowthRegex.test(annualgrowth) === false) {
+            show_validate_msg("#annualgrowth_add_input",
+                "error", "年增长率不合法（正数、负数、和小数）");
+            return false;
+        }
+
+
 
         //2、发送ajax请求保存产品
         $.ajax({

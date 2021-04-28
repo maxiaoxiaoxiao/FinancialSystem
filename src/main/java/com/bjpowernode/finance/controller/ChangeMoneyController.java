@@ -4,12 +4,14 @@ import com.bjpowernode.finance.common.Msg;
 import com.bjpowernode.finance.entity.Admin;
 import com.bjpowernode.finance.entity.BuyChangeMoney;
 import com.bjpowernode.finance.entity.ChangeMoney;
+import com.bjpowernode.finance.entity.FundProduct;
 import com.bjpowernode.finance.service.ChangeMoneyService;
 import com.bjpowernode.finance.service.FlowOfFundsService;
 import com.bjpowernode.finance.service.UserChangeMoneyService;
 import com.bjpowernode.finance.utils.CheckEmptyUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,8 @@ import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Controller
 public class ChangeMoneyController {
@@ -145,6 +149,17 @@ public class ChangeMoneyController {
       msg.setMsg("基金简介不能超过20个字");
       return msg;
     }
+      List<ChangeMoney> changeMoneyList = changeMoneyService.selectAllChangeMoney(StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY, StringUtils.EMPTY);
+      Set<String> codeSet = changeMoneyList.stream().map(ChangeMoney::getCode).collect(Collectors.toSet());
+      Set<String> nameSet = changeMoneyList.stream().map(ChangeMoney::getName).collect(Collectors.toSet());
+      if(codeSet.contains(changeMoney.getCode())){
+          msg.setMsg("基金代码不可以重复");
+          return msg;
+      }
+      if(nameSet.contains(changeMoney.getName())){
+          msg.setMsg("基金名称不可以重复");
+          return msg;
+      }
     Integer result = changeMoneyService.insertChangeMoney(changeMoney);
     if (result == 1) {
       return Msg.success();
