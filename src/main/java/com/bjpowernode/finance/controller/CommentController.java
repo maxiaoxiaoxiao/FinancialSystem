@@ -120,7 +120,7 @@ public class CommentController {
         if(CheckEmptyUtil.isNotEmpty(changeMonies)){
             for (ChangeMoney  c : changeMonies) {
                 UseFavorites dto = new UseFavorites();
-                dto.setIndex(String.valueOf(index++));
+                dto.setIndex(c.getCode());
                 dto.setType("股票类基金");
                 //TDDO 加入名称
                 dto.setProductName(c.getName());
@@ -131,13 +131,12 @@ public class CommentController {
         if(CheckEmptyUtil.isNotEmpty(payMonies)){
             for (PayMoney  c : payMonies) {
                 UseFavorites dto = new UseFavorites();
-                dto.setIndex(String.valueOf(index++));
+                dto.setIndex(c.getCode());
                 dto.setType("债券类基金");
                 //TDDO 加入名称
-               String type = c.getType() == 1 ? "国债":"期货";
-                dto.setProductName(type + "  " + c.getInvesterm());
+                dto.setProductName(c.getName());
               dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel())? "高":("2".equalsIgnoreCase(dto.getRisLevel())?"中":"低"));
-
+                cc.add(dto);
             }
         }
 
@@ -145,7 +144,7 @@ public class CommentController {
         if(CheckEmptyUtil.isNotEmpty(termFinancials)){
             for (TermFinancial  c : termFinancials) {
                 UseFavorites dto = new UseFavorites();
-                dto.setIndex(String.valueOf(index++));
+                dto.setIndex(c.getCode());
                 dto.setType("货币基金");
                 //TDDO加入名称
                 dto.setProductName(c.getName());
@@ -158,7 +157,7 @@ public class CommentController {
         if(CheckEmptyUtil.isNotEmpty(fundProducts)){
             for (FundProduct  c : fundProducts) {
                 UseFavorites dto = new UseFavorites();
-                dto.setIndex(String.valueOf(index++));
+                dto.setIndex(String.valueOf( c.getCode()));
                 dto.setType("混合类基金");
                 //TDDO加入名称
                 dto.setProductName(c.getFunddesc());
@@ -166,7 +165,6 @@ public class CommentController {
                 cc.add(dto);
             }
         }
-
 
         Msg msg = new Msg();
         msg.setCode(100);
