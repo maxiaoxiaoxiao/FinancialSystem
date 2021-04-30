@@ -124,7 +124,7 @@ public class CommentController {
                 dto.setType("股票类基金");
                 //TDDO 加入名称
                 dto.setProductName(c.getName());
-              dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel())? "高":("2".equalsIgnoreCase(dto.getRisLevel())?"中":"低"));
+              dto.setRisLevel("1".equalsIgnoreCase(String.valueOf(c.getRisLevel()))? "高":("2".equalsIgnoreCase(String.valueOf(c.getRisLevel()))?"中":"低"));
                 cc.add(dto);
             }
         }
@@ -135,7 +135,7 @@ public class CommentController {
                 dto.setType("债券类基金");
                 //TDDO 加入名称
                 dto.setProductName(c.getName());
-              dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel())? "高":("2".equalsIgnoreCase(dto.getRisLevel())?"中":"低"));
+              dto.setRisLevel("1".equalsIgnoreCase(c.getRisLevel())? "高":("2".equalsIgnoreCase(c.getRisLevel())?"中":"低"));
                 cc.add(dto);
             }
         }
@@ -148,7 +148,7 @@ public class CommentController {
                 dto.setType("货币基金");
                 //TDDO加入名称
                 dto.setProductName(c.getName());
-              dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel())? "高":("2".equalsIgnoreCase(dto.getRisLevel())?"中":"低"));
+              dto.setRisLevel("1".equalsIgnoreCase(String.valueOf(c.getRisLevel()))? "高":("2".equalsIgnoreCase(String.valueOf(c.getRisLevel()))?"中":"低"));
                 cc.add(dto);
             }
         }
@@ -161,7 +161,7 @@ public class CommentController {
                 dto.setType("混合类基金");
                 //TDDO加入名称
                 dto.setProductName(c.getFunddesc());
-              dto.setRisLevel("1".equalsIgnoreCase(dto.getRisLevel())? "高":("2".equalsIgnoreCase(dto.getRisLevel())?"中":"低"));
+              dto.setRisLevel("1".equalsIgnoreCase(c.getRisLevel())? "高":("2".equalsIgnoreCase(c.getRisLevel())?"中":"低"));
                 cc.add(dto);
             }
         }
